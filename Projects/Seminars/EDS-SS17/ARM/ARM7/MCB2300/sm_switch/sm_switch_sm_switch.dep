@@ -1,0 +1,29 @@
+Dependencies for Project 'sm_switch', Target 'sm_switch': (DO NOT MODIFY !)
+F (.\app\main.c)(0x58DB78DB)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I.\bsp-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-o .\objs\main.o --omf_browse .\objs\main.crf --depend .\objs\main.d)
+I (.\bsp\bsp.h)(0x58DB7810)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x53469CB4)
+F (..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\startup\startup.s)(0x58DB629F)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork  --predefine "REMAP SETL {TRUE}"  --predefine "RAM_MODE SETL {TRUE}"-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips--list .\lst\startup.lst --xref -o .\objs\startup.o --depend .\objs\startup.d)
+F (..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\startup\swi_interrup.s)(0x58DB629F)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork  --predefine "REMAP SETL {TRUE}"  --predefine "RAM_MODE SETL {TRUE}"-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips--list .\lst\swi_interrup.lst --xref -o .\objs\swi_interrup.o --depend .\objs\swi_interrup.d)
+F (..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\drivers\Serial.c)(0x58DB629F)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I.\bsp-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-o .\objs\serial.o --omf_browse .\objs\serial.crf --depend .\objs\serial.d)
+I (..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\LPC23xx.H)(0x58DB629F)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qp_port.h)(0x58DB6281)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x58DB6289)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x58DB6289)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x58DB6281)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x58DB6281)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x58DB6281)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x58DB6281)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x58DB6281)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x58DB6281)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x58DB6281)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x58DB6281)
+F (.\bsp\bsp.c)(0x58DB7993)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I.\bsp-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-o .\objs\bsp.o --omf_browse .\objs\bsp.crf --depend .\objs\bsp.d)
+I (bsp\bsp.h)(0x58DB7810)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x53469CB4)
+F (.\bsp\bsp.h)(0x58DB7810)()

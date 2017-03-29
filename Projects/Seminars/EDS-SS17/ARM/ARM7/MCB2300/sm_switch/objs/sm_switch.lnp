@@ -1,0 +1,11 @@
+--cpu ARM7TDMI
+".\objs\main.o"
+".\objs\startup.o"
+".\objs\swi_interrup.o"
+".\objs\serial.o"
+".\objs\bsp.o"
+--strict --scatter ".\objs\sm_switch.sct"
+
+--entry 0x40000000 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\lst\sm_switch.map" -o .\objs\sm_switch.axf

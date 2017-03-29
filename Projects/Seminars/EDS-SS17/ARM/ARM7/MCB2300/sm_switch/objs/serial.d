@@ -1,0 +1,15 @@
+.\objs\serial.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\drivers\Serial.c
+.\objs\serial.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\LPC23xx.H
+.\objs\serial.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qp_port.h
+.\objs\serial.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h
+.\objs\serial.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h
+.\objs\serial.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+.\objs\serial.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdbool.h
+.\objs\serial.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h
+.\objs\serial.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h
+.\objs\serial.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h
+.\objs\serial.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h
+.\objs\serial.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h
+.\objs\serial.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h
+.\objs\serial.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h
+.\objs\serial.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h

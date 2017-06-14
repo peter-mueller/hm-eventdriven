@@ -1,15 +1,0 @@
-Dependencies for Project 'blinky', Target 'blinky': (DO NOT MODIFY !)
-F (.\src\LPC2300.s)(0x556DA6BE)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork  --predefine "REMAP SETL {TRUE}"  --predefine "RAM_MODE SETL {TRUE}"-I C:\Keilv5\ARM\RV31\INC-I C:\Keilv5\ARM\CMSIS\Include-I C:\Keilv5\ARM\Inc\Philips--list .\map\lpc2300.lst --xref -o .\objs\lpc2300.o --depend .\objs\lpc2300.d)
-F (.\src\Serial.c)(0x556DA6BE)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keilv5\ARM\RV31\INC-I C:\Keilv5\ARM\CMSIS\Include-I C:\Keilv5\ARM\Inc\Philips-o .\objs\serial.o --omf_browse .\objs\serial.crf --depend .\objs\serial.d)
-I (C:\Keilv5\ARM\Inc\Philips\LPC23xx.H)(0x53468A9A)
-F (.\src\Blinky.c)(0x556DA6BE)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keilv5\ARM\RV31\INC-I C:\Keilv5\ARM\CMSIS\Include-I C:\Keilv5\ARM\Inc\Philips-o .\objs\blinky.o --omf_browse .\objs\blinky.crf --depend .\objs\blinky.d)
-I (C:\Keilv5\ARM\ARMCC\include\stdio.h)(0x53468EA4)
-I (C:\Keilv5\ARM\Inc\Philips\LPC23xx.H)(0x53468A9A)
-I (src\LCD.h)(0x556DA6BE)
-F (.\src\IRQ.c)(0x556DA6BE)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keilv5\ARM\RV31\INC-I C:\Keilv5\ARM\CMSIS\Include-I C:\Keilv5\ARM\Inc\Philips-o .\objs\irq.o --omf_browse .\objs\irq.crf --depend .\objs\irq.d)
-I (C:\Keilv5\ARM\Inc\Philips\LPC23xx.H)(0x53468A9A)
-F (.\src\LCD_4bit.c)(0x556DA6BE)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keilv5\ARM\RV31\INC-I C:\Keilv5\ARM\CMSIS\Include-I C:\Keilv5\ARM\Inc\Philips-o .\objs\lcd_4bit.o --omf_browse .\objs\lcd_4bit.crf --depend .\objs\lcd_4bit.d)
-I (C:\Keilv5\ARM\Inc\Philips\LPC23xx.H)(0x53468A9A)
-F (.\src\Retarget.c)(0x556DA6BE)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keilv5\ARM\RV31\INC-I C:\Keilv5\ARM\CMSIS\Include-I C:\Keilv5\ARM\Inc\Philips-o .\objs\retarget.o --omf_browse .\objs\retarget.crf --depend .\objs\retarget.d)
-I (C:\Keilv5\ARM\ARMCC\include\stdio.h)(0x53468EA4)
-I (C:\Keilv5\ARM\ARMCC\include\rt_misc.h)(0x53468EA4)

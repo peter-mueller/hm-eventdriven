@@ -54,4 +54,8 @@ Einstellen von Uhrzeiten
     Minute, Sekunde) eingestellt. Mit INT0 wird eine Zahl bestätigt und
     zur nächsten gewechselt. Die aktuell aktive Zahl wird markiert.
 
+Simulieren des zu frühen Wegnehmens der Tasse
+:   Brüht die Maschine gerade Kaffee und wird der INTO Knopf gedrückt,
+    ist das gleichwertig zu dem Entfernen einer Tasse.
+
 

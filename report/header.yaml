@@ -4,10 +4,12 @@ classoption: twocolumn
 title: |
   EVENT DRIVEN SYSTEMS
 subtitle: |
-  Erstellen einer nutzerfreundlichen Kaffeemaschine auf dem MCB2300 mit 
-author: Andreas Wilhelm, Peter Müller, René Zarwel
+  Erstellen einer nutzerfreundlichen Kaffeemaschine auf \
+  dem MCB2300 mit QP und einer Hierarchischen State Maschine
+author: Peter Müller, Andreas Wilhelm, René Zarwel
 
 numbersections: true
+geometry: margin=2cm
 
 header-includes: |
   \usepackage[ngerman]{babel}

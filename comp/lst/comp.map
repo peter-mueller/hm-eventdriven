@@ -1,0 +1,1174 @@
+Product: MDK-ARM Professional 5.10
+Component: ARM Compiler 5.04 update 1 (build 49)
+Tool: armlink [5040049]
+
+==============================================================================
+
+Section Cross References
+
+    retarget.o(.text) refers to serial.o(.text) for send_char
+    startup.o(RESET) refers to swi_interrup.o(SWI_Area) for T_SWI_Handler
+    startup.o(RESET) refers to startup.o(STACK) for Stack_Top
+    startup.o(RESET) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    lcd_4bit.o(.text) refers to lcd_4bit.o(.constdata) for UserFont
+    serial.o(.text) refers to qmbsp.o(.text) for BSP_onKeyboardInput
+    serial.o(.text) refers to serial.o(.data) for keystroke
+    timer.o(.text) refers to qf_tick.o(.text) for QF_tickX_
+    timer.o(.text) refers to timer.o(.data) for clk_cntr
+    qmbsp.o(.text) refers to timer.o(.text) for Init_Timer1
+    qmbsp.o(.text) refers to serial.o(.text) for uart_init_0
+    qmbsp.o(.text) refers to lcd_4bit.o(.text) for lcd_init
+    qmbsp.o(.text) refers to printf6.o(i.__0printf$6) for __2printf
+    qmbsp.o(.text) refers to uidiv.o(.text) for __aeabi_uidivmod
+    qmbsp.o(.text) refers to retarget.o(.text) for fgetc
+    qmbsp.o(.text) refers to qf_new.o(.text) for QF_newX_
+    qmbsp.o(.text) refers to retarget.o(.data) for __stdout
+    qmbsp.o(.text) refers to clock.o(.constdata) for APP_alarmClock
+    qmbsp.o(.text) refers to qf_tick.o(.text) for QF_tickX_
+    qmbsp.o(.text) refers to printf6.o(i.__0fprintf$6) for __2fprintf
+    qmbsp.o(.text) refers to qvanilla.o(.text) for QF_stop
+    alarm.o(.text) refers to qmbsp.o(.text) for BSP_showTime24H
+    alarm.o(.text) refers to qf_new.o(.text) for QF_newX_
+    alarm.o(.text) refers to uidiv.o(.text) for __aeabi_uidivmod
+    alarm.o(.text) refers to clock.o(.constdata) for APP_alarmClock
+    alarm.o(.text) refers to qhsm_top.o(.text) for QHsm_top
+    alarm.o(.text) refers to qhsm_ini.o(.text) for QHsm_ctor
+    clock.o(.text) refers to qvanilla.o(.text) for QF_stop
+    clock.o(.text) refers to qmbsp.o(.text) for BSP_showMsg
+    clock.o(.text) refers to qte_arm.o(.text) for QTimeEvt_armX
+    clock.o(.text) refers to qte_darm.o(.text) for QTimeEvt_disarm
+    clock.o(.text) refers to qhsm_top.o(.text) for QHsm_top
+    clock.o(.text) refers to qa_ctor.o(.text) for QActive_ctor
+    clock.o(.text) refers to alarm.o(.text) for Alarm_ctor
+    clock.o(.text) refers to qte_ctor.o(.text) for QTimeEvt_ctorX
+    clock.o(.text) refers to clock.o(.bss) for l_alarmClock
+    clock.o(.text) refers to clock.o(.constdata) for APP_alarmClock
+    clock.o(.constdata) refers to clock.o(.bss) for l_alarmClock
+    main.o(.text) refers to qmbsp.o(.text) for BSP_Init
+    main.o(.text) refers to printf6.o(i.__0printf$6) for __2printf
+    main.o(.text) refers to qvanilla.o(.text) for QF_init
+    main.o(.text) refers to qf_pool.o(.text) for QF_poolInit
+    main.o(.text) refers to clock.o(.text) for AlarmClock_ctor
+    main.o(.text) refers to main.o(.conststring) for .conststring
+    main.o(.text) refers to main.o(.bss) for l_smlPoolSto
+    main.o(.text) refers to clock.o(.constdata) for APP_alarmClock
+    qfsm_dis.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qfsm_dis.o(.text) refers to qfsm_dis.o(.constdata) for Q_this_module_
+    qfsm_dis.o(.text) refers to qep.o(.constdata) for QEP_reservedEvt_
+    qfsm_ini.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qfsm_ini.o(.text) refers to qfsm_ini.o(.constdata) for vtbl
+    qfsm_ini.o(.text) refers to qep.o(.constdata) for QEP_reservedEvt_
+    qfsm_ini.o(.constdata) refers to qfsm_ini.o(.text) for QFsm_init_
+    qfsm_ini.o(.constdata) refers to qfsm_dis.o(.text) for QFsm_dispatch_
+    qhsm_dis.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qhsm_dis.o(.text) refers to qep.o(.constdata) for QEP_reservedEvt_
+    qhsm_dis.o(.text) refers to qhsm_dis.o(.constdata) for Q_this_module_
+    qhsm_in.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qhsm_in.o(.text) refers to qhsm_in.o(.constdata) for Q_this_module_
+    qhsm_in.o(.text) refers to qep.o(.constdata) for QEP_reservedEvt_
+    qhsm_ini.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qhsm_ini.o(.text) refers to qhsm_ini.o(.constdata) for vtbl
+    qhsm_ini.o(.text) refers to qhsm_top.o(.text) for QHsm_top
+    qhsm_ini.o(.text) refers to qep.o(.constdata) for QEP_reservedEvt_
+    qhsm_ini.o(.constdata) refers to qhsm_ini.o(.text) for QHsm_init_
+    qhsm_ini.o(.constdata) refers to qhsm_dis.o(.text) for QHsm_dispatch_
+    qmsm_dis.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qmsm_dis.o(.text) refers to qmsm_dis.o(.constdata) for Q_this_module_
+    qmsm_ini.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qmsm_ini.o(.text) refers to qmsm_dis.o(.text) for QMsm_execTatbl_
+    qmsm_ini.o(.text) refers to qmsm_ini.o(.constdata) for vtbl
+    qmsm_ini.o(.constdata) refers to qmsm_ini.o(.text) for QMsm_init_
+    qmsm_ini.o(.constdata) refers to qmsm_dis.o(.text) for QMsm_dispatch_
+    qa_ctor.o(.text) refers to qhsm_ini.o(.text) for QHsm_ctor
+    qa_ctor.o(.text) refers to qa_ctor.o(.constdata) for vtbl
+    qa_ctor.o(.constdata) refers to qhsm_ini.o(.text) for QHsm_init_
+    qa_ctor.o(.constdata) refers to qhsm_dis.o(.text) for QHsm_dispatch_
+    qa_ctor.o(.constdata) refers to qvanilla.o(.text) for QActive_start_
+    qa_ctor.o(.constdata) refers to qa_fifo.o(.text) for QActive_post_
+    qa_ctor.o(.constdata) refers to qa_lifo.o(.text) for QActive_postLIFO_
+    qa_defer.o(.text) refers to qeq_fifo.o(.text) for QEQueue_post
+    qa_defer.o(.text) refers to qeq_get.o(.text) for QEQueue_get
+    qa_defer.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qa_defer.o(.text) refers to qa_defer.o(.constdata) for Q_this_module_
+    qa_fifo.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qa_fifo.o(.text) refers to qf_gc.o(.text) for QF_gc
+    qa_fifo.o(.text) refers to qa_fifo.o(.constdata) for Q_this_module_
+    qa_fifo.o(.text) refers to qvanilla.o(.data) for QF_readySet_
+    qa_fifo.o(.text) refers to qf_pwr2.o(.constdata) for QF_pwr2Lkup
+    qa_get_.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qa_get_.o(.text) refers to qa_get_.o(.constdata) for Q_this_module_
+    qa_get_.o(.text) refers to qvanilla.o(.data) for QF_readySet_
+    qa_get_.o(.text) refers to qf_pwr2.o(.constdata) for QF_invPwr2Lkup
+    qa_get_.o(.text) refers to qf_act.o(.bss) for QF_active_
+    qa_lifo.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qa_lifo.o(.text) refers to qa_lifo.o(.constdata) for Q_this_module_
+    qa_lifo.o(.text) refers to qvanilla.o(.data) for QF_readySet_
+    qa_lifo.o(.text) refers to qf_pwr2.o(.constdata) for QF_pwr2Lkup
+    qa_sub.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qa_sub.o(.text) refers to qf_pwr2.o(.constdata) for QF_div8Lkup
+    qa_sub.o(.text) refers to qf_psini.o(.data) for QF_maxSignal_
+    qa_sub.o(.text) refers to qf_act.o(.bss) for QF_active_
+    qa_sub.o(.text) refers to qa_sub.o(.constdata) for Q_this_module_
+    qa_usub.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qa_usub.o(.text) refers to qf_pwr2.o(.constdata) for QF_div8Lkup
+    qa_usub.o(.text) refers to qf_psini.o(.data) for QF_maxSignal_
+    qa_usub.o(.text) refers to qf_act.o(.bss) for QF_active_
+    qa_usub.o(.text) refers to qa_usub.o(.constdata) for Q_this_module_
+    qa_usuba.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qa_usuba.o(.text) refers to qf_act.o(.bss) for QF_active_
+    qa_usuba.o(.text) refers to qa_usuba.o(.constdata) for Q_this_module_
+    qa_usuba.o(.text) refers to qf_pwr2.o(.constdata) for QF_div8Lkup
+    qa_usuba.o(.text) refers to qf_psini.o(.data) for QF_subscrList_
+    qeq_fifo.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qeq_fifo.o(.text) refers to qeq_fifo.o(.constdata) for Q_this_module_
+    qeq_get.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qeq_get.o(.text) refers to qeq_get.o(.constdata) for Q_this_module_
+    qeq_lifo.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qeq_lifo.o(.text) refers to qeq_lifo.o(.constdata) for Q_this_module_
+    qf_act.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qf_act.o(.text) refers to qf_act.o(.bss) for QF_active_
+    qf_act.o(.text) refers to qf_act.o(.constdata) for Q_this_module_
+    qf_gc.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qf_gc.o(.text) refers to qmp_put.o(.text) for QMPool_put
+    qf_gc.o(.text) refers to qf_pool.o(.data) for QF_maxPool_
+    qf_gc.o(.text) refers to qf_gc.o(.constdata) for Q_this_module_
+    qf_gc.o(.text) refers to qf_pool.o(.bss) for QF_pool_
+    qf_new.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qf_new.o(.text) refers to qmp_get.o(.text) for QMPool_get
+    qf_new.o(.text) refers to qf_pool.o(.bss) for QF_pool_
+    qf_new.o(.text) refers to qf_pool.o(.data) for QF_maxPool_
+    qf_new.o(.text) refers to qf_new.o(.constdata) for Q_this_module_
+    qf_pool.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qf_pool.o(.text) refers to qmp_init.o(.text) for QMPool_init
+    qf_pool.o(.text) refers to qf_pool.o(.data) for QF_maxPool_
+    qf_pool.o(.text) refers to qf_pool.o(.constdata) for Q_this_module_
+    qf_pool.o(.text) refers to qf_pool.o(.bss) for QF_pool_
+    qf_psini.o(.text) refers to qf_act.o(.text) for QF_bzero
+    qf_psini.o(.text) refers to qf_psini.o(.data) for QF_subscrList_
+    qf_pspub.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qf_pspub.o(.text) refers to qf_gc.o(.text) for QF_gc
+    qf_pspub.o(.text) refers to qf_psini.o(.data) for QF_maxSignal_
+    qf_pspub.o(.text) refers to qf_pspub.o(.constdata) for Q_this_module_
+    qf_pspub.o(.text) refers to qf_log2.o(.constdata) for QF_log2Lkup
+    qf_pspub.o(.text) refers to qf_pwr2.o(.constdata) for QF_invPwr2Lkup
+    qf_pspub.o(.text) refers to qf_act.o(.bss) for QF_active_
+    qf_tick.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qf_tick.o(.text) refers to qf_tick.o(.bss) for QF_timeEvtHead_
+    qf_tick.o(.text) refers to qf_tick.o(.constdata) for Q_this_module_
+    qma_ctor.o(.text) refers to qmsm_ini.o(.text) for QMsm_ctor
+    qma_ctor.o(.text) refers to qma_ctor.o(.constdata) for vtbl
+    qma_ctor.o(.constdata) refers to qmsm_ini.o(.text) for QMsm_init_
+    qma_ctor.o(.constdata) refers to qmsm_dis.o(.text) for QMsm_dispatch_
+    qma_ctor.o(.constdata) refers to qvanilla.o(.text) for QActive_start_
+    qma_ctor.o(.constdata) refers to qa_fifo.o(.text) for QActive_post_
+    qma_ctor.o(.constdata) refers to qa_lifo.o(.text) for QActive_postLIFO_
+    qmp_get.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qmp_get.o(.text) refers to qmp_get.o(.constdata) for Q_this_module_
+    qmp_get.o(.text) refers to qf_pool.o(.data) for QF_maxPool_
+    qmp_get.o(.text) refers to qf_pool.o(.bss) for QF_pool_
+    qmp_init.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qmp_init.o(.text) refers to qmp_init.o(.constdata) for Q_this_module_
+    qmp_put.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qmp_put.o(.text) refers to qmp_put.o(.constdata) for Q_this_module_
+    qte_arm.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qte_arm.o(.text) refers to qte_arm.o(.constdata) for Q_this_module_
+    qte_arm.o(.text) refers to qf_tick.o(.bss) for QF_timeEvtHead_
+    qte_ctor.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qte_ctor.o(.text) refers to qte_ctor.o(.constdata) for Q_this_module_
+    qte_rarm.o(.text) refers to qmbsp.o(.text) for Q_onAssert
+    qte_rarm.o(.text) refers to qte_rarm.o(.constdata) for Q_this_module_
+    qte_rarm.o(.text) refers to qf_tick.o(.bss) for QF_timeEvtHead_
+    qvanilla.o(.text) refers to qf_act.o(.text) for QF_bzero
+    qvanilla.o(.text) refers to qmbsp.o(.text) for QF_onCleanup
+    qvanilla.o(.text) refers to qa_get_.o(.text) for QActive_get_
+    qvanilla.o(.text) refers to qf_gc.o(.text) for QF_gc
+    qvanilla.o(.text) refers to qeq_init.o(.text) for QEQueue_init
+    qvanilla.o(.text) refers to qf_pool.o(.data) for QF_maxPool_
+    qvanilla.o(.text) refers to qvanilla.o(.data) for QF_readySet_
+    qvanilla.o(.text) refers to qf_tick.o(.bss) for QF_timeEvtHead_
+    qvanilla.o(.text) refers to qf_act.o(.bss) for QF_active_
+    qvanilla.o(.text) refers to qf_log2.o(.constdata) for QF_log2Lkup
+    qvanilla.o(.text) refers to qvanilla.o(.constdata) for Q_this_module_
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry8b.o(.ARM.Collect$$$$0000000A) for _main_cpp_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry9a.o(.ARM.Collect$$$$0000000B) for _main_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry5.o(.ARM.Collect$$$$00000004) for _main_scatterload
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry2.o(.ARM.Collect$$$$00000001) for _main_stk
+    printfb.o(i.__0fprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0fprintf$bare) refers to retarget.o(.text) for fputc
+    printfb.o(i.__0printf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0printf$bare) refers to retarget.o(.text) for fputc
+    printfb.o(i.__0printf$bare) refers to retarget.o(.data) for __stdout
+    printfb.o(i.__0snprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0snprintf$bare) refers to printfb.o(i._snputc) for _snputc
+    printfb.o(i.__0sprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0sprintf$bare) refers to printfb.o(i._sputc) for _sputc
+    printfb.o(i.__0vfprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vfprintf$bare) refers to retarget.o(.text) for fputc
+    printfb.o(i.__0vprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vprintf$bare) refers to retarget.o(.text) for fputc
+    printfb.o(i.__0vprintf$bare) refers to retarget.o(.data) for __stdout
+    printfb.o(i.__0vsnprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vsnprintf$bare) refers to printfb.o(i._snputc) for _snputc
+    printfb.o(i.__0vsprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vsprintf$bare) refers to printfb.o(i._sputc) for _sputc
+    printfb.o(i._printf_core) refers to printfb.o(i.__ARM_common_call_via_r6) for __ARM_common_call_via_r6
+    printf0.o(i.__0fprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0fprintf$0) refers to retarget.o(.text) for fputc
+    printf0.o(i.__0printf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0printf$0) refers to retarget.o(.text) for fputc
+    printf0.o(i.__0printf$0) refers to retarget.o(.data) for __stdout
+    printf0.o(i.__0snprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0snprintf$0) refers to printf0.o(i._snputc) for _snputc
+    printf0.o(i.__0sprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0sprintf$0) refers to printf0.o(i._sputc) for _sputc
+    printf0.o(i.__0vfprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vfprintf$0) refers to retarget.o(.text) for fputc
+    printf0.o(i.__0vprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vprintf$0) refers to retarget.o(.text) for fputc
+    printf0.o(i.__0vprintf$0) refers to retarget.o(.data) for __stdout
+    printf0.o(i.__0vsnprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vsnprintf$0) refers to printf0.o(i._snputc) for _snputc
+    printf0.o(i.__0vsprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vsprintf$0) refers to printf0.o(i._sputc) for _sputc
+    printf0.o(i._printf_core) refers to printfb.o(i.__ARM_common_call_via_r6) for __ARM_common_call_via_r6
+    printf1.o(i.__0fprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0fprintf$1) refers to retarget.o(.text) for fputc
+    printf1.o(i.__0printf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0printf$1) refers to retarget.o(.text) for fputc
+    printf1.o(i.__0printf$1) refers to retarget.o(.data) for __stdout
+    printf1.o(i.__0snprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0snprintf$1) refers to printf1.o(i._snputc) for _snputc
+    printf1.o(i.__0sprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0sprintf$1) refers to printf1.o(i._sputc) for _sputc
+    printf1.o(i.__0vfprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vfprintf$1) refers to retarget.o(.text) for fputc
+    printf1.o(i.__0vprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vprintf$1) refers to retarget.o(.text) for fputc
+    printf1.o(i.__0vprintf$1) refers to retarget.o(.data) for __stdout
+    printf1.o(i.__0vsnprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vsnprintf$1) refers to printf1.o(i._snputc) for _snputc
+    printf1.o(i.__0vsprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vsprintf$1) refers to printf1.o(i._sputc) for _sputc
+    printf1.o(i._printf_core) refers to printf1.o(i.__ARM_common_call_via_r2) for __ARM_common_call_via_r2
+    printf1.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printf2.o(i.__0fprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0fprintf$2) refers to retarget.o(.text) for fputc
+    printf2.o(i.__0printf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0printf$2) refers to retarget.o(.text) for fputc
+    printf2.o(i.__0printf$2) refers to retarget.o(.data) for __stdout
+    printf2.o(i.__0snprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0snprintf$2) refers to printf2.o(i._snputc) for _snputc
+    printf2.o(i.__0sprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0sprintf$2) refers to printf2.o(i._sputc) for _sputc
+    printf2.o(i.__0vfprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vfprintf$2) refers to retarget.o(.text) for fputc
+    printf2.o(i.__0vprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vprintf$2) refers to retarget.o(.text) for fputc
+    printf2.o(i.__0vprintf$2) refers to retarget.o(.data) for __stdout
+    printf2.o(i.__0vsnprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vsnprintf$2) refers to printf2.o(i._snputc) for _snputc
+    printf2.o(i.__0vsprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vsprintf$2) refers to printf2.o(i._sputc) for _sputc
+    printf2.o(i._printf_core) refers to printf1.o(i.__ARM_common_call_via_r2) for __ARM_common_call_via_r2
+    printf3.o(i.__0fprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0fprintf$3) refers to retarget.o(.text) for fputc
+    printf3.o(i.__0printf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0printf$3) refers to retarget.o(.text) for fputc
+    printf3.o(i.__0printf$3) refers to retarget.o(.data) for __stdout
+    printf3.o(i.__0snprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0snprintf$3) refers to printf3.o(i._snputc) for _snputc
+    printf3.o(i.__0sprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0sprintf$3) refers to printf3.o(i._sputc) for _sputc
+    printf3.o(i.__0vfprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vfprintf$3) refers to retarget.o(.text) for fputc
+    printf3.o(i.__0vprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vprintf$3) refers to retarget.o(.text) for fputc
+    printf3.o(i.__0vprintf$3) refers to retarget.o(.data) for __stdout
+    printf3.o(i.__0vsnprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vsnprintf$3) refers to printf3.o(i._snputc) for _snputc
+    printf3.o(i.__0vsprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vsprintf$3) refers to printf3.o(i._sputc) for _sputc
+    printf3.o(i._printf_core) refers to printf1.o(i.__ARM_common_call_via_r2) for __ARM_common_call_via_r2
+    printf3.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printf4.o(i.__0fprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0fprintf$4) refers to retarget.o(.text) for fputc
+    printf4.o(i.__0printf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0printf$4) refers to retarget.o(.text) for fputc
+    printf4.o(i.__0printf$4) refers to retarget.o(.data) for __stdout
+    printf4.o(i.__0snprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0snprintf$4) refers to printf4.o(i._snputc) for _snputc
+    printf4.o(i.__0sprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0sprintf$4) refers to printf4.o(i._sputc) for _sputc
+    printf4.o(i.__0vfprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vfprintf$4) refers to retarget.o(.text) for fputc
+    printf4.o(i.__0vprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vprintf$4) refers to retarget.o(.text) for fputc
+    printf4.o(i.__0vprintf$4) refers to retarget.o(.data) for __stdout
+    printf4.o(i.__0vsnprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vsnprintf$4) refers to printf4.o(i._snputc) for _snputc
+    printf4.o(i.__0vsprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vsprintf$4) refers to printf4.o(i._sputc) for _sputc
+    printf4.o(i._printf_core) refers to printf1.o(i.__ARM_common_call_via_r2) for __ARM_common_call_via_r2
+    printf4.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf5.o(i.__0fprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0fprintf$5) refers to retarget.o(.text) for fputc
+    printf5.o(i.__0printf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0printf$5) refers to retarget.o(.text) for fputc
+    printf5.o(i.__0printf$5) refers to retarget.o(.data) for __stdout
+    printf5.o(i.__0snprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0snprintf$5) refers to printf5.o(i._snputc) for _snputc
+    printf5.o(i.__0sprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0sprintf$5) refers to printf5.o(i._sputc) for _sputc
+    printf5.o(i.__0vfprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vfprintf$5) refers to retarget.o(.text) for fputc
+    printf5.o(i.__0vprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vprintf$5) refers to retarget.o(.text) for fputc
+    printf5.o(i.__0vprintf$5) refers to retarget.o(.data) for __stdout
+    printf5.o(i.__0vsnprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vsnprintf$5) refers to printf5.o(i._snputc) for _snputc
+    printf5.o(i.__0vsprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vsprintf$5) refers to printf5.o(i._sputc) for _sputc
+    printf5.o(i._printf_core) refers to printf1.o(i.__ARM_common_call_via_r2) for __ARM_common_call_via_r2
+    printf5.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf6.o(i.__0fprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0fprintf$6) refers to retarget.o(.text) for fputc
+    printf6.o(i.__0printf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0printf$6) refers to retarget.o(.text) for fputc
+    printf6.o(i.__0printf$6) refers to retarget.o(.data) for __stdout
+    printf6.o(i.__0snprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0snprintf$6) refers to printf6.o(i._snputc) for _snputc
+    printf6.o(i.__0sprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0sprintf$6) refers to printf6.o(i._sputc) for _sputc
+    printf6.o(i.__0vfprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vfprintf$6) refers to retarget.o(.text) for fputc
+    printf6.o(i.__0vprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vprintf$6) refers to retarget.o(.text) for fputc
+    printf6.o(i.__0vprintf$6) refers to retarget.o(.data) for __stdout
+    printf6.o(i.__0vsnprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vsnprintf$6) refers to printf6.o(i._snputc) for _snputc
+    printf6.o(i.__0vsprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vsprintf$6) refers to printf6.o(i._sputc) for _sputc
+    printf6.o(i._printf_core) refers to printf1.o(i.__ARM_common_call_via_r2) for __ARM_common_call_via_r2
+    printf6.o(i._printf_core) refers to printf6.o(i._printf_pre_padding) for _printf_pre_padding
+    printf6.o(i._printf_core) refers to printf6.o(i._printf_post_padding) for _printf_post_padding
+    printf6.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printf6.o(i._printf_post_padding) refers to printfb.o(i.__ARM_common_call_via_r6) for __ARM_common_call_via_r6
+    printf6.o(i._printf_pre_padding) refers to printfb.o(i.__ARM_common_call_via_r6) for __ARM_common_call_via_r6
+    printf7.o(i.__0fprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0fprintf$7) refers to retarget.o(.text) for fputc
+    printf7.o(i.__0printf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0printf$7) refers to retarget.o(.text) for fputc
+    printf7.o(i.__0printf$7) refers to retarget.o(.data) for __stdout
+    printf7.o(i.__0snprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0snprintf$7) refers to printf7.o(i._snputc) for _snputc
+    printf7.o(i.__0sprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0sprintf$7) refers to printf7.o(i._sputc) for _sputc
+    printf7.o(i.__0vfprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vfprintf$7) refers to retarget.o(.text) for fputc
+    printf7.o(i.__0vprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vprintf$7) refers to retarget.o(.text) for fputc
+    printf7.o(i.__0vprintf$7) refers to retarget.o(.data) for __stdout
+    printf7.o(i.__0vsnprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vsnprintf$7) refers to printf7.o(i._snputc) for _snputc
+    printf7.o(i.__0vsprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vsprintf$7) refers to printf7.o(i._sputc) for _sputc
+    printf7.o(i._printf_core) refers to printf1.o(i.__ARM_common_call_via_r2) for __ARM_common_call_via_r2
+    printf7.o(i._printf_core) refers to printf7.o(i._printf_pre_padding) for _printf_pre_padding
+    printf7.o(i._printf_core) refers to printf7.o(i._printf_post_padding) for _printf_post_padding
+    printf7.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf7.o(i._printf_post_padding) refers to printfb.o(i.__ARM_common_call_via_r6) for __ARM_common_call_via_r6
+    printf7.o(i._printf_pre_padding) refers to printfb.o(i.__ARM_common_call_via_r6) for __ARM_common_call_via_r6
+    printf8.o(i.__0fprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0fprintf$8) refers to retarget.o(.text) for fputc
+    printf8.o(i.__0printf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0printf$8) refers to retarget.o(.text) for fputc
+    printf8.o(i.__0printf$8) refers to retarget.o(.data) for __stdout
+    printf8.o(i.__0snprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0snprintf$8) refers to printf8.o(i._snputc) for _snputc
+    printf8.o(i.__0sprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0sprintf$8) refers to printf8.o(i._sputc) for _sputc
+    printf8.o(i.__0vfprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vfprintf$8) refers to retarget.o(.text) for fputc
+    printf8.o(i.__0vprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vprintf$8) refers to retarget.o(.text) for fputc
+    printf8.o(i.__0vprintf$8) refers to retarget.o(.data) for __stdout
+    printf8.o(i.__0vsnprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vsnprintf$8) refers to printf8.o(i._snputc) for _snputc
+    printf8.o(i.__0vsprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vsprintf$8) refers to printf8.o(i._sputc) for _sputc
+    printf8.o(i._printf_core) refers to printf1.o(i.__ARM_common_call_via_r2) for __ARM_common_call_via_r2
+    printf8.o(i._printf_core) refers to printf8.o(i._printf_pre_padding) for _printf_pre_padding
+    printf8.o(i._printf_core) refers to printf8.o(i._printf_post_padding) for _printf_post_padding
+    printf8.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf8.o(i._printf_post_padding) refers to printfb.o(i.__ARM_common_call_via_r6) for __ARM_common_call_via_r6
+    printf8.o(i._printf_pre_padding) refers to printfb.o(i.__ARM_common_call_via_r6) for __ARM_common_call_via_r6
+    printfa.o(i.__0fprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0fprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0fprintf) refers to retarget.o(.text) for fputc
+    printfa.o(i.__0printf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0printf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0printf) refers to retarget.o(.text) for fputc
+    printfa.o(i.__0printf) refers to retarget.o(.data) for __stdout
+    printfa.o(i.__0snprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0snprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0snprintf) refers to printfa.o(i._snputc) for _snputc
+    printfa.o(i.__0sprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0sprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0sprintf) refers to printfa.o(i._sputc) for _sputc
+    printfa.o(i.__0vfprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vfprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vfprintf) refers to retarget.o(.text) for fputc
+    printfa.o(i.__0vprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vprintf) refers to retarget.o(.text) for fputc
+    printfa.o(i.__0vprintf) refers to retarget.o(.data) for __stdout
+    printfa.o(i.__0vsnprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vsnprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vsnprintf) refers to printfa.o(i._snputc) for _snputc
+    printfa.o(i.__0vsprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vsprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vsprintf) refers to printfa.o(i._sputc) for _sputc
+    printfa.o(i._fp_digits) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._fp_digits) refers to dmul.o(.text) for __aeabi_dmul
+    printfa.o(i._fp_digits) refers to ddiv.o(.text) for __aeabi_ddiv
+    printfa.o(i._fp_digits) refers to cdrcmple.o(.text) for __aeabi_cdrcmple
+    printfa.o(i._fp_digits) refers to dadd.o(.text) for __aeabi_dadd
+    printfa.o(i._fp_digits) refers to dfixul.o(.text) for __aeabi_d2ulz
+    printfa.o(i._fp_digits) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printfa.o(i._printf_core) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._printf_core) refers to printf1.o(i.__ARM_common_call_via_r2) for __ARM_common_call_via_r2
+    printfa.o(i._printf_core) refers to printfa.o(i._printf_pre_padding) for _printf_pre_padding
+    printfa.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printfa.o(i._printf_core) refers to printfa.o(i._printf_post_padding) for _printf_post_padding
+    printfa.o(i._printf_core) refers to printfa.o(i._fp_digits) for _fp_digits
+    printfa.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printfa.o(i._printf_post_padding) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._printf_post_padding) refers to printfb.o(i.__ARM_common_call_via_r6) for __ARM_common_call_via_r6
+    printfa.o(i._printf_pre_padding) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._printf_pre_padding) refers to printfb.o(i.__ARM_common_call_via_r6) for __ARM_common_call_via_r6
+    printfa.o(i._snputc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._sputc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    entry2.o(.ARM.Collect$$$$00000001) refers to entry2.o(.ARM.Collect$$$$00002712) for __lit__00000000
+    entry2.o(.ARM.Collect$$$$00002712) refers to startup.o(STACK) for __initial_sp
+    entry5.o(.ARM.Collect$$$$00000004) refers to init.o(.text) for __scatterload
+    entry9a.o(.ARM.Collect$$$$0000000B) refers to main.o(.text) for main
+    entry9b.o(.ARM.Collect$$$$0000000C) refers to main.o(.text) for main
+    uldiv.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    uldiv.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    dadd.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    dadd.o(.text) refers to llsshr.o(.text) for __aeabi_lasr
+    dadd.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    dmul.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    ddiv.o(.text) refers to depilogue.o(.text) for _double_round
+    dfixul.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    dfixul.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    init.o(.text) refers to init.o(i.__ARM_common_call_via_r3) for __ARM_common_call_via_r3
+    init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
+    depilogue.o(.text) refers to depilogue.o(i.__ARM_clz) for __ARM_clz
+    depilogue.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    depilogue.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing startup.o(HEAP), (2048 bytes).
+    Removing led.o(.text), (108 bytes).
+    Removing qmbsp.o(.constdata), (12 bytes).
+    Removing alarm.o(.constdata), (12 bytes).
+    Removing qfsm_dis.o(.text), (156 bytes).
+    Removing qfsm_dis.o(.constdata), (9 bytes).
+    Removing qfsm_ini.o(.text), (180 bytes).
+    Removing qfsm_ini.o(.constdata), (20 bytes).
+    Removing qhsm_in.o(.text), (136 bytes).
+    Removing qhsm_in.o(.constdata), (8 bytes).
+    Removing qmsm_dis.o(.text), (908 bytes).
+    Removing qmsm_dis.o(.constdata), (9 bytes).
+    Removing qmsm_in.o(.text), (56 bytes).
+    Removing qmsm_ini.o(.text), (200 bytes).
+    Removing qmsm_ini.o(.constdata), (40 bytes).
+    Removing qa_defer.o(.text), (184 bytes).
+    Removing qa_defer.o(.constdata), (9 bytes).
+    Removing qa_sub.o(.text), (180 bytes).
+    Removing qa_sub.o(.constdata), (7 bytes).
+    Removing qa_usub.o(.text), (180 bytes).
+    Removing qa_usub.o(.constdata), (8 bytes).
+    Removing qa_usuba.o(.text), (220 bytes).
+    Removing qa_usuba.o(.constdata), (9 bytes).
+    Removing qeq_fifo.o(.text), (224 bytes).
+    Removing qeq_fifo.o(.constdata), (9 bytes).
+    Removing qeq_get.o(.text), (164 bytes).
+    Removing qeq_get.o(.constdata), (8 bytes).
+    Removing qeq_lifo.o(.text), (172 bytes).
+    Removing qeq_lifo.o(.constdata), (9 bytes).
+    Removing qf_psini.o(.text), (56 bytes).
+    Removing qf_psini.o(.data), (8 bytes).
+    Removing qf_pspub.o(.text), (244 bytes).
+    Removing qf_pspub.o(.constdata), (9 bytes).
+    Removing qma_ctor.o(.text), (44 bytes).
+    Removing qma_ctor.o(.constdata), (20 bytes).
+    Removing qte_ctr.o(.text), (32 bytes).
+    Removing qte_rarm.o(.text), (188 bytes).
+    Removing qte_rarm.o(.constdata), (9 bytes).
+    Removing dadd.o(.text), (360 bytes).
+    Removing dmul.o(.text), (212 bytes).
+    Removing ddiv.o(.text), (244 bytes).
+    Removing dfixul.o(.text), (68 bytes).
+    Removing cdrcmple.o(.text), (40 bytes).
+    Removing depilogue.o(.text), (196 bytes).
+    Removing depilogue.o(i.__ARM_clz), (46 bytes).
+
+45 unused section(s) (total 7061 bytes) removed from the image.
+
+==============================================================================
+
+Adding Veneers to the image
+
+    Adding AT veneer (8 bytes, Inline) for call to '__aeabi_uidivmod' from qmbsp.o(.text).
+    Adding AT veneer (8 bytes, Inline) for call to '__scatterload' from entry5.o(.ARM.Collect$$$$00000004).
+    Adding TA veneer (8 bytes, Short) for call to '__main_after_scatterload' from init.o(.text).
+    Adding AT veneer (8 bytes, Inline) for call to '__2fprintf' from qmbsp.o(.text).
+    Adding AT veneer (8 bytes, Inline) for call to '__2printf' from qmbsp.o(.text).
+
+5 Veneer(s) (total 40 bytes) added to the image.
+
+==============================================================================
+
+Image Symbol Table
+
+    Local Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
+    ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
+    ../clib/microlib/printf/stubs.s          0x00000000   Number         0  stubs.o ABSOLUTE
+    ../clib/microlib/stdio/fflush.c          0x00000000   Number         0  fflush.o ABSOLUTE
+    ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
+    ../clib/microlib/stubs.s                 0x00000000   Number         0  useno.o ABSOLUTE
+    ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
+    ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
+    ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
+    ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixul.o ABSOLUTE
+    ../fplib/microlib/fpmul.c                0x00000000   Number         0  dmul.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep.c 0x00000000   Number         0  qep.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qfsm_dis.c 0x00000000   Number         0  qfsm_dis.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qfsm_ini.c 0x00000000   Number         0  qfsm_ini.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qhsm_dis.c 0x00000000   Number         0  qhsm_dis.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qhsm_in.c 0x00000000   Number         0  qhsm_in.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qhsm_ini.c 0x00000000   Number         0  qhsm_ini.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qhsm_top.c 0x00000000   Number         0  qhsm_top.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qmsm_dis.c 0x00000000   Number         0  qmsm_dis.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qmsm_in.c 0x00000000   Number         0  qmsm_in.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qmsm_ini.c 0x00000000   Number         0  qmsm_ini.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_ctor.c 0x00000000   Number         0  qa_ctor.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_defer.c 0x00000000   Number         0  qa_defer.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_fifo.c 0x00000000   Number         0  qa_fifo.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_get_.c 0x00000000   Number         0  qa_get_.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_lifo.c 0x00000000   Number         0  qa_lifo.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_sub.c 0x00000000   Number         0  qa_sub.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_usub.c 0x00000000   Number         0  qa_usub.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_usuba.c 0x00000000   Number         0  qa_usuba.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qeq_fifo.c 0x00000000   Number         0  qeq_fifo.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qeq_get.c 0x00000000   Number         0  qeq_get.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qeq_init.c 0x00000000   Number         0  qeq_init.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qeq_lifo.c 0x00000000   Number         0  qeq_lifo.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_act.c 0x00000000   Number         0  qf_act.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_gc.c 0x00000000   Number         0  qf_gc.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_log2.c 0x00000000   Number         0  qf_log2.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_new.c 0x00000000   Number         0  qf_new.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pool.c 0x00000000   Number         0  qf_pool.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_psini.c 0x00000000   Number         0  qf_psini.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pspub.c 0x00000000   Number         0  qf_pspub.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pwr2.c 0x00000000   Number         0  qf_pwr2.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_tick.c 0x00000000   Number         0  qf_tick.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qma_ctor.c 0x00000000   Number         0  qma_ctor.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qmp_get.c 0x00000000   Number         0  qmp_get.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qmp_init.c 0x00000000   Number         0  qmp_init.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qmp_put.c 0x00000000   Number         0  qmp_put.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_arm.c 0x00000000   Number         0  qte_arm.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_ctor.c 0x00000000   Number         0  qte_ctor.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_ctr.c 0x00000000   Number         0  qte_ctr.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_darm.c 0x00000000   Number         0  qte_darm.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_rarm.c 0x00000000   Number         0  qte_rarm.o ABSOLUTE
+    ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qvanilla.c 0x00000000   Number         0  qvanilla.o ABSOLUTE
+    bsp\LCD_4bit.c                           0x00000000   Number         0  lcd_4bit.o ABSOLUTE
+    bsp\Serial.c                             0x00000000   Number         0  serial.o ABSOLUTE
+    bsp\led.c                                0x00000000   Number         0  led.o ABSOLUTE
+    bsp\timer.c                              0x00000000   Number         0  timer.o ABSOLUTE
+    cdrcmple.s                               0x00000000   Number         0  cdrcmple.o ABSOLUTE
+    dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
+    handlers.s                               0x00000000   Number         0  handlers.o ABSOLUTE
+    init.s                                   0x00000000   Number         0  init.o ABSOLUTE
+    src\Retarget.c                           0x00000000   Number         0  retarget.o ABSOLUTE
+    src\alarm.c                              0x00000000   Number         0  alarm.o ABSOLUTE
+    src\clock.c                              0x00000000   Number         0  clock.o ABSOLUTE
+    src\main.c                               0x00000000   Number         0  main.o ABSOLUTE
+    src\qmbsp.c                              0x00000000   Number         0  qmbsp.o ABSOLUTE
+    src\startup.s                            0x00000000   Number         0  startup.o ABSOLUTE
+    src\swi_interrup.s                       0x00000000   Number         0  swi_interrup.o ABSOLUTE
+    RESET                                    0x40000000   Section      372  startup.o(RESET)
+    Undef_Handler                            0x40000040   ARM Code       4  startup.o(RESET)
+    SWI_Handler                              0x40000044   ARM Code       4  startup.o(RESET)
+    PAbt_Handler                             0x40000048   ARM Code       4  startup.o(RESET)
+    DAbt_Handler                             0x4000004c   ARM Code       4  startup.o(RESET)
+    IRQ_Handler                              0x40000050   ARM Code       4  startup.o(RESET)
+    FIQ_Handler                              0x40000054   ARM Code       4  startup.o(RESET)
+    .ARM.Collect$$$$00000000                 0x40000174   Section        0  entry.o(.ARM.Collect$$$$00000000)
+    .ARM.Collect$$$$00000001                 0x40000174   Section        4  entry2.o(.ARM.Collect$$$$00000001)
+    .ARM.Collect$$$$00000004                 0x40000178   Section        4  entry5.o(.ARM.Collect$$$$00000004)
+    .ARM.Collect$$$$00000008                 0x4000017c   Section        0  entry7b.o(.ARM.Collect$$$$00000008)
+    .ARM.Collect$$$$0000000A                 0x4000017c   Section        0  entry8b.o(.ARM.Collect$$$$0000000A)
+    .ARM.Collect$$$$0000000B                 0x4000017c   Section       12  entry9a.o(.ARM.Collect$$$$0000000B)
+    .ARM.Collect$$$$0000000D                 0x40000188   Section        0  entry10a.o(.ARM.Collect$$$$0000000D)
+    .ARM.Collect$$$$0000000F                 0x40000188   Section        0  entry11a.o(.ARM.Collect$$$$0000000F)
+    .ARM.Collect$$$$00002712                 0x40000188   Section        4  entry2.o(.ARM.Collect$$$$00002712)
+    __lit__00000000                          0x40000188   Data           4  entry2.o(.ARM.Collect$$$$00002712)
+    .text                                    0x4000018c   Section        0  retarget.o(.text)
+    .text                                    0x400001fc   Section        0  lcd_4bit.o(.text)
+    delay                                    0x400001fc   ARM Code      24  lcd_4bit.o(.text)
+    lcd_read_status                          0x40000214   ARM Code     188  lcd_4bit.o(.text)
+    wait_while_busy                          0x400002d0   ARM Code      32  lcd_4bit.o(.text)
+    lcd_write_data                           0x40000374   ARM Code      48  lcd_4bit.o(.text)
+    .text                                    0x400004f8   Section        0  serial.o(.text)
+    .text                                    0x400006ac   Section        0  timer.o(.text)
+    .text                                    0x400007c0   Section        0  qmbsp.o(.text)
+    .text                                    0x40000cb0   Section        0  alarm.o(.text)
+    .text                                    0x40000fd8   Section        0  clock.o(.text)
+    .text                                    0x400013a0   Section        0  main.o(.text)
+    .text                                    0x40001434   Section        0  qhsm_dis.o(.text)
+    QHsm_tran_                               0x40001434   ARM Code     576  qhsm_dis.o(.text)
+    .text                                    0x4000186c   Section        0  qhsm_ini.o(.text)
+    .text                                    0x400019e8   Section        0  qhsm_top.o(.text)
+    .text                                    0x400019f4   Section        0  qa_ctor.o(.text)
+    .text                                    0x40001a20   Section        0  qa_fifo.o(.text)
+    .text                                    0x40001b30   Section        0  qa_get_.o(.text)
+    .text                                    0x40001c60   Section        0  qa_lifo.o(.text)
+    .text                                    0x40001d38   Section        0  qeq_init.o(.text)
+    .text                                    0x40001d64   Section        0  qf_act.o(.text)
+    .text                                    0x40001e3c   Section        0  qf_gc.o(.text)
+    .text                                    0x40001ecc   Section        0  qf_new.o(.text)
+    .text                                    0x40001fa0   Section        0  qf_pool.o(.text)
+    .text                                    0x40002060   Section        0  qf_tick.o(.text)
+    .text                                    0x40002208   Section        0  qmp_get.o(.text)
+    .text                                    0x40002348   Section        0  qmp_init.o(.text)
+    .text                                    0x40002448   Section        0  qmp_put.o(.text)
+    .text                                    0x400024bc   Section        0  qte_arm.o(.text)
+    .text                                    0x40002570   Section        0  qte_ctor.o(.text)
+    .text                                    0x400025d0   Section        0  qte_darm.o(.text)
+    .text                                    0x4000260c   Section        0  qvanilla.o(.text)
+    .text                                    0x40002794   Section        0  uidiv.o(.text)
+    .text                                    0x400027cc   Section       32  init.o(.text)
+    SWI_Area                                 0x400027ec   Section      100  swi_interrup.o(SWI_Area)
+    i.__0fprintf$6                           0x40002860   Section        0  printf6.o(i.__0fprintf$6)
+    i.__0printf$6                            0x40002884   Section        0  printf6.o(i.__0printf$6)
+    i.__ARM_common_call_via_r2               0x400028a4   Section        0  printf1.o(i.__ARM_common_call_via_r2)
+    i.__ARM_common_call_via_r3               0x400028a6   Section        2  init.o(i.__ARM_common_call_via_r3)
+    i.__ARM_common_call_via_r6               0x400028a8   Section        0  printfb.o(i.__ARM_common_call_via_r6)
+    i.__scatterload_copy                     0x400028ac   Section       28  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x400028c8   Section        4  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x400028cc   Section       24  handlers.o(i.__scatterload_zeroinit)
+    i._printf_core                           0x400028e4   Section        0  printf6.o(i._printf_core)
+    _printf_core                             0x400028e5   Thumb Code   792  printf6.o(i._printf_core)
+    i._printf_post_padding                   0x40002c00   Section        0  printf6.o(i._printf_post_padding)
+    _printf_post_padding                     0x40002c01   Thumb Code    38  printf6.o(i._printf_post_padding)
+    i._printf_pre_padding                    0x40002c26   Section        0  printf6.o(i._printf_pre_padding)
+    _printf_pre_padding                      0x40002c27   Thumb Code    50  printf6.o(i._printf_pre_padding)
+    .constdata                               0x40002c58   Section       64  lcd_4bit.o(.constdata)
+    .constdata                               0x40002c98   Section       16  clock.o(.constdata)
+    Q_this_module_                           0x40002c98   Data          12  clock.o(.constdata)
+    .constdata                               0x40002ca8   Section       16  qep.o(.constdata)
+    .constdata                               0x40002cb8   Section        9  qhsm_dis.o(.constdata)
+    Q_this_module_                           0x40002cb8   Data           9  qhsm_dis.o(.constdata)
+    .constdata                               0x40002cc4   Section       20  qhsm_ini.o(.constdata)
+    Q_this_module_                           0x40002cc4   Data           9  qhsm_ini.o(.constdata)
+    vtbl                                     0x40002cd0   Data           8  qhsm_ini.o(.constdata)
+    .constdata                               0x40002cd8   Section       20  qa_ctor.o(.constdata)
+    vtbl                                     0x40002cd8   Data          20  qa_ctor.o(.constdata)
+    .constdata                               0x40002cec   Section        8  qa_fifo.o(.constdata)
+    Q_this_module_                           0x40002cec   Data           8  qa_fifo.o(.constdata)
+    .constdata                               0x40002cf4   Section        8  qa_get_.o(.constdata)
+    Q_this_module_                           0x40002cf4   Data           8  qa_get_.o(.constdata)
+    .constdata                               0x40002cfc   Section        8  qa_lifo.o(.constdata)
+    Q_this_module_                           0x40002cfc   Data           8  qa_lifo.o(.constdata)
+    .constdata                               0x40002d04   Section        7  qf_act.o(.constdata)
+    Q_this_module_                           0x40002d04   Data           7  qf_act.o(.constdata)
+    .constdata                               0x40002d0b   Section        6  qf_gc.o(.constdata)
+    Q_this_module_                           0x40002d0b   Data           6  qf_gc.o(.constdata)
+    .constdata                               0x40002d11   Section      256  qf_log2.o(.constdata)
+    .constdata                               0x40002e11   Section        7  qf_new.o(.constdata)
+    Q_this_module_                           0x40002e11   Data           7  qf_new.o(.constdata)
+    .constdata                               0x40002e18   Section        8  qf_pool.o(.constdata)
+    Q_this_module_                           0x40002e18   Data           8  qf_pool.o(.constdata)
+    .constdata                               0x40002e20   Section      195  qf_pwr2.o(.constdata)
+    .constdata                               0x40002ee3   Section        8  qf_tick.o(.constdata)
+    Q_this_module_                           0x40002ee3   Data           8  qf_tick.o(.constdata)
+    .constdata                               0x40002eeb   Section        8  qmp_get.o(.constdata)
+    Q_this_module_                           0x40002eeb   Data           8  qmp_get.o(.constdata)
+    .constdata                               0x40002ef3   Section        9  qmp_init.o(.constdata)
+    Q_this_module_                           0x40002ef3   Data           9  qmp_init.o(.constdata)
+    .constdata                               0x40002efc   Section        8  qmp_put.o(.constdata)
+    Q_this_module_                           0x40002efc   Data           8  qmp_put.o(.constdata)
+    .constdata                               0x40002f04   Section        8  qte_arm.o(.constdata)
+    Q_this_module_                           0x40002f04   Data           8  qte_arm.o(.constdata)
+    .constdata                               0x40002f0c   Section        9  qte_ctor.o(.constdata)
+    Q_this_module_                           0x40002f0c   Data           9  qte_ctor.o(.constdata)
+    .constdata                               0x40002f15   Section        9  qvanilla.o(.constdata)
+    Q_this_module_                           0x40002f15   Data           9  qvanilla.o(.constdata)
+    .conststring                             0x40002f20   Section      252  main.o(.conststring)
+    .data                                    0x40004000   Section       12  retarget.o(.data)
+    .data                                    0x4000400c   Section        8  serial.o(.data)
+    keystroke                                0x4000400c   Data           4  serial.o(.data)
+    buf                                      0x40004010   Data           4  serial.o(.data)
+    .data                                    0x40004014   Section        4  timer.o(.data)
+    clk_cntr                                 0x40004014   Data           4  timer.o(.data)
+    .data                                    0x40004018   Section        4  qf_pool.o(.data)
+    .data                                    0x4000401c   Section        4  qvanilla.o(.data)
+    .bss                                     0x40004020   Section       80  clock.o(.bss)
+    l_alarmClock                             0x40004020   Data          80  clock.o(.bss)
+    .bss                                     0x40004070   Section      120  main.o(.bss)
+    l_alarmClockQSto                         0x40004070   Data          40  main.o(.bss)
+    l_smlPoolSto                             0x40004098   Data          80  main.o(.bss)
+    .bss                                     0x400040e8   Section       36  qf_act.o(.bss)
+    .bss                                     0x4000410c   Section       60  qf_pool.o(.bss)
+    .bss                                     0x40004148   Section       32  qf_tick.o(.bss)
+    STACK                                    0x40004168   Section     1288  startup.o(STACK)
+    Stack_Top                                0x40004670   Data           0  startup.o(STACK)
+
+    Global Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    BuildAttributes$$THM_ISAv1$ARM_ISAv4$S$PE$A:L22$X:L11$S22$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$ROPI$EBA8$MICROLIB$REQ8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+    __ARM_use_no_argv                        0x00000000   Number         0  main.o ABSOLUTE
+    __use_no_errno                           0x00000000   Number         0  useno.o ABSOLUTE
+    __use_no_exception_handling              0x00000000   Number         0  useno.o ABSOLUTE
+    __use_no_fp                              0x00000000   Number         0  useno.o ABSOLUTE
+    __use_no_heap                            0x00000000   Number         0  useno.o ABSOLUTE
+    __use_no_heap_region                     0x00000000   Number         0  useno.o ABSOLUTE
+    __use_no_semihosting                     0x00000000   Number         0  useno.o ABSOLUTE
+    __use_no_semihosting_swi                 0x00000000   Number         0  useno.o ABSOLUTE
+    __use_no_signal_handling                 0x00000000   Number         0  useno.o ABSOLUTE
+    _printf_a                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_c                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_charcount                        0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_d                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_e                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_f                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_flags                            0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_fp_dec                           0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_fp_hex                           0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_g                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_i                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_int_dec                          0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_l                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_lc                               0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_ll                               0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_lld                              0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_lli                              0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_llo                              0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_llu                              0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_llx                              0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_longlong_dec                     0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_longlong_hex                     0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_longlong_oct                     0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_ls                               0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_mbtowc                           0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_n                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_o                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_p                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_percent                          0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_pre_padding                      0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_return_value                     0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_s                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_sizespec                         0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_str                              0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_truncate_signed                  0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_truncate_unsigned                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_u                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_wc                               0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_wctomb                           0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_widthprec                        0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_x                                0x00000000   Number         0  stubs.o ABSOLUTE
+    __cpp_initialize__aeabi_                  - Undefined Weak Reference
+    __cxa_finalize                            - Undefined Weak Reference
+    __decompress                              - Undefined Weak Reference
+    _clock_init                               - Undefined Weak Reference
+    _microlib_exit                            - Undefined Weak Reference
+    Reset_Handler                            0x40000058   ARM Code       0  startup.o(RESET)
+    __main                                   0x40000174   ARM Code       0  entry.o(.ARM.Collect$$$$00000000)
+    _main_stk                                0x40000174   ARM Code       0  entry2.o(.ARM.Collect$$$$00000001)
+    _main_scatterload                        0x40000178   ARM Code       0  entry5.o(.ARM.Collect$$$$00000004)
+    __main_after_scatterload                 0x4000017c   ARM Code       0  entry5.o(.ARM.Collect$$$$00000004)
+    _main_clock                              0x4000017c   ARM Code       0  entry7b.o(.ARM.Collect$$$$00000008)
+    _main_cpp_init                           0x4000017c   ARM Code       0  entry8b.o(.ARM.Collect$$$$0000000A)
+    _main_init                               0x4000017c   ARM Code       0  entry9a.o(.ARM.Collect$$$$0000000B)
+    __rt_final_cpp                           0x40000188   ARM Code       0  entry10a.o(.ARM.Collect$$$$0000000D)
+    __rt_final_exit                          0x40000188   ARM Code       0  entry11a.o(.ARM.Collect$$$$0000000F)
+    fputc                                    0x4000018c   ARM Code      44  retarget.o(.text)
+    getch                                    0x400001b8   ARM Code      16  retarget.o(.text)
+    fgetc                                    0x400001c8   ARM Code      20  retarget.o(.text)
+    _ttywrch                                 0x400001dc   ARM Code      24  retarget.o(.text)
+    _sys_exit                                0x400001f4   ARM Code       8  retarget.o(.text)
+    lcd_write_4bit                           0x400002f0   ARM Code      84  lcd_4bit.o(.text)
+    lcd_write_cmd                            0x40000344   ARM Code      48  lcd_4bit.o(.text)
+    lcd_putchar                              0x400003a4   ARM Code      24  lcd_4bit.o(.text)
+    lcd_init                                 0x400003bc   ARM Code     176  lcd_4bit.o(.text)
+    set_cursor                               0x4000046c   ARM Code      52  lcd_4bit.o(.text)
+    lcd_clear                                0x400004a0   ARM Code      32  lcd_4bit.o(.text)
+    lcd_print                                0x400004c0   ARM Code      40  lcd_4bit.o(.text)
+    init_serial                              0x400004f8   ARM Code      68  serial.o(.text)
+    send_char                                0x4000053c   ARM Code      36  serial.o(.text)
+    kbhit                                    0x40000560   ARM Code      44  serial.o(.text)
+    getkey                                   0x4000058c   ARM Code      36  serial.o(.text)
+    getkey0                                  0x400005b0   ARM Code      24  serial.o(.text)
+    get_char                                 0x400005c8   ARM Code      36  serial.o(.text)
+    uart_isr0                                0x400005ec   ARM Code      56  serial.o(.text)
+    uart_init_0                              0x40000624   ARM Code     120  serial.o(.text)
+    T1_IRQHandler                            0x400006ac   ARM Code      64  timer.o(.text)
+    Init_Timer1                              0x400006ec   ARM Code      60  timer.o(.text)
+    T0_IRQHandler                            0x40000728   ARM Code      72  timer.o(.text)
+    Timer0_Init                              0x40000770   ARM Code      60  timer.o(.text)
+    BSP_Init                                 0x400007c0   ARM Code      40  qmbsp.o(.text)
+    BSP_showMsg                              0x400007e8   ARM Code      40  qmbsp.o(.text)
+    BSP_showTime24H                          0x40000810   ARM Code      88  qmbsp.o(.text)
+    BSP_showTime12H                          0x40000868   ARM Code     168  qmbsp.o(.text)
+    QF_onStartup                             0x40000910   ARM Code       4  qmbsp.o(.text)
+    QF_onIdle                                0x40000914   ARM Code       4  qmbsp.o(.text)
+    QF_onCleanup                             0x40000918   ARM Code      20  qmbsp.o(.text)
+    _getch                                   0x4000092c   ARM Code      20  qmbsp.o(.text)
+    BSP_onKeyboardInput                      0x40000940   ARM Code     744  qmbsp.o(.text)
+    _kbhit                                   0x40000c28   ARM Code       8  qmbsp.o(.text)
+    QF_onClockTick                           0x40000c30   ARM Code      48  qmbsp.o(.text)
+    Q_onAssert                               0x40000c60   ARM Code      44  qmbsp.o(.text)
+    Alarm_on                                 0x40000cb0   ARM Code     260  alarm.o(.text)
+    Alarm_off                                0x40000db4   ARM Code     492  alarm.o(.text)
+    Alarm_initial                            0x40000fa0   ARM Code      28  alarm.o(.text)
+    Alarm_ctor                               0x40000fbc   ARM Code      28  alarm.o(.text)
+    AlarmClock_final                         0x40000fd8   ARM Code      72  clock.o(.text)
+    AlarmClock_mode12h                       0x40001020   ARM Code     188  clock.o(.text)
+    AlarmClock_mode24h                       0x400010dc   ARM Code     188  clock.o(.text)
+    AlarmClock_timekeeping                   0x40001198   ARM Code     388  clock.o(.text)
+    AlarmClock_initial                       0x4000131c   ARM Code      64  clock.o(.text)
+    AlarmClock_ctor                          0x4000135c   ARM Code      60  clock.o(.text)
+    main                                     0x400013a0   ARM Code     124  main.o(.text)
+    QHsm_dispatch_                           0x40001674   ARM Code     484  qhsm_dis.o(.text)
+    QHsm_ctor                                0x4000186c   ARM Code      24  qhsm_ini.o(.text)
+    QHsm_init_                               0x40001884   ARM Code     332  qhsm_ini.o(.text)
+    QHsm_top                                 0x400019e8   ARM Code      12  qhsm_top.o(.text)
+    QActive_ctor                             0x400019f4   ARM Code      40  qa_ctor.o(.text)
+    QActive_post_                            0x40001a20   ARM Code     260  qa_fifo.o(.text)
+    QActive_get_                             0x40001b30   ARM Code     208  qa_get_.o(.text)
+    QF_getQueueMin                           0x40001c00   ARM Code      80  qa_get_.o(.text)
+    QActive_postLIFO_                        0x40001c60   ARM Code     204  qa_lifo.o(.text)
+    QEQueue_init                             0x40001d38   ARM Code      44  qeq_init.o(.text)
+    QF_add_                                  0x40001d64   ARM Code      84  qf_act.o(.text)
+    QF_remove_                               0x40001db8   ARM Code      88  qf_act.o(.text)
+    QF_bzero                                 0x40001e10   ARM Code      36  qf_act.o(.text)
+    QF_gc                                    0x40001e3c   ARM Code     132  qf_gc.o(.text)
+    QF_newX_                                 0x40001ecc   ARM Code     200  qf_new.o(.text)
+    QF_poolInit                              0x40001fa0   ARM Code     180  qf_pool.o(.text)
+    QF_tickX_                                0x40002060   ARM Code     312  qf_tick.o(.text)
+    QF_noTimeEvtsActiveX                     0x40002198   ARM Code     104  qf_tick.o(.text)
+    QMPool_get                               0x40002208   ARM Code     220  qmp_get.o(.text)
+    QF_getPoolMin                            0x400022e4   ARM Code      88  qmp_get.o(.text)
+    QMPool_init                              0x40002348   ARM Code     252  qmp_init.o(.text)
+    QMPool_put                               0x40002448   ARM Code     112  qmp_put.o(.text)
+    QTimeEvt_armX                            0x400024bc   ARM Code     172  qte_arm.o(.text)
+    QTimeEvt_ctorX                           0x40002570   ARM Code      92  qte_ctor.o(.text)
+    QTimeEvt_disarm                          0x400025d0   ARM Code      60  qte_darm.o(.text)
+    QF_init                                  0x4000260c   ARM Code      60  qvanilla.o(.text)
+    QF_stop                                  0x40002648   ARM Code      16  qvanilla.o(.text)
+    QF_run                                   0x40002658   ARM Code     128  qvanilla.o(.text)
+    QActive_start_                           0x400026d8   ARM Code     132  qvanilla.o(.text)
+    QActive_stop                             0x4000275c   ARM Code      24  qvanilla.o(.text)
+    Inline ARM to Thumb Veneer to __aeabi_uidivmod 0x4000278c   ARM Code       8  uidiv.o(.text)
+    __aeabi_uidiv                            0x40002795   Thumb Code     0  uidiv.o(.text)
+    __aeabi_uidivmod                         0x40002795   Thumb Code    46  uidiv.o(.text)
+    Inline ARM to Thumb Veneer to __scatterload 0x400027c4   ARM Code       8  init.o(.text)
+    __scatterload                            0x400027cd   Thumb Code    24  init.o(.text)
+    __scatterload_rt2                        0x400027cd   Thumb Code     0  init.o(.text)
+    T_SWI_Handler                            0x400027ec   ARM Code       0  swi_interrup.o(SWI_Area)
+    disable_irq                              0x40002828   ARM Code       0  swi_interrup.o(SWI_Area)
+    enable_irq                               0x4000283c   ARM Code       0  swi_interrup.o(SWI_Area)
+    Short Thumb to ARM Veneer to __main_after_scatterload 0x40002851   Thumb Code     8  anon$$obj.o(Veneer$$Code)
+    Inline ARM to Thumb Veneer to __2fprintf 0x40002858   ARM Code       8  printf6.o(i.__0fprintf$6)
+    __0fprintf$6                             0x40002861   Thumb Code    24  printf6.o(i.__0fprintf$6)
+    __1fprintf$6                             0x40002861   Thumb Code     0  printf6.o(i.__0fprintf$6)
+    __2fprintf                               0x40002861   Thumb Code     0  printf6.o(i.__0fprintf$6)
+    Inline ARM to Thumb Veneer to __2printf  0x4000287c   ARM Code       8  printf6.o(i.__0printf$6)
+    __0printf$6                              0x40002885   Thumb Code    24  printf6.o(i.__0printf$6)
+    __1printf$6                              0x40002885   Thumb Code     0  printf6.o(i.__0printf$6)
+    __2printf                                0x40002885   Thumb Code     0  printf6.o(i.__0printf$6)
+    __ARM_common_call_via_r2                 0x400028a5   Thumb Code     2  printf1.o(i.__ARM_common_call_via_r2)
+    __ARM_common_call_via_r3                 0x400028a7   Thumb Code     2  init.o(i.__ARM_common_call_via_r3)
+    __ARM_common_call_via_r6                 0x400028a9   Thumb Code     2  printfb.o(i.__ARM_common_call_via_r6)
+    __scatterload_copy                       0x400028ac   ARM Code      28  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x400028c8   ARM Code       4  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x400028cc   ARM Code      24  handlers.o(i.__scatterload_zeroinit)
+    UserFont                                 0x40002c58   Data          64  lcd_4bit.o(.constdata)
+    APP_alarmClock                           0x40002ca4   Data           4  clock.o(.constdata)
+    QEP_reservedEvt_                         0x40002ca8   Data          16  qep.o(.constdata)
+    QF_log2Lkup                              0x40002d11   Data         256  qf_log2.o(.constdata)
+    QF_pwr2Lkup                              0x40002e20   Data          65  qf_pwr2.o(.constdata)
+    QF_invPwr2Lkup                           0x40002e61   Data          65  qf_pwr2.o(.constdata)
+    QF_div8Lkup                              0x40002ea2   Data          65  qf_pwr2.o(.constdata)
+    Region$$Table$$Base                      0x4000301c   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x4000303c   Number         0  anon$$obj.o(Region$$Table)
+    __stdout                                 0x40004000   Data           4  retarget.o(.data)
+    __stdin                                  0x40004004   Data           4  retarget.o(.data)
+    __stderr                                 0x40004008   Data           4  retarget.o(.data)
+    QF_maxPool_                              0x40004018   Data           4  qf_pool.o(.data)
+    QF_readySet_                             0x4000401c   Data           4  qvanilla.o(.data)
+    QF_active_                               0x400040e8   Data          36  qf_act.o(.bss)
+    QF_pool_                                 0x4000410c   Data          60  qf_pool.o(.bss)
+    QF_timeEvtHead_                          0x40004148   Data          32  qf_tick.o(.bss)
+    __initial_sp                             0x40004568   Data         264  startup.o(STACK)
+
+
+
+==============================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x40000000
+
+  Load Region LR_IROM1 (Base: 0x40000000, Size: 0x0000305c, Max: 0x00003fff, ABSOLUTE)
+
+    Execution Region ER_IROM1 (Base: 0x40000000, Size: 0x0000303c, Max: 0x00003fff, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x40000000   0x00000174   Code   RO           27  * RESET               startup.o
+    0x40000174   0x00000000   Code   RO          824  * .ARM.Collect$$$$00000000  mc_t.l(entry.o)
+    0x40000174   0x00000004   Code   RO         1096    .ARM.Collect$$$$00000001  mc_t.l(entry2.o)
+    0x40000178   0x00000004   Code   RO         1098    .ARM.Collect$$$$00000004  mc_t.l(entry5.o)
+    0x4000017c   0x00000000   Code   RO         1100    .ARM.Collect$$$$00000008  mc_t.l(entry7b.o)
+    0x4000017c   0x00000000   Code   RO         1102    .ARM.Collect$$$$0000000A  mc_t.l(entry8b.o)
+    0x4000017c   0x0000000c   Code   RO         1103    .ARM.Collect$$$$0000000B  mc_t.l(entry9a.o)
+    0x40000188   0x00000000   Code   RO         1105    .ARM.Collect$$$$0000000D  mc_t.l(entry10a.o)
+    0x40000188   0x00000000   Code   RO         1107    .ARM.Collect$$$$0000000F  mc_t.l(entry11a.o)
+    0x40000188   0x00000004   Code   RO         1097    .ARM.Collect$$$$00002712  mc_t.l(entry2.o)
+    0x4000018c   0x00000070   Code   RO            1    .text               retarget.o
+    0x400001fc   0x000002fc   Code   RO           34    .text               lcd_4bit.o
+    0x400004f8   0x000001b4   Code   RO           68    .text               serial.o
+    0x400006ac   0x00000114   Code   RO           82    .text               timer.o
+    0x400007c0   0x000004f0   Code   RO          135    .text               qmbsp.o
+    0x40000cb0   0x00000328   Code   RO          169    .text               alarm.o
+    0x40000fd8   0x000003c8   Code   RO          183    .text               clock.o
+    0x400013a0   0x00000094   Code   RO          202    .text               main.o
+    0x40001434   0x00000438   Code   RO          261    .text               qhsm_dis.o
+    0x4000186c   0x0000017c   Code   RO          289    .text               qhsm_ini.o
+    0x400019e8   0x0000000c   Code   RO          303    .text               qhsm_top.o
+    0x400019f4   0x0000002c   Code   RO          355    .text               qa_ctor.o
+    0x40001a20   0x00000110   Code   RO          390    .text               qa_fifo.o
+    0x40001b30   0x00000130   Code   RO          404    .text               qa_get_.o
+    0x40001c60   0x000000d8   Code   RO          418    .text               qa_lifo.o
+    0x40001d38   0x0000002c   Code   RO          502    .text               qeq_init.o
+    0x40001d64   0x000000d8   Code   RO          528    .text               qf_act.o
+    0x40001e3c   0x00000090   Code   RO          552    .text               qf_gc.o
+    0x40001ecc   0x000000d4   Code   RO          579    .text               qf_new.o
+    0x40001fa0   0x000000c0   Code   RO          593    .text               qf_pool.o
+    0x40002060   0x000001a8   Code   RO          664    .text               qf_tick.o
+    0x40002208   0x00000140   Code   RO          697    .text               qmp_get.o
+    0x40002348   0x00000100   Code   RO          711    .text               qmp_init.o
+    0x40002448   0x00000074   Code   RO          725    .text               qmp_put.o
+    0x400024bc   0x000000b4   Code   RO          739    .text               qte_arm.o
+    0x40002570   0x00000060   Code   RO          753    .text               qte_ctor.o
+    0x400025d0   0x0000003c   Code   RO          779    .text               qte_darm.o
+    0x4000260c   0x00000180   Code   RO          805    .text               qvanilla.o
+    0x4000278c   0x00000008   Ven    RO          829    .text               mc_t.l(uidiv.o)
+    0x40002794   0x0000002e   Code   RO          829    .text               mc_t.l(uidiv.o)
+    0x400027c2   0x00000002   PAD
+    0x400027c4   0x00000008   Ven    RO         1122    .text               mc_t.l(init.o)
+    0x400027cc   0x00000020   Code   RO         1122    .text               mc_t.l(init.o)
+    0x400027ec   0x00000064   Code   RO           31    SWI_Area            swi_interrup.o
+    0x40002850   0x00000008   Ven    RO         1148    Veneer$$Code        anon$$obj.o
+    0x40002858   0x00000008   Ven    RO          989    i.__0fprintf$6      mc_t.l(printf6.o)
+    0x40002860   0x0000001c   Code   RO          989    i.__0fprintf$6      mc_t.l(printf6.o)
+    0x4000287c   0x00000008   Ven    RO          990    i.__0printf$6       mc_t.l(printf6.o)
+    0x40002884   0x00000020   Code   RO          990    i.__0printf$6       mc_t.l(printf6.o)
+    0x400028a4   0x00000002   Code   RO          899    i.__ARM_common_call_via_r2  mc_t.l(printf1.o)
+    0x400028a6   0x00000002   Code   RO         1124    i.__ARM_common_call_via_r3  mc_t.l(init.o)
+    0x400028a8   0x00000002   Code   RO          853    i.__ARM_common_call_via_r6  mc_t.l(printfb.o)
+    0x400028aa   0x00000002   PAD
+    0x400028ac   0x0000001c   Code   RO         1138    i.__scatterload_copy  mc_t.l(handlers.o)
+    0x400028c8   0x00000004   Code   RO         1139    i.__scatterload_null  mc_t.l(handlers.o)
+    0x400028cc   0x00000018   Code   RO         1140    i.__scatterload_zeroinit  mc_t.l(handlers.o)
+    0x400028e4   0x0000031c   Code   RO          997    i._printf_core      mc_t.l(printf6.o)
+    0x40002c00   0x00000026   Code   RO          998    i._printf_post_padding  mc_t.l(printf6.o)
+    0x40002c26   0x00000032   Code   RO          999    i._printf_pre_padding  mc_t.l(printf6.o)
+    0x40002c58   0x00000040   Data   RO           35    .constdata          lcd_4bit.o
+    0x40002c98   0x00000010   Data   RO          185    .constdata          clock.o
+    0x40002ca8   0x00000010   Data   RO          217    .constdata          qep.o
+    0x40002cb8   0x00000009   Data   RO          262    .constdata          qhsm_dis.o
+    0x40002cc1   0x00000003   PAD
+    0x40002cc4   0x00000014   Data   RO          290    .constdata          qhsm_ini.o
+    0x40002cd8   0x00000014   Data   RO          356    .constdata          qa_ctor.o
+    0x40002cec   0x00000008   Data   RO          391    .constdata          qa_fifo.o
+    0x40002cf4   0x00000008   Data   RO          405    .constdata          qa_get_.o
+    0x40002cfc   0x00000008   Data   RO          419    .constdata          qa_lifo.o
+    0x40002d04   0x00000007   Data   RO          530    .constdata          qf_act.o
+    0x40002d0b   0x00000006   Data   RO          553    .constdata          qf_gc.o
+    0x40002d11   0x00000100   Data   RO          566    .constdata          qf_log2.o
+    0x40002e11   0x00000007   Data   RO          580    .constdata          qf_new.o
+    0x40002e18   0x00000008   Data   RO          595    .constdata          qf_pool.o
+    0x40002e20   0x000000c3   Data   RO          647    .constdata          qf_pwr2.o
+    0x40002ee3   0x00000008   Data   RO          666    .constdata          qf_tick.o
+    0x40002eeb   0x00000008   Data   RO          698    .constdata          qmp_get.o
+    0x40002ef3   0x00000009   Data   RO          712    .constdata          qmp_init.o
+    0x40002efc   0x00000008   Data   RO          726    .constdata          qmp_put.o
+    0x40002f04   0x00000008   Data   RO          740    .constdata          qte_arm.o
+    0x40002f0c   0x00000009   Data   RO          754    .constdata          qte_ctor.o
+    0x40002f15   0x00000009   Data   RO          806    .constdata          qvanilla.o
+    0x40002f1e   0x00000002   PAD
+    0x40002f20   0x000000fc   Data   RO          204    .conststring        main.o
+    0x4000301c   0x00000020   Data   RO         1136    Region$$Table       anon$$obj.o
+
+
+    Execution Region RW_IRAM1 (Base: 0x40004000, Size: 0x00000670, Max: 0x00003fff, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x40004000   0x0000000c   Data   RW            2    .data               retarget.o
+    0x4000400c   0x00000008   Data   RW           69    .data               serial.o
+    0x40004014   0x00000004   Data   RW           83    .data               timer.o
+    0x40004018   0x00000004   Data   RW          596    .data               qf_pool.o
+    0x4000401c   0x00000004   Data   RW          807    .data               qvanilla.o
+    0x40004020   0x00000050   Zero   RW          184    .bss                clock.o
+    0x40004070   0x00000078   Zero   RW          203    .bss                main.o
+    0x400040e8   0x00000024   Zero   RW          529    .bss                qf_act.o
+    0x4000410c   0x0000003c   Zero   RW          594    .bss                qf_pool.o
+    0x40004148   0x00000020   Zero   RW          665    .bss                qf_tick.o
+    0x40004168   0x00000508   Zero   RW           25    STACK               startup.o
+
+
+==============================================================================
+
+Image component sizes
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
+
+       808        132          0          0          0       1938   alarm.o
+       968         80         16          0         80       3848   clock.o
+       764         16         64          0          0       3574   lcd_4bit.o
+       148         24        252          0        120       1299   main.o
+        44          4         20          0          0       1163   qa_ctor.o
+         0          0          0          0          0        976   qa_defer.o
+       272         12          8          0          0       1808   qa_fifo.o
+       304         16          8          0          0       1914   qa_get_.o
+       216         12          8          0          0       1704   qa_lifo.o
+         0          0         16          0          0        859   qep.o
+        44          0          0          0          0       1235   qeq_init.o
+       216          8          7          0         36       4252   qf_act.o
+       144         12          6          0          0       1604   qf_gc.o
+         0          0        256          0          0        786   qf_log2.o
+       212         12          7          0          0       1767   qf_new.o
+       192         12          8          4         60       1789   qf_pool.o
+         0          0        195          0          0        973   qf_pwr2.o
+       424          8          8          0         32       2179   qf_tick.o
+      1080         20          9          0          0       2461   qhsm_dis.o
+       380         24         20          0          0       2083   qhsm_ini.o
+        12          0          0          0          0        647   qhsm_top.o
+      1264         96          0          0          0       5672   qmbsp.o
+       320         12          8          0          0       2035   qmp_get.o
+       256          4          9          0          0       1858   qmp_init.o
+       116          4          8          0          0       1645   qmp_put.o
+       180          8          8          0          0       1756   qte_arm.o
+        96          4          9          0          0       1697   qte_ctor.o
+        60          0          0          0          0       1346   qte_darm.o
+       384         24          9          4          0       2596   qvanilla.o
+       112          0          0         12          0       4429   retarget.o
+       436         16          0          8          0       1796   serial.o
+       372         52          0          0       1288        396   startup.o
+       100          0          0          0          0        296   swi_interrup.o
+       276         20          0          4          0      14054   timer.o
+
+    ----------------------------------------------------------------------
+     10208        632        996         32       1616      78435   Object Totals
+         8          0         32          0          0          0   (incl. Generated)
+         0          0          5          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Member Name
+
+         0          0          0          0          0          0   entry.o
+         0          0          0          0          0          0   entry10a.o
+         0          0          0          0          0          0   entry11a.o
+         8          4          0          0          0          0   entry2.o
+         4          0          0          0          0          0   entry5.o
+         0          0          0          0          0          0   entry7b.o
+         0          0          0          0          0          0   entry8b.o
+        12          4          0          0          0          0   entry9a.o
+        56          0          0          0          0          0   handlers.o
+        42          8          0          0          0        136   init.o
+         2          0          0          0          0         60   printf1.o
+       960         16          0          0          0        444   printf6.o
+         2          0          0          0          0         60   printfb.o
+        54          0          0          0          0         72   uidiv.o
+
+    ----------------------------------------------------------------------
+      1144         32          0          0          0        772   Library Totals
+         4          0          0          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
+
+      1140         32          0          0          0        772   mc_t.l
+
+    ----------------------------------------------------------------------
+      1144         32          0          0          0        772   Library Totals
+
+    ----------------------------------------------------------------------
+
+==============================================================================
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
+
+     11352        664        996         32       1616      77483   Grand Totals
+     11352        664        996         32       1616      77483   ELF Image Totals
+     11352        664        996         32          0          0   ROM Totals
+
+==============================================================================
+
+    Total RO  Size (Code + RO Data)                12348 (  12.06kB)
+    Total RW  Size (RW Data + ZI Data)              1648 (   1.61kB)
+    Total ROM Size (Code + RO Data + RW Data)      12380 (  12.09kB)
+
+==============================================================================
+

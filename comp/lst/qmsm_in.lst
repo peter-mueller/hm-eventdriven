@@ -1,0 +1,1171 @@
+L 1 "..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qmsm_in.c"
+N/**
+N* \file
+N* \brief QMsm_isInState() definition
+N* \ingroup qep
+N* \cond
+N******************************************************************************
+N* Product: QEP/C
+N* Last updated for version 5.3.1
+N* Last updated on  2014-09-18
+N*
+N*                    Q u a n t u m     L e a P s
+N*                    ---------------------------
+N*                    innovating embedded systems
+N*
+N* Copyright (C) Quantum Leaps, www.state-machine.com.
+N*
+N* This program is open source software: you can redistribute it and/or
+N* modify it under the terms of the GNU General Public License as published
+N* by the Free Software Foundation, either version 3 of the License, or
+N* (at your option) any later version.
+N*
+N* Alternatively, this program may be distributed and modified under the
+N* terms of Quantum Leaps commercial licenses, which expressly supersede
+N* the GNU General Public License and are specifically designed for
+N* licensees interested in retaining the proprietary status of their code.
+N*
+N* This program is distributed in the hope that it will be useful,
+N* but WITHOUT ANY WARRANTY; without even the implied warranty of
+N* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+N* GNU General Public License for more details.
+N*
+N* You should have received a copy of the GNU General Public License
+N* along with this program. If not, see <http://www.gnu.org/licenses/>.
+N*
+N* Contact information:
+N* Web:   www.state-machine.com
+N* Email: info@state-machine.com
+N******************************************************************************
+N* \endcond
+N*/
+N#include "qep_port.h"     /* QEP port */
+L 1 "..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h" 1
+N/* Product: Product: QP/Cs
+N* Last Updated for Version: 5.1.0
+N* Date of the Last Update:  Nov 18, 2013
+N* Ported to dresden elektronic deRFarm7 Gateway - Atmel AT91SAM7X-512 MCPU
+N* Keil  ARM - µLink Environment */
+N
+N#ifndef qep_port_h
+N#define qep_port_h
+N
+N#include <stdint.h>        /* exact-width integers, WG14/N843 C99, 7.18.1.1 */
+L 1 "C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h" 1
+N/* Copyright (C) ARM Ltd., 1999 */
+N/* All rights reserved */
+N
+N/*
+N * RCS $Revision: 180721 $
+N * Checkin $Date: 2013-06-24 09:41:57 +0100 (Mon, 24 Jun 2013) $
+N * Revising $Author: agrant $
+N */
+N
+N#ifndef __stdint_h
+N#define __stdint_h
+N#define __ARMCLIB_VERSION 5040049
+N
+N/*
+N * Depending on compiler version __int64 or __INT64_TYPE__ should be defined.
+N */
+N#ifndef __int64
+N  #ifdef __INT64_TYPE__
+S    #define __int64 __INT64_TYPE__
+N  #endif
+N  /* On some architectures neither of these may be defined - if so, fall
+N     through and error out if used. */
+N#endif
+N
+N  #ifndef __STDINT_DECLS
+N  #define __STDINT_DECLS
+N
+N    #undef __CLIBNS
+N
+N    #ifdef __cplusplus
+S      namespace std {
+S          #define __CLIBNS std::
+S          extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N
+N/*
+N * 'signed' is redundant below, except for 'signed char' and if
+N * the typedef is used to declare a bitfield.
+N * '__int64' is used instead of 'long long' so that this header
+N * can be used in --strict mode.
+N */
+N
+N    /* 7.18.1.1 */
+N
+N    /* exact-width signed integer types */
+Ntypedef   signed          char int8_t;
+Ntypedef   signed short     int int16_t;
+Ntypedef   signed           int int32_t;
+Ntypedef   signed       __int64 int64_t;
+N
+N    /* exact-width unsigned integer types */
+Ntypedef unsigned          char uint8_t;
+Ntypedef unsigned short     int uint16_t;
+Ntypedef unsigned           int uint32_t;
+Ntypedef unsigned       __int64 uint64_t;
+N
+N    /* 7.18.1.2 */
+N
+N    /* smallest type of at least n bits */
+N    /* minimum-width signed integer types */
+Ntypedef   signed          char int_least8_t;
+Ntypedef   signed short     int int_least16_t;
+Ntypedef   signed           int int_least32_t;
+Ntypedef   signed       __int64 int_least64_t;
+N
+N    /* minimum-width unsigned integer types */
+Ntypedef unsigned          char uint_least8_t;
+Ntypedef unsigned short     int uint_least16_t;
+Ntypedef unsigned           int uint_least32_t;
+Ntypedef unsigned       __int64 uint_least64_t;
+N
+N    /* 7.18.1.3 */
+N
+N    /* fastest minimum-width signed integer types */
+Ntypedef   signed           int int_fast8_t;
+Ntypedef   signed           int int_fast16_t;
+Ntypedef   signed           int int_fast32_t;
+Ntypedef   signed       __int64 int_fast64_t;
+N
+N    /* fastest minimum-width unsigned integer types */
+Ntypedef unsigned           int uint_fast8_t;
+Ntypedef unsigned           int uint_fast16_t;
+Ntypedef unsigned           int uint_fast32_t;
+Ntypedef unsigned       __int64 uint_fast64_t;
+N
+N    /* 7.18.1.4 integer types capable of holding object pointers */
+Ntypedef   signed           int intptr_t;
+Ntypedef unsigned           int uintptr_t;
+N
+N    /* 7.18.1.5 greatest-width integer types */
+Ntypedef   signed       __int64 intmax_t;
+Ntypedef unsigned       __int64 uintmax_t;
+N
+N
+N#if !defined(__cplusplus) || defined(__STDC_LIMIT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.2.1 */
+N
+N    /* minimum values of exact-width signed integer types */
+N#define INT8_MIN                   -128
+N#define INT16_MIN                -32768
+N#define INT32_MIN          (~0x7fffffff)   /* -2147483648 is unsigned */
+N#define INT64_MIN  __ESCAPE__(~0x7fffffffffffffffll) /* -9223372036854775808 is unsigned */
+N
+N    /* maximum values of exact-width signed integer types */
+N#define INT8_MAX                    127
+N#define INT16_MAX                 32767
+N#define INT32_MAX            2147483647
+N#define INT64_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum values of exact-width unsigned integer types */
+N#define UINT8_MAX                   255
+N#define UINT16_MAX                65535
+N#define UINT32_MAX           4294967295u
+N#define UINT64_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.2.2 */
+N
+N    /* minimum values of minimum-width signed integer types */
+N#define INT_LEAST8_MIN                   -128
+N#define INT_LEAST16_MIN                -32768
+N#define INT_LEAST32_MIN          (~0x7fffffff)
+N#define INT_LEAST64_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+N
+N    /* maximum values of minimum-width signed integer types */
+N#define INT_LEAST8_MAX                    127
+N#define INT_LEAST16_MAX                 32767
+N#define INT_LEAST32_MAX            2147483647
+N#define INT_LEAST64_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum values of minimum-width unsigned integer types */
+N#define UINT_LEAST8_MAX                   255
+N#define UINT_LEAST16_MAX                65535
+N#define UINT_LEAST32_MAX           4294967295u
+N#define UINT_LEAST64_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.2.3 */
+N
+N    /* minimum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MIN           (~0x7fffffff)
+N#define INT_FAST16_MIN          (~0x7fffffff)
+N#define INT_FAST32_MIN          (~0x7fffffff)
+N#define INT_FAST64_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+N
+N    /* maximum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MAX             2147483647
+N#define INT_FAST16_MAX            2147483647
+N#define INT_FAST32_MAX            2147483647
+N#define INT_FAST64_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum values of fastest minimum-width unsigned integer types */
+N#define UINT_FAST8_MAX            4294967295u
+N#define UINT_FAST16_MAX           4294967295u
+N#define UINT_FAST32_MAX           4294967295u
+N#define UINT_FAST64_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.2.4 */
+N
+N    /* minimum value of pointer-holding signed integer type */
+N#define INTPTR_MIN (~0x7fffffff)
+N
+N    /* maximum value of pointer-holding signed integer type */
+N#define INTPTR_MAX   2147483647
+N
+N    /* maximum value of pointer-holding unsigned integer type */
+N#define UINTPTR_MAX  4294967295u
+N
+N    /* 7.18.2.5 */
+N
+N    /* minimum value of greatest-width signed integer type */
+N#define INTMAX_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+N
+N    /* maximum value of greatest-width signed integer type */
+N#define INTMAX_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum value of greatest-width unsigned integer type */
+N#define UINTMAX_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.3 */
+N
+N    /* limits of ptrdiff_t */
+N#define PTRDIFF_MIN (~0x7fffffff)
+N#define PTRDIFF_MAX   2147483647
+N
+N    /* limits of sig_atomic_t */
+N#define SIG_ATOMIC_MIN (~0x7fffffff)
+N#define SIG_ATOMIC_MAX   2147483647
+N
+N    /* limit of size_t */
+N#define SIZE_MAX 4294967295u
+N
+N    /* limits of wchar_t */
+N    /* NB we have to undef and redef because they're defined in both
+N     * stdint.h and wchar.h */
+N#undef WCHAR_MIN
+N#undef WCHAR_MAX
+N
+N#if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+X#if 0L || (0L && __ARM_SIZEOF_WCHAR_T == 4)
+S  #define WCHAR_MIN   0
+S  #define WCHAR_MAX   0xffffffffU
+N#else
+N  #define WCHAR_MIN   0
+N  #define WCHAR_MAX   65535
+N#endif
+N
+N    /* limits of wint_t */
+N#define WINT_MIN (~0x7fffffff)
+N#define WINT_MAX 2147483647
+N
+N#endif /* __STDC_LIMIT_MACROS */
+N
+N#if !defined(__cplusplus) || defined(__STDC_CONSTANT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.4.1 macros for minimum-width integer constants */
+N#define INT8_C(x)   (x)
+N#define INT16_C(x)  (x)
+N#define INT32_C(x)  (x)
+N#define INT64_C(x)  __ESCAPE__(x ## ll)
+N
+N#define UINT8_C(x)  (x ## u)
+N#define UINT16_C(x) (x ## u)
+N#define UINT32_C(x) (x ## u)
+N#define UINT64_C(x) __ESCAPE__(x ## ull)
+N
+N    /* 7.18.4.2 macros for greatest-width integer constants */
+N#define INTMAX_C(x)  __ESCAPE__(x ## ll)
+N#define UINTMAX_C(x) __ESCAPE__(x ## ull)
+N
+N#endif /* __STDC_CONSTANT_MACROS */
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STDINT_DECLS */
+N
+N  #ifdef __cplusplus
+S    #ifndef __STDINT_NO_EXPORTS
+S      using ::std::int8_t;
+S      using ::std::int16_t;
+S      using ::std::int32_t;
+S      using ::std::int64_t;
+S      using ::std::uint8_t;
+S      using ::std::uint16_t;
+S      using ::std::uint32_t;
+S      using ::std::uint64_t;
+S      using ::std::int_least8_t;
+S      using ::std::int_least16_t;
+S      using ::std::int_least32_t;
+S      using ::std::int_least64_t;
+S      using ::std::uint_least8_t;
+S      using ::std::uint_least16_t;
+S      using ::std::uint_least32_t;
+S      using ::std::uint_least64_t;
+S      using ::std::int_fast8_t;
+S      using ::std::int_fast16_t;
+S      using ::std::int_fast32_t;
+S      using ::std::int_fast64_t;
+S      using ::std::uint_fast8_t;
+S      using ::std::uint_fast16_t;
+S      using ::std::uint_fast32_t;
+S      using ::std::uint_fast64_t;
+S      using ::std::intptr_t;
+S      using ::std::uintptr_t;
+S      using ::std::intmax_t;
+S      using ::std::uintmax_t;
+S    #endif 
+N  #endif /* __cplusplus */
+N
+N#endif /* __stdint_h */
+N
+N/* end of stdint.h */
+N
+N
+N
+L 11 "..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h" 2
+N#include <stdbool.h>
+L 1 "C:\Keil_v5\ARM\ARMCC\bin\..\include\stdbool.h" 1
+N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
+N
+N/* Copyright (C) ARM Ltd., 2002
+N * All rights reserved
+N * RCS $Revision: 177844 $
+N * Checkin $Date: 2012-11-21 11:51:12 +0000 (Wed, 21 Nov 2012) $
+N * Revising $Author: drodgman $
+N */
+N
+N#ifndef __bool_true_false_are_defined
+N#define __bool_true_false_are_defined 1
+N#define __ARMCLIB_VERSION 5040049
+N
+N  #ifndef __cplusplus /* In C++, 'bool', 'true' and 'false' and keywords */
+N    #define bool _Bool
+N    #define true 1
+N    #define false 0
+N  #else
+S    #ifdef __GNUC__
+S      /* GNU C++ supports direct inclusion of stdbool.h to provide C99
+S         compatibility by defining _Bool */
+S      #define _Bool bool
+S    #endif
+N  #endif
+N
+N#endif /* __bool_true_false_are_defined */
+N
+L 12 "..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h" 2
+N
+N#include "qep.h"               /* QEP platform-independent public interface */
+L 1 "..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h" 1
+N/**
+N* \file
+N* \brief Public QEP/C interface.
+N* \ingroup qep
+N* \cond
+N******************************************************************************
+N* Product: QEP/C
+N* Last updated for version 5.3.1
+N* Last updated on  2014-09-18
+N*
+N*                    Q u a n t u m     L e a P s
+N*                    ---------------------------
+N*                    innovating embedded systems
+N*
+N* Copyright (C) Quantum Leaps, www.state-machine.com.
+N*
+N* This program is open source software: you can redistribute it and/or
+N* modify it under the terms of the GNU General Public License as published
+N* by the Free Software Foundation, either version 3 of the License, or
+N* (at your option) any later version.
+N*
+N* Alternatively, this program may be distributed and modified under the
+N* terms of Quantum Leaps commercial licenses, which expressly supersede
+N* the GNU General Public License and are specifically designed for
+N* licensees interested in retaining the proprietary status of their code.
+N*
+N* This program is distributed in the hope that it will be useful,
+N* but WITHOUT ANY WARRANTY; without even the implied warranty of
+N* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+N* GNU General Public License for more details.
+N*
+N* You should have received a copy of the GNU General Public License
+N* along with this program. If not, see <http://www.gnu.org/licenses/>.
+N*
+N* Contact information:
+N* Web:   www.state-machine.com
+N* Email: info@state-machine.com
+N******************************************************************************
+N* \endcond
+N*/
+N#ifndef qep_h
+N#define qep_h
+N
+N/****************************************************************************/
+N/*! The current QP/C version number */
+N/**
+N* \description
+N* version of the QP/C framework as a decimal constant XYZ, where X is a
+N* 1-digit major version number, Y is a 1-digit minor version number, and Z
+N* is a 1-digit release number.
+N*/
+N#define QP_VERSION      531
+N
+N/*! The current QP version string */
+N#define QP_VERSION_STR  "5.3.1"
+N
+N/*! Tamperproof current QP release (5.3.1) and date (14-09-18) */
+N#define QP_RELEASE      0xAC019C8CU
+N
+N/****************************************************************************/
+N#ifndef Q_SIGNAL_SIZE
+N
+N    /*! The size (in bytes) of the signal of an event. Valid values:
+N    * 1, 2, or 4; default 1 */
+N    /**
+N    * \description
+N    * This macro can be defined in the QEP port file (qep_port.h) to
+N    * configure the ::QSignal type. When the macro is not defined, the
+N    * default of 2 bytes is applied.
+N    */
+N    #define Q_SIGNAL_SIZE 2
+N#endif
+N#if (Q_SIGNAL_SIZE == 1)
+X#if (2 == 1)
+S    typedef uint8_t QSignal;
+N#elif (Q_SIGNAL_SIZE == 2)
+X#elif (2 == 2)
+N    /*! QSignal represents the signal of an event. */
+N    /**
+N    * \description
+N    * The relationship between an event and a signal is as follows. A signal
+N    * in UML is the specification of an asynchronous stimulus that triggers
+N    * reactions, and as such is an essential part of an event.
+N    * (The signal conveys the type of the occurrence-what happened?)
+N    * However, an event can also contain additional quantitative information
+N    * about the occurrence in form of event parameters.
+N    */
+N    typedef uint16_t QSignal;
+N#elif (Q_SIGNAL_SIZE == 4)
+S    typedef uint32_t QSignal;
+S#else
+S    #error "Q_SIGNAL_SIZE defined incorrectly, expected 1, 2, or 4"
+N#endif
+N
+N/****************************************************************************/
+N#ifndef Q_ROM
+N    /*! Macro to specify compiler-specific directive for placing a
+N    * constant object in ROM. */
+N    /**
+N    * \description
+N    * Many compilers for 8-bit Harvard-architecture MCUs provide non-standard
+N    * extensions to support placement of objects in different memories.
+N    * In order to conserve the precious RAM, QP uses the Q_ROM macro for
+N    * all constant objects that can be allocated in ROM.
+N    *
+N    * \note
+N    * To override the empty definition of Q_ROM, you need to define the
+N    * Q_ROM macro in the qep_port.h header file. Some examples of valid
+N    * Q_ROM macro definitions are: __code (IAR 8051 compiler), code (Keil
+N    * Cx51 compiler), PROGMEM (gcc for AVR), __flash (IAR for AVR).
+N    */
+N    #define Q_ROM
+N#endif
+N#ifndef Q_ROM_BYTE
+N    /*! Macro to access a byte allocated in ROM */
+N    /**
+N    * \description
+N    * Some compilers for Harvard-architecture MCUs, such as gcc for AVR, do
+N    * not generate correct code for accessing data allocated in the program
+N    * space (ROM). The workaround for such compilers is to explicitly add
+N    * assembly code to access each data element allocated in the program
+N    * space. The macro Q_ROM_BYTE() retrieves a byte from the given ROM
+N    * address. If the macro is left undefined, the default definition simply
+N    * returns the argument.
+N    *
+N    * \arguments
+N    * \arg[in] \c rom_var_ address of the ROM-based byte variable
+N    * \returns the byte value from ROM
+N    *
+N    * \note The Q_ROM_BYTE() macro should be re-defined for compilers that
+N    * cannot handle correctly data placed in ROM (such as the gcc for AVR).
+N    */
+N    #define Q_ROM_BYTE(rom_var_)   (rom_var_)
+N#endif
+N
+N/****************************************************************************/
+N/* typedefs for basic numerical types; MISRA-C 2004 rule 6.3(req). */
+N
+N/*! typedef for character strings. */
+N/**
+N* \description
+N* This typedef specifies character type for exclusive use in character
+N* strings. Use of this type, rather than plain 'char', is in compliance
+N* with the MISRA-C 2004 Rules 6.1(req), 6.3(adv).
+N*/
+Ntypedef char char_t;
+N
+N/*! typedef for line numbers in assertions and return from QF_run() */
+Ntypedef int int_t;
+N
+N/*! typedef for enumerations used for event signals */
+Ntypedef int enum_t;
+N
+N/*! IEEE 754 32-bit floating point number, MISRA-C 2004 rule 6.3(req) */
+N/**
+N* \note QP does not use floating-point types anywhere in the internal
+N* implementation, except in QS software tracing, where utilities for
+N* output of floating-point numbers are provided for application-level
+N* trace records.
+N*/
+Ntypedef float float32_t;
+N
+N/*! IEEE 754 64-bit floating point number, MISRA-C 2004 rule 6.3(req) */
+N/**
+N* \note QP does not use floating-point types anywhere in the internal
+N* implementation, except in QS software tracing, where utilities for
+N* output of floating-point numbers are provided for application-level
+N* trace records.
+N*/
+Ntypedef double float64_t;
+N
+N/****************************************************************************/
+N/*! Event structure. */
+N/**
+N* \description
+N* QEvt represents events without parameters and serves as the base structure
+N* for derivation of events with parameters.
+N*
+N* \usage
+N* The following example illustrates how to add an event parameter by
+N* derivation of the QEvt structure. Please note that the QEvt member
+N* super_ is defined as the FIRST member of the derived struct.
+N* \include qep_qevt.c
+N*
+N* \sa \ref derivation
+N*/
+Ntypedef struct {
+N    QSignal sig;              /*!< signal of the event instance */
+N    uint8_t poolId_;          /*!< pool ID (0 for static event) */
+N    uint8_t volatile refCtr_; /*!< reference counter */
+N} QEvt;
+N
+N#ifdef Q_EVT_CTOR /* Shall the constructor for the QEvt class be provided? */
+S
+S/*! Custom event constructor. */
+SQEvt *QEvt_ctor(QEvt * const me, enum_t const sig);
+S
+N#endif
+N
+N/****************************************************************************/
+N/*! Perform upcast from a subclass of ::QMsm to the base class ::QMsm */
+N/**
+N* \description
+N* Upcasting from a subclass to superclass is a very frequent and __safe__
+N* operation in object-oriented programming and object-oriented languages
+N* (such as C++) perform such upcasting automatically. However, OOP is
+N* implemented in C just as a set of coding conventions (see \ref derivation),
+N* and the C compiler does not "know" that certain types are related by
+N* inheritance. Therefore for C, the upcast must be performed explicitly.
+N* Unfortunately, pointer casting violates the advisory MISRA-C 2004 rule 11.4
+N* "cast pointer to pointer". This macro encapsulates this deviation and
+N* provides a descriptive name for the reason of this cast.
+N*/
+N#define Q_MSM_UPCAST(ptr_) ((QMsm *)(ptr_))
+N
+N/*! Perform downcast of an event onto a subclass of QEvt \a class_ */
+N/**
+N* \description
+N* QEvt represents events without parameters and serves as the base structure
+N* This macro encapsulates the downcast of QEvt pointers, which violates
+N* MISRA-C 2004 rule 11.4(advisory). This macro helps to localize this
+N* deviation.
+N*/
+N#define Q_EVT_CAST(class_) ((class_ const *)e)
+N
+N/*! Helper macro to calculate static dimension of a 1-dim \a array_ */
+N#define Q_DIM(array_) (sizeof(array_) / sizeof((array_)[0]))
+N
+N/*! Perform cast from unsigned integer \a uint_ to pointer
+N* of type \a type_. */
+N/**
+N* \description
+N* This macro encapsulates the cast to (type_ *), which QP ports or
+N* application might use to access embedded hardware registers.
+N* Such uses can trigger PC-Lint "Note 923: cast from int to pointer" and
+N* this macro helps to encapsulate this deviation.
+N*/
+N#define Q_UINT2PTR_CAST(type_, uint_)  ((type_ *)(uint_))
+N
+N/****************************************************************************/
+N/*! typedef of the return type from a state/action-handler function. */
+Ntypedef uint_fast8_t QState;
+N
+N/*! Pointer to a state-handler function. */
+Ntypedef QState (*QStateHandler)(void * const me, QEvt const * const e);
+N
+N/*! Pointer to an action-handler function. */
+Ntypedef QState (*QActionHandler)(void * const me);
+N
+N/*! Perform cast to ::QStateHandler. */
+N/**
+N* \description
+N* This macro encapsulates the cast of a specific state handler function
+N* pointer to QStateHandler, which violates MISRA-C 2004 rule 11.4(advisory).
+N* This macro helps to localize this deviation.
+N*
+N* \usage
+N* \include qep_qhsm_ctor.c
+N*/
+N#define Q_STATE_CAST(handler_)  ((QStateHandler)(handler_))
+N
+N/*! Perform cast to QActionHandler. */
+N/**
+N* \description
+N* This macro encapsulates the cast of a specific action handler function
+N* pointer to ::QActionHandler, which violates MISRA-C 2004 rule 11.4(adv).
+N* This macro helps to localize this deviation.
+N*/
+N#define Q_ACTION_CAST(action_)  ((QActionHandler)(action_))
+N
+N/*! State object for the ::QMsm class (Meta State Machine). */
+N/**
+N* \description
+N* This class groups together the attributes of a ::QMsm state, such as the
+N* parent state (state nesting), the associated state handler function and
+N* the exit action handler function. These attributes are used inside the
+N* QMsm_dispatch() and QMsm_init() functions.
+N*
+N* \attention
+N* The ::QMState class is only intended for the QM code generator and should
+N* not be used in hand-crafted code.
+N*/
+Ntypedef struct QMState {
+N    struct QMState const *superstate;   /*!< superstate of this state */
+N    QStateHandler  const stateHandler;  /*!< state handler function */
+N    QActionHandler const entryAction;   /*!< entry action handler function */
+N    QActionHandler const exitAction;    /*!< exit action handler function */
+N    QActionHandler const initAction;    /*!< init action handler function */
+N} QMState;
+N
+N/*! Transition-Action Table for the Meta State Machine. */
+Ntypedef struct {
+N    QMState        const *target;
+N    QActionHandler const act[1];
+N} QMTranActTable;
+N
+N/*! Attribute of for the ::QMsm class (Meta State Machine). */
+N/**
+N* \description
+N* This union represents possible values stored in the 'state' and 'temp'
+N* attributes of the ::QMsm class.
+N*/
+Nunion QMAttr {
+N    QMState        const *obj;   /*!< pointer to QMState object */
+N    QMTranActTable const *tatbl; /*!< transition-action table */
+N    QStateHandler  fun;          /*!< pointer to a state-handler function */
+N    QActionHandler act;          /*!< pointer to an action-handler function */
+N};
+N
+N
+N/****************************************************************************/
+N/*! virtual table for the ::QMsm class. */
+Ntypedef struct QMsmVtbl QMsmVtbl;
+N
+N/*! Meta State Machine. */
+N/**
+N* \description
+N* QMsm represents the most fundamental State Machine in QP. The application-
+N* level state machines derived directly from QMsm typically require the use
+N* of the QM modeling tool, but are the fastest and need the least run-time
+N* support (the smallest event-processor taking up the least code space).\n
+N* \n
+N* QMsm is also the base class for the QFsm and QHsm state machines, which
+N* can be coded and maintained by hand (as well as by QM), but aren't as fast
+N* and require significantly more run-time code (0.5-1KB) to execute.
+N*
+N* \note QMsm is not intended to be instantiated directly, but rather serves
+N* as the base structure for derivation of state machines in the application
+N* code.
+N*
+N* \usage
+N* The following example illustrates how to derive a state machine structure
+N* from QMsm. Please note that the QMsm member 'super' is defined as the
+N* _first_ member of the derived struct.
+N* \include qep_qmsm.c
+N*
+N* \sa \ref derivation
+N*/
+Ntypedef struct {
+N    QMsmVtbl const *vptr; /*!< virtual pointer */
+N    union QMAttr state;   /*!< current active state (state-variable) */
+N    union QMAttr temp;    /*!< temporary: tran. chain, target state, etc. */
+N} QMsm;
+N
+N/*! Virtual table for the ::QMsm class. */
+Nstruct QMsmVtbl {
+N    /*! Triggers the top-most initial transition in a SM. */
+N    void (*init)(QMsm * const me, QEvt const * const e);
+N
+N    /*! Dispatches an event to a SM. */
+N    void (*dispatch)(QMsm * const me, QEvt const * const e);
+N};
+N
+N/*! Protected "constructor" of a ::QMsm */
+Nvoid QMsm_ctor(QMsm * const me, QStateHandler initial);
+N
+N/*! Obtain the current active state from a MSM (read only). */
+N#define QMsm_stateObj(me_) (Q_MSM_UPCAST(me_)->state.obj)
+N
+N/*! Polymorphically executes the top-most initial transition in a SM. */
+N/**
+N* \arguments
+N* \arg[in,out] \c me_ pointer (see \ref derivation)
+N* \arg[in]     \c e_  constant pointer the ::QEvt or a class derived from
+N*                     ::QEvt (see \ref derivation)
+N* \note Must be called only ONCE after the SM "constructor".
+N*
+N* \usage
+N* The following example illustrates how to initialize a SM, and dispatch
+N* events to it:
+N* \include qep_qmsm_use.c
+N*/
+N#define QMSM_INIT(me_, e_) ((*(me_)->vptr->init)((me_), (e_)))
+N
+N/*! Implementation of the top-most initial transition in ::QMsm. */
+Nvoid QMsm_init_(QMsm * const me, QEvt const * const e);
+N
+N/*! Polymorphically dispatches an event to a SM. */
+N/**
+N* \description
+N* Processes one event at a time in Run-to-Completion fashion.
+N*
+N* \arguments
+N* \arg[in,out] \c me_ pointer (see \ref derivation)
+N* \arg[in]     \c e_  constant pointer the ::QEvt or a structure derived from
+N*                     ::QEvt (see \ref derivation)
+N* \note Must be called after the "constructor" and after QMSM_INIT().
+N*/
+N#define QMSM_DISPATCH(me_, e_) ((*(me_)->vptr->dispatch)((me_), (e_)))
+N
+N/*! Implementation of disparching events to QMsm. */
+Nvoid QMsm_dispatch_(QMsm * const me, QEvt const * const e);
+N
+N/*! Internal helper function to exectue a transition-action table. */
+NQState QMsm_execTatbl_(QMsm * const me, QMTranActTable const *tatbl);
+N
+N/*! Tests if a given state is part of the current active state
+N* configuration in a MSM.
+N*/
+Nbool QMsm_isInState(QMsm * const me, QMState const * const state);
+X_Bool QMsm_isInState(QMsm * const me, QMState const * const state);
+N
+N/****************************************************************************/
+N/*! Hierarchical State Machine. */
+N/**
+N* \description
+N* QHsm represents a Hierarchical State Machine (HSM) with full support for
+N* hierarchical nesting of states, entry/exit actions, and initial transitions
+N* in any composite state. QHsm inherits QMsm "as is" without adding new
+N* attributes, so it is typedef'ed as QMsm.
+N*
+N* \note QHsm is not intended to be instantiated directly, but rather serves
+N* as the base structure for derivation of state machines in the application
+N* code.
+N*
+N* \usage
+N* The following example illustrates how to derive a state machine structure
+N* from QHsm. Please note that the QHsm member super is defined as the FIRST
+N* member of the derived struct.
+N* \include qep_qhsm.c
+N*/
+Ntypedef QMsm QHsm;
+N
+N/* public methods */
+N
+N/*! protected "constructor" of a HSM. */
+Nvoid QHsm_ctor(QHsm * const me, QStateHandler initial);
+N
+N/*! Obtain the current active state from a HSM (read only). */
+N/**
+N* \arguments
+N* \arg[in] \c me_ pointer (see \ref derivation)
+N* \returns the current active state of a HSM
+N*/
+N#define QHsm_state(me_) (Q_STATE_CAST(Q_MSM_UPCAST(me_)->state.fun))
+N
+N/*! Implementation of the top-most initial transition in QHsm.
+N*/
+Nvoid QHsm_init_(QHsm * const me, QEvt const * const e);
+N
+N/*! Implementation of dispatching events to QHsm.
+N*/
+Nvoid QHsm_dispatch_(QHsm * const me, QEvt const * const e);
+N
+N/*! Tests if a given state is part of the current active state
+N* configuration in a HSM.
+N*/
+Nbool QHsm_isIn(QHsm * const me, QStateHandler const state);
+X_Bool QHsm_isIn(QHsm * const me, QStateHandler const state);
+N
+N/* protected methods */
+N
+N/*! the top-state. */
+NQState QHsm_top(void const * const me, QEvt const * const e);
+N
+N
+N/****************************************************************************/
+N/*! Non-hierarchical Finite State Machine */
+N/**
+N* \description
+N* QFsm represents a traditional non-hierarchical Finite State Machine (FSM)
+N* without state hierarchy, but with entry/exit actions. QFsm inherits QMsm
+N* "as is" without adding new attributes, so it is typedef'ed as QMsm.
+N*
+N* \note QFsm is not intended to be instantiated directly, but rather serves
+N* as the base structure for derivation of state machines in the application
+N* code.
+N*
+N* \usage
+N* The following example illustrates how to derive a state machine structure
+N* from QFsm. Please note that the QFsm member super is defined as the FIRST
+N* member of the derived struct.
+N* \include qep_qfsm.c
+N*/
+Ntypedef QMsm QFsm;
+N
+N/*! Protected "constructor" of a FSM. */
+Nvoid QFsm_ctor(QFsm * const me, QStateHandler initial);
+N
+N/*! Implementation of the top-most initial transition in QFsm. */
+Nvoid QFsm_init_(QFsm * const me, QEvt const * const e);
+N
+N/*! Implementation of dispatching events to QFsm. */
+Nvoid QFsm_dispatch_(QFsm * const me, QEvt const * const e);
+N
+N
+N/****************************************************************************/
+N/*! obtain the current QEP version number string */
+N/**
+N* \description
+N* version of QEP as a constant 5-character string of the form X.Y.Z,
+N* where X is a 1-digit major version number, Y is a 1-digit minor
+N* version number, and Z is a 1-digit release number.
+N*/
+N#define QEP_getVersion() (QP_VERSION_STR)
+N
+N/****************************************************************************/
+N/*! All possible values returned from state/action handlers */
+N/**
+N* \note The order matters for algorithmic correctness.
+N*/
+Nenum {
+N    /* unhandled and need to "bubble up" */
+N    Q_RET_SUPER,     /*!< event passed to superstate to handle */
+N    Q_RET_SUPER_SUB, /*!< event passed to submachine superstate */
+N    Q_RET_UNHANDLED, /*!< event unhandled due to a guard */
+N
+N    /* handled and do not need to "bubble up" */
+N    Q_RET_HANDLED,   /*!< event handled (internal transition) */
+N    Q_RET_IGNORED,   /*!< event silently ignored (bubbled up to top) */
+N
+N    /* entry/exit */
+N    Q_RET_ENTRY,     /*!< state entry action executed */
+N    Q_RET_EXIT,      /*!< state exit  action executed */
+N
+N    /* no side effects */
+N    Q_RET_NULL,      /*!< return value without any effect */
+N
+N    /* transitions need to execute transition-action table in QMsm */
+N    Q_RET_TRAN,      /*!< event handled (regular transition) */
+N    Q_RET_TRAN_INIT, /*!< initial transition in a state or submachine */
+N    Q_RET_TRAN_HIST, /*!< event handled (transition to history) */
+N    Q_RET_TRAN_EP,   /*!< entry-point transition into a submachine */
+N    Q_RET_TRAN_XP    /*!< exit-point transition out of a submachine */
+N};
+N
+N#ifdef Q_SPY
+S    /*! Macro to call in a QM action-handler when it executes
+S    * an entry action. Applicable only to QMSMs.
+S    */
+S    #define QM_ENTRY(state_) \
+S        ((Q_MSM_UPCAST(me))->temp.obj = (state_), (QState)Q_RET_ENTRY)
+X    #define QM_ENTRY(state_)         ((Q_MSM_UPCAST(me))->temp.obj = (state_), (QState)Q_RET_ENTRY)
+S
+S    /*! Macro to call in a QM action-handler when it executes
+S    * an exit action. Applicable only to QMSMs.
+S    */
+S    #define QM_EXIT(state_) \
+S        ((Q_MSM_UPCAST(me))->temp.obj = (state_), (QState)Q_RET_EXIT)
+X    #define QM_EXIT(state_)         ((Q_MSM_UPCAST(me))->temp.obj = (state_), (QState)Q_RET_EXIT)
+S
+N#else
+N    #define QM_ENTRY(dummy) ((QState)Q_RET_ENTRY)
+N
+N    #define QM_EXIT(dummy)  ((QState)Q_RET_EXIT)
+N
+N#endif /* Q_SPY */
+N
+N/*! Macro to call in a QM state-handler when it executes a regular
+N* transition. Applicable only to QMSMs.
+N*/
+N#define QM_TRAN(tatbl_) \
+N    ((Q_MSM_UPCAST(me))->temp.tatbl = (QMTranActTable const *)(tatbl_), \
+N        (QState)Q_RET_TRAN)
+X#define QM_TRAN(tatbl_)     ((Q_MSM_UPCAST(me))->temp.tatbl = (QMTranActTable const *)(tatbl_),         (QState)Q_RET_TRAN)
+N
+N/*! Macro to call in a QM state-handler when it executes an initial
+N* transition. Applicable only to QMSMs.
+N*/
+N#define QM_TRAN_INIT(tatbl_) \
+N    ((Q_MSM_UPCAST(me))->temp.tatbl = (QMTranActTable const *)(tatbl_), \
+N        (QState)Q_RET_TRAN_INIT)
+X#define QM_TRAN_INIT(tatbl_)     ((Q_MSM_UPCAST(me))->temp.tatbl = (QMTranActTable const *)(tatbl_),         (QState)Q_RET_TRAN_INIT)
+N
+N/*! Macro to call in a QM state-handler when it executes a transition
+N* to history. Applicable only to QMSMs.
+N*/
+N#define QM_TRAN_HIST(history_, tatbl_) \
+N    ((((Q_MSM_UPCAST(me))->state.obj = (history_)), \
+N      ((Q_MSM_UPCAST(me))->temp.tatbl = (QMTranActTable const *)(tatbl_))), \
+N       (QState)Q_RET_TRAN_HIST)
+X#define QM_TRAN_HIST(history_, tatbl_)     ((((Q_MSM_UPCAST(me))->state.obj = (history_)),       ((Q_MSM_UPCAST(me))->temp.tatbl = (QMTranActTable const *)(tatbl_))),        (QState)Q_RET_TRAN_HIST)
+N
+N/*! Macro to call in a QM state-handler when it executes a transition
+N* to the submachine via an entry point.
+N*/
+N#define QM_TRAN_EP(tatbl_) \
+N    ((Q_MSM_UPCAST(me))->temp.tatbl = (QMTranActTable const *)(tatbl_), \
+N        (QState)Q_RET_TRAN_EP)
+X#define QM_TRAN_EP(tatbl_)     ((Q_MSM_UPCAST(me))->temp.tatbl = (QMTranActTable const *)(tatbl_),         (QState)Q_RET_TRAN_EP)
+N
+N/*! Macro to call in a QM state-handler when it executes a transition
+N* to exit point. Applicable only to QMSMs.
+N*/
+N#define QM_TRAN_XP(xp_, tatbl_) \
+N    ((((Q_MSM_UPCAST(me))->state.act = (xp_)), \
+N        ((Q_MSM_UPCAST(me))->temp.tatbl = (QMTranActTable const *)(tatbl_))),\
+N        (QState)Q_RET_TRAN_XP)
+X#define QM_TRAN_XP(xp_, tatbl_)     ((((Q_MSM_UPCAST(me))->state.act = (xp_)),         ((Q_MSM_UPCAST(me))->temp.tatbl = (QMTranActTable const *)(tatbl_))),        (QState)Q_RET_TRAN_XP)
+N
+N/*! Macro to call in a QM state-handler when it handled an event.
+N* Applicable only to QMSMs.
+N*/
+N#define QM_HANDLED()     ((QState)Q_RET_HANDLED)
+N
+N/*! Macro to call in a QM state-handler when when it attempts to
+N* handle an event but a guard condition evaluates to 'false' and there is
+N* no other explicit way of handling the event. Applicable only to QMSMs.
+N*/
+N#define QM_UNHANDLED()   ((QState)Q_RET_UNHANDLED)
+N
+N/*! Macro to call in a QM state-handler when it designates the
+N* superstate to handle an event. Applicable only to QMSMs.
+N*/
+N#define QM_SUPER()       ((QState)Q_RET_SUPER)
+N
+N/*! Macro to call in a QM submachine-handler when it designates the
+N* host state to handle an event. Applicable only to QMSMs.
+N*/
+N#define QM_SUPER_SUB(host_) \
+N    ((Q_MSM_UPCAST(me))->temp.obj = (host_), (QState)Q_RET_SUPER_SUB)
+X#define QM_SUPER_SUB(host_)     ((Q_MSM_UPCAST(me))->temp.obj = (host_), (QState)Q_RET_SUPER_SUB)
+N
+N
+N/*! Macro to call in a state-handler when it executes a regular
+N* or and initial transition. Applicable to both HSMs and FSMs.
+N* \include qep_qtran.c
+N*/
+N#define Q_TRAN(target_)  \
+N    ((Q_MSM_UPCAST(me))->temp.fun = Q_STATE_CAST(target_), (QState)Q_RET_TRAN)
+X#define Q_TRAN(target_)      ((Q_MSM_UPCAST(me))->temp.fun = Q_STATE_CAST(target_), (QState)Q_RET_TRAN)
+N
+N/*! Macro to call in a state-handler when it executes a transition
+N* to history. Applicable only to HSMs.
+N*
+N* \usage
+N* \include qep_qhist.c
+N*/
+N#define Q_TRAN_HIST(hist_)  \
+N    ((Q_MSM_UPCAST(me))->temp.fun = (hist_), (QState)Q_RET_TRAN_HIST)
+X#define Q_TRAN_HIST(hist_)      ((Q_MSM_UPCAST(me))->temp.fun = (hist_), (QState)Q_RET_TRAN_HIST)
+N
+N/*! Macro to call in a state-handler when it designates the
+N* superstate of a given state. Applicable only to HSMs.
+N*
+N* \usage
+N* \include qep_qtran.c
+N*/
+N#define Q_SUPER(super_)  \
+N    ((Q_MSM_UPCAST(me))->temp.fun = Q_STATE_CAST(super_), (QState)Q_RET_SUPER)
+X#define Q_SUPER(super_)      ((Q_MSM_UPCAST(me))->temp.fun = Q_STATE_CAST(super_), (QState)Q_RET_SUPER)
+N
+N/*! Macro to call in a state-handler when it handles an event.
+N*  Applicable to both HSMs and FSMs.
+N*/
+N#define Q_HANDLED()      ((QState)Q_RET_HANDLED)
+N
+N/*! Macro to call in a state-handler when it attempts to handle
+N* an event but a guard condition evaluates to 'false' and there is no other
+N* explicit way of handling the event. Applicable only to HSMs.
+N*/
+N#define Q_UNHANDLED()    ((QState)Q_RET_UNHANDLED)
+N
+N/*! Macro to call in a non-hierarchical state-handler when it
+N* ignores (does not handle) an event. Applicable only to FSMs.
+N*/
+N#define Q_IGNORED()      ((QState)Q_RET_IGNORED)
+N
+N
+N/*! QEP reserved signals */
+Nenum {
+N    Q_ENTRY_SIG = 1,  /*!< signal for coding entry actions */
+N    Q_EXIT_SIG,       /*!< signal for coding exit actions */
+N    Q_INIT_SIG,       /*!< signal for coding initial transitions */
+N    Q_USER_SIG        /*!< first signal that can be used for user signals */
+N};
+N
+N#endif /* qep_h */
+N
+L 14 "..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h" 2
+N
+N#endif                                                        /* qep_port_h */
+L 42 "..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qmsm_in.c" 2
+N#include "qep_pkg.h"
+L 1 "..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h" 1
+N/**
+N* \file
+N* \brief Internal (package scope) QEP/C interface.
+N* \ingroup qep
+N* \cond
+N******************************************************************************
+N* Product: QEP/C
+N* Last updated for version 5.3.0
+N* Last updated on  2014-03-01
+N*
+N*                    Q u a n t u m     L e a P s
+N*                    ---------------------------
+N*                    innovating embedded systems
+N*
+N* Copyright (C) Quantum Leaps, www.state-machine.com.
+N*
+N* This program is open source software: you can redistribute it and/or
+N* modify it under the terms of the GNU General Public License as published
+N* by the Free Software Foundation, either version 3 of the License, or
+N* (at your option) any later version.
+N*
+N* Alternatively, this program may be distributed and modified under the
+N* terms of Quantum Leaps commercial licenses, which expressly supersede
+N* the GNU General Public License and are specifically designed for
+N* licensees interested in retaining the proprietary status of their code.
+N*
+N* This program is distributed in the hope that it will be useful,
+N* but WITHOUT ANY WARRANTY; without even the implied warranty of
+N* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+N* GNU General Public License for more details.
+N*
+N* You should have received a copy of the GNU General Public License
+N* along with this program. If not, see <http://www.gnu.org/licenses/>.
+N*
+N* Contact information:
+N* Web:   www.state-machine.com
+N* Email: info@state-machine.com
+N******************************************************************************
+N* \endcond
+N*/
+N#ifndef qep_pkg_h
+N#define qep_pkg_h
+N
+Nextern QEvt const QEP_reservedEvt_[4];  /*!< preallocated reserved events */
+N
+N/*! internal QEP constants */
+Nenum {
+N    QEP_EMPTY_SIG_ = 0, /*!< reserved empty signal for internal use only */
+N
+N    /*! maximum depth of state nesting in a HSM (including the top level),
+N    * must be >= 3
+N    */
+N    QHSM_MAX_NEST_DEPTH_ = 6,
+N
+N    /*! maximum depth of entry levels in a MSM for transition to history. */
+N    QMSM_MAX_ENTRY_DEPTH_ = 4
+N};
+N
+N/*! helper macro to trigger reserved event in an HSM */
+N#define QEP_TRIG_(state_, sig_) \
+N    ((*(state_))(me, &QEP_reservedEvt_[(sig_)]))
+X#define QEP_TRIG_(state_, sig_)     ((*(state_))(me, &QEP_reservedEvt_[(sig_)]))
+N
+N/*! helper macro to trigger exit action in an HSM */
+N#define QEP_EXIT_(state_) do { \
+N    if (QEP_TRIG_((state_), Q_EXIT_SIG) == (QState)Q_RET_HANDLED) { \
+N        QS_BEGIN_(QS_QEP_STATE_EXIT, QS_priv_.smObjFilter, me) \
+N            QS_OBJ_(me); \
+N            QS_FUN_(state_); \
+N        QS_END_() \
+N    } \
+N} while (0)
+X#define QEP_EXIT_(state_) do {     if (QEP_TRIG_((state_), Q_EXIT_SIG) == (QState)Q_RET_HANDLED) {         QS_BEGIN_(QS_QEP_STATE_EXIT, QS_priv_.smObjFilter, me)             QS_OBJ_(me);             QS_FUN_(state_);         QS_END_()     } } while (0)
+N
+N/*! helper macro to trigger entry action in an HSM */
+N#define QEP_ENTER_(state_) do { \
+N    if (QEP_TRIG_((state_), Q_ENTRY_SIG) == (QState)Q_RET_HANDLED) { \
+N        QS_BEGIN_(QS_QEP_STATE_ENTRY, QS_priv_.smObjFilter, me) \
+N            QS_OBJ_(me); \
+N            QS_FUN_(state_); \
+N        QS_END_() \
+N    } \
+N} while (0)
+X#define QEP_ENTER_(state_) do {     if (QEP_TRIG_((state_), Q_ENTRY_SIG) == (QState)Q_RET_HANDLED) {         QS_BEGIN_(QS_QEP_STATE_ENTRY, QS_priv_.smObjFilter, me)             QS_OBJ_(me);             QS_FUN_(state_);         QS_END_()     } } while (0)
+N
+N/*! Internal QEP macro to increment the given action table \a act_ */
+N/**
+N* \note Incrementing a pointer violates the MISRA-C 2004 Rule 17.4(req),
+N* pointer arithmetic other than array indexing. Encapsulating this violation
+N* in a macro allows to selectively suppress this specific deviation.
+N*/
+N#define QEP_ACT_PTR_INC_(act_) (++(act_))
+N
+N#endif /* qep_pkg_h */
+N
+L 43 "..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qmsm_in.c" 2
+N
+N/****************************************************************************/
+N/**
+N* \description
+N* Tests if a state machine derived from QMsm is-in a given state.
+N*
+N* \note For a MSM, to "be-in" a state means also to "be-in" a superstate of
+N* of the state.
+N*
+N* \arguments
+N* \arg[in] \c me    pointer (see \ref derivation)
+N* \arg[in] \c state pointer to the QMState object that corresponds to the
+N*                   tested state.
+N*
+N* \returns 'true' if the MSM "is in" the \c state and 'false' otherwise
+N*/
+Nbool QMsm_isInState(QMsm * const me, QMState const * const state) {
+X_Bool QMsm_isInState(QMsm * const me, QMState const * const state) {
+N    bool inState = false; /* assume that this MSM is not in 'state' */
+X    _Bool inState = 0;  
+N    QMState const *s;
+N
+N    for (s = me->state.obj; s != (QMState const *)0; s = s->superstate) {
+N        if (s == state) {
+N            inState = true; /* match found, return 'true' */
+X            inState = 1;  
+N            break;
+N        }
+N    }
+N    return inState;
+N}

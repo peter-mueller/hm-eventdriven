@@ -1,0 +1,17 @@
+---
+documentclass: scrartcl
+classoption: twocolumn
+title: |
+  EVENT DRIVEN SYSTEMS
+subtitle: |
+  Erstellen einer nutzerfreundlichen Kaffeemaschine auf dem MCB2300 mit 
+author: Andreas Wilhelm, Peter Müller, René Zarwel
+
+numbersections: true
+
+header-includes: |
+  \usepackage[ngerman]{babel}
+  \usepackage[labelfont=bf]{caption}
+---
+
+\tableofcontents

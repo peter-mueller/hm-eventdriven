@@ -115,7 +115,7 @@ __irq  void uart_isr0(void ){
 
 #ifdef QM_ActiveObject
 
-	BSP_onKeyboardInput(buf);
+	//BSP_onKeyboardInput(buf);
 #endif
 
 

@@ -18,6 +18,7 @@
 #ifndef alarm_h
 #define alarm_h
 #include "qp_port.h"
+#include "qmbsp.h"
 
 #define Alarm_init(me_)           QHsm_init    ((QHsm *)(me_), (QEvent *)0)
 
@@ -27,7 +28,7 @@ typedef struct AlarmTag {
     QHsm super;
 
 /* private: */
-    uint32_t alarm_time;
+    Time time;
 } Alarm;
 
 /* public: */

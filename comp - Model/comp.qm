@@ -5,84 +5,43 @@
 NOTE: Requries QP5.</documentation>
  <framework name="qpc"/>
  <package name="Events" stereotype="0x01">
-  <class name="SetEvt" superclass="qpc::QEvt">
-   <attribute name="digit" type="uint8_t" visibility="0x00" properties="0x00"/>
-  </class>
   <class name="TimeEvt" superclass="qpc::QEvt">
-   <attribute name="current_time" type="uint32_t" visibility="0x00" properties="0x00"/>
+   <attribute name="current" type="Time" visibility="0x00" properties="0x00"/>
   </class>
  </package>
  <package name="Components" stereotype="0x02">
   <class name="Alarm" superclass="qpc::QHsm">
    <documentation>Alarm &quot;Orthogonal Component&quot;</documentation>
-   <attribute name="alarm_time" type="uint32_t" visibility="0x02" properties="0x00"/>
+   <attribute name="time" type="Time" visibility="0x02" properties="0x00"/>
    <operation name="ctor" type="void" visibility="0x00" properties="0x00">
     <code>QHsm_ctor(&amp;me-&gt;super, Q_STATE_CAST(&amp;Alarm_initial));</code>
    </operation>
    <statechart>
     <initial target="../1">
-     <action>me-&gt;alarm_time = 12U*60U;
+     <action>Time t = {0,0};
+me-&gt;time = t;
 (void)e; /* avoid compiler warning about unused parameter */</action>
-     <initial_glyph conn="2,3,5,1,36,4,-4">
+     <initial_glyph conn="2,3,5,1,36,5,-4">
       <action box="0,-2,6,2"/>
      </initial_glyph>
     </initial>
     <state name="off">
-     <entry>/* while in the off state, the alarm is kept in decimal format */
-me-&gt;alarm_time = (me-&gt;alarm_time/60)*100 + me-&gt;alarm_time%60;
-BSP_showTime24H(&quot;*** Alarm OFF &quot;, me-&gt;alarm_time, 100U);</entry>
-     <exit>/* upon exit, the alarm is converted to binary format */
-me-&gt;alarm_time = (me-&gt;alarm_time/100U)*60U + me-&gt;alarm_time%100U;</exit>
-     <tran trig="ALARM_ON">
-      <choice target="../../../2">
-       <guard brief="alarm in range?">(me-&gt;alarm_time / 100U &lt; 24U)
-&amp;&amp; (me-&gt;alarm_time % 100U &lt; 60U)</guard>
-       <choice_glyph conn="16,14,5,1,22,12,-4">
-        <action box="1,0,13,2"/>
-       </choice_glyph>
-      </choice>
-      <choice>
-       <guard brief="else"/>
-       <action>me-&gt;alarm_time = 0U;
-BSP_showTime24H(&quot;*** Alarm reset&quot;, me-&gt;alarm_time, 100U);</action>
-       <choice_glyph conn="16,14,4,-1,-4,12">
-        <action box="0,-4,10,2"/>
-       </choice_glyph>
-      </choice>
-      <tran_glyph conn="2,14,3,-1,14">
+     <tran trig="ALARM_ON" target="../../2">
+      <tran_glyph conn="2,15,3,0,18,9">
        <action box="0,-2,10,2"/>
       </tran_glyph>
      </tran>
-     <tran trig="ALARM_SET">
-      <action>/* while setting, the alarm is kept in decimal format */
-me-&gt;alarm_time = (10U * me-&gt;alarm_time
-                  + ((SetEvt const *)e)-&gt;digit) % 10000U;
-BSP_showTime24H(&quot;*** Alarm reset &quot;,  me-&gt;alarm_time, 100U);</action>
-      <tran_glyph conn="2,18,3,-1,14">
-       <action box="0,-2,11,2"/>
-      </tran_glyph>
-     </tran>
-     <state_glyph node="2,5,32,15">
-      <entry box="1,2,6,2"/>
-      <exit box="1,4,6,2"/>
-     </state_glyph>
+     <state_glyph node="2,6,32,15"/>
     </state>
     <state name="on">
-     <entry>BSP_showTime24H(&quot;*** Alarm ON &quot;,  me-&gt;alarm_time, 60U);</entry>
      <tran trig="ALARM_OFF" target="../../1">
-      <tran_glyph conn="2,32,3,1,38,-22,-6">
-       <action box="0,-2,14,2"/>
-      </tran_glyph>
-     </tran>
-     <tran trig="ALARM_SET">
-      <action>BSP_showMsg(&quot;*** Cannot set Alarm when it is ON&quot;);</action>
-      <tran_glyph conn="2,36,3,-1,14">
+      <tran_glyph conn="2,32,3,1,38,-21,-6">
        <action box="0,-2,14,2"/>
       </tran_glyph>
      </tran>
      <tran trig="TIME">
       <choice>
-       <guard>Q_EVT_CAST(TimeEvt)-&gt;current_time == me-&gt;alarm_time</guard>
+       <guard>timeEquals(Q_EVT_CAST(TimeEvt)-&gt;current, me-&gt;time)</guard>
        <action>BSP_showMsg(&quot;ALARM!!!&quot;);
 
 /* asynchronously post the event to the container AO */
@@ -95,26 +54,29 @@ QACTIVE_POST(APP_alarmClock, Q_NEW(QEvt, ALARM_SIG), me);</action>
        <action box="0,-2,10,2"/>
       </tran_glyph>
      </tran>
-     <state_glyph node="2,24,32,20">
-      <entry box="1,2,5,2"/>
-     </state_glyph>
+     <state_glyph node="2,24,32,20"/>
     </state>
     <state_diagram size="46,48"/>
    </statechart>
   </class>
   <class name="AlarmClock" superclass="qpc::QActive">
    <documentation>Alarm clock &quot;Container&quot;</documentation>
-   <attribute name="current_time" type="uint32_t" visibility="0x02" properties="0x00"/>
    <attribute name="alarm" type="Alarm" visibility="0x02" properties="0x00"/>
    <attribute name="timeEvt" type="QTimeEvt" visibility="0x00" properties="0x00"/>
+   <attribute name="current" type="Time" visibility="0x02" properties="0x00"/>
+   <attribute name="adval" type="uint32_t" visibility="0x00" properties="0x00"/>
+   <attribute name="strength" type="uint8_t" visibility="0x00" properties="0x00"/>
    <statechart>
-    <initial target="../1">
-     <action>(void)e; /* avoid compiler warning about unused parameter */
-me-&gt;current_time = 0U;
+    <initial target="../1/3">
+     <action>
+Time t = {0,0};
+(void)e; /* avoid compiler warning about unused parameter */
+
+me-&gt;current = t;
 
 /* (!) trigger the initial transition in the component */
 Alarm_init(&amp;me-&gt;alarm);</action>
-     <initial_glyph conn="2,4,5,1,44,4,-2">
+     <initial_glyph conn="2,4,5,3,-1,33,3">
       <action box="0,-2,6,2"/>
      </initial_glyph>
     </initial>
@@ -123,110 +85,112 @@ Alarm_init(&amp;me-&gt;alarm);</action>
 QTimeEvt_armX(&amp;me-&gt;timeEvt, BSP_TICKS_PER_SEC,
                             BSP_TICKS_PER_SEC);</entry>
      <exit>QTimeEvt_disarm(&amp;me-&gt;timeEvt);</exit>
-     <initial target="../6">
-      <initial_glyph conn="4,13,5,1,36,27,-4">
-       <action box="0,-2,10,2"/>
-      </initial_glyph>
-     </initial>
-     <tran trig="CLOCK_24H" target="../6">
-      <tran_glyph conn="2,16,3,1,36,22,-2">
-       <action box="0,-2,10,4"/>
-      </tran_glyph>
-     </tran>
-     <tran trig="CLOCK_12H" target="../7">
-      <tran_glyph conn="2,18,3,1,40,34,-6">
-       <action box="0,-2,10,2"/>
-      </tran_glyph>
-     </tran>
-     <tran trig="ALARM" target="../../3">
+     <tran trig="ALARM" target="../../2">
       <action>BSP_showMsg(&quot;Wake up!!!&quot;);</action>
       <tran_glyph conn="2,28,3,3,66">
        <action box="0,-2,10,2"/>
       </tran_glyph>
      </tran>
-     <tran trig="ALARM_SET, ALARM_ON, ALARM_OFF">
-      <action>
-/* (!) synchronously dispatch to the orthogonal component */
-QHsm_dispatch(&amp;me-&gt;alarm.super, e);</action>
-      <tran_glyph conn="2,22,3,-1,18">
-       <action box="0,-2,11,6"/>
-      </tran_glyph>
-     </tran>
-     <tran trig="TERMINATE" target="../../2">
+     <tran trig="TERMINATE" target="../6/2">
       <action>BSP_showMsg(&quot;--&gt; final&quot;);</action>
-      <tran_glyph conn="2,32,3,1,44,72,-12">
+      <tran_glyph conn="2,32,3,1,44,74,-7">
        <action box="0,-2,10,2"/>
       </tran_glyph>
      </tran>
-     <state name="setTimeOfDay">
-      <entry>BSP_showMsg(&quot;*** 24-hour mode&quot;);</entry>
-      <tran trig="TICK">
-       <action>TimeEvt pe; /* temporary synchronous event for the component */
-
-/* roll over in 24-hr mode? */
-if (++me-&gt;current_time == 24U*60U) {
-    me-&gt;current_time = 0U;
-}
-BSP_showTime24H(&quot;&quot;, me-&gt;current_time, 60U);
-pe.super.sig = TIME_SIG;
-pe.current_time = me-&gt;current_time;
-
-/* (!) synchronously dispatch to the orthogonal component */
-QHsm_dispatch(&amp;me-&gt;alarm.super, &amp;pe.super);
-</action>
-       <tran_glyph conn="4,44,3,-1,16">
-        <action box="0,-2,8,2"/>
-       </tran_glyph>
-      </tran>
-      <state_glyph node="4,36,32,12">
-       <entry box="1,2,27,2"/>
-      </state_glyph>
-     </state>
-     <state name="setBrewingTime">
+     <state name="setBrewStrength">
       <entry>BSP_showMsg(&quot;*** 12-hour mode&quot;);</entry>
-      <tran trig="TICK">
-       <action>TimeEvt pe; /* temporary synchronous event for the component */
-
-/* roll over in 12-hr mode? */
-if (++me-&gt;current_time == 12U*60U) {
-    me-&gt;current_time = 0U;
-}
-BSP_showTime12H(&quot;&quot;, me-&gt;current_time, 60U);
-pe.super.sig = TIME_SIG;
-pe.current_time = me-&gt;current_time;
-
-/* (!) synchronously dispatch to the orthogonal component */
-QHsm_dispatch(&amp;me-&gt;alarm.super, &amp;pe.super);
-</action>
-       <tran_glyph conn="4,58,3,-1,16">
-        <action box="0,-2,8,2"/>
+      <tran trig="BUTTON" target="../../6">
+       <action>me-&gt;strength = me-&gt;adval;</action>
+       <tran_glyph conn="36,85,1,3,-34,12,2">
+        <action box="0,-2,6,2"/>
        </tran_glyph>
       </tran>
-      <state_glyph node="4,50,32,12">
+      <tran trig="ADVal">
+       <tran_glyph conn="4,88,3,-1,14">
+        <action box="0,-2,6,2"/>
+       </tran_glyph>
+      </tran>
+      <state_glyph node="4,81,32,12">
        <entry box="1,2,17,2"/>
       </state_glyph>
      </state>
-     <state name="setBrewStrength">
+     <state name="showCurrentTime">
       <entry>BSP_showMsg(&quot;*** 12-hour mode&quot;);</entry>
       <tran trig="TICK">
        <action>TimeEvt pe; /* temporary synchronous event for the component */
 
-/* roll over in 12-hr mode? */
-if (++me-&gt;current_time == 12U*60U) {
-    me-&gt;current_time = 0U;
-}
-BSP_showTime12H(&quot;&quot;, me-&gt;current_time, 60U);
+me-&gt;current = timeAdd(me-&gt;current, 1);
+
+BSP_showTime24H(&quot;&quot;, me-&gt;current);
+
 pe.super.sig = TIME_SIG;
-pe.current_time = me-&gt;current_time;
+pe.current = me-&gt;current;
 
 /* (!) synchronously dispatch to the orthogonal component */
 QHsm_dispatch(&amp;me-&gt;alarm.super, &amp;pe.super);
 </action>
-       <tran_glyph conn="5,81,3,-1,16">
+       <tran_glyph conn="4,42,3,-1,16">
         <action box="0,-2,8,2"/>
        </tran_glyph>
       </tran>
-      <state_glyph node="5,73,32,12">
+      <tran trig="BUTTON" target="../../4">
+       <tran_glyph conn="4,44,3,3,-2,9,2">
+        <action box="0,-2,6,2"/>
+       </tran_glyph>
+      </tran>
+      <state_glyph node="4,34,32,12">
+       <entry box="1,2,17,2"/>
+      </state_glyph>
+     </state>
+     <state name="set_hour">
+      <tran trig="ADVal">
+       <tran_glyph conn="4,57,3,-1,14">
+        <action box="0,-2,10,2"/>
+       </tran_glyph>
+      </tran>
+      <tran trig="BUTTON" target="../../5">
+       <action>me-&gt;alarm.time.hour = me-&gt;adval;</action>
+       <tran_glyph conn="4,61,3,3,-1,6,1">
+        <action box="0,-2,11,2"/>
+       </tran_glyph>
+      </tran>
+      <state_glyph node="4,48,32,15"/>
+     </state>
+     <state name="set_minute">
+      <tran trig="ADVal">
+       <tran_glyph conn="4,73,3,-1,14">
+        <action box="0,-2,10,2"/>
+       </tran_glyph>
+      </tran>
+      <tran trig="BUTTON" target="../../2">
+       <action>me-&gt;alarm.time.minute = me-&gt;adval;</action>
+       <tran_glyph conn="4,77,3,3,-1,9,1">
+        <action box="0,-2,11,2"/>
+       </tran_glyph>
+      </tran>
+      <state_glyph node="4,64,32,15"/>
+     </state>
+     <state name="enableAlarm">
+      <entry>BSP_showMsg(&quot;*** 12-hour mode&quot;);</entry>
+      <tran trig="BUTTON" target="../../3">
+       <action>QEvt *e =  Q_NEW(QEvt, ALARM_ON_SIG);
+QHsm_dispatch(&amp;me-&gt;alarm.super, e);</action>
+       <tran_glyph conn="36,99,1,1,2,-59,-2">
+        <action box="0,-2,6,2"/>
+       </tran_glyph>
+      </tran>
+      <tran trig="ADVal">
+       <tran_glyph conn="4,102,3,-1,14">
+        <action box="0,-2,6,2"/>
+       </tran_glyph>
+      </tran>
+      <state name="final">
+       <entry brief="terminate">QF_stop(); /* terminate the application */</entry>
+       <state_glyph node="8,104,31,8">
+        <entry box="1,2,11,2"/>
+       </state_glyph>
+      </state>
+      <state_glyph node="4,95,32,12">
        <entry box="1,2,17,2"/>
       </state_glyph>
      </state>
@@ -235,22 +199,15 @@ QHsm_dispatch(&amp;me-&gt;alarm.super, &amp;pe.super);
       <exit box="1,4,6,2"/>
      </state_glyph>
     </state>
-    <state name="final">
-     <entry brief="terminate">QF_stop(); /* terminate the application */</entry>
-     <state_glyph node="3,102,31,8">
-      <entry box="1,2,11,2"/>
-     </state_glyph>
-    </state>
     <state name="brewing">
-     <tran trig="POT" target="../../1">
+     <tran trig="BUTTON" target="../../1">
       <tran_glyph conn="68,23,3,1,-24">
        <action box="0,-2,6,2"/>
       </tran_glyph>
      </tran>
      <tran trig="TICK">
       <choice target="../../../1">
-       <guard>brewingFinished
-</guard>
+       <guard>false</guard>
        <choice_glyph conn="79,32,4,1,7,-35">
         <action box="1,0,15,2"/>
        </choice_glyph>
@@ -264,154 +221,17 @@ QHsm_dispatch(&amp;me-&gt;alarm.super, &amp;pe.super);
     <state_diagram size="146,111"/>
    </statechart>
   </class>
-  <class name="SetTime" superclass="qpc::QHsm">
-   <documentation>Alarm &quot;Orthogonal Component&quot;</documentation>
-   <attribute name="time" type="uint32_t" visibility="0x02" properties="0x00"/>
-   <operation name="ctor" type="void" visibility="0x00" properties="0x00">
-    <code>QHsm_ctor(&amp;me-&gt;super, Q_STATE_CAST(&amp;Alarm_initial));</code>
-   </operation>
-   <statechart>
-    <initial target="../1">
-     <action>me-&gt;alarm_time = 12U*60U;
-(void)e; /* avoid compiler warning about unused parameter */</action>
-     <initial_glyph conn="2,3,5,1,36,4,2">
-      <action box="0,-2,6,2"/>
-     </initial_glyph>
-    </initial>
-    <state name="year">
-     <entry>/* while in the off state, the alarm is kept in decimal format */
-me-&gt;alarm_time = (me-&gt;alarm_time/60)*100 + me-&gt;alarm_time%60;
-BSP_showTime24H(&quot;*** Alarm OFF &quot;, me-&gt;alarm_time, 100U);</entry>
-     <exit>/* upon exit, the alarm is converted to binary format */
-me-&gt;alarm_time = (me-&gt;alarm_time/100U)*60U + me-&gt;alarm_time%100U;</exit>
-     <tran trig="ADVal">
-      <tran_glyph conn="8,14,3,-1,14">
-       <action box="0,-2,10,2"/>
-      </tran_glyph>
-     </tran>
-     <tran trig="Button" target="../../2">
-      <action>/* while setting, the alarm is kept in decimal format */
-me-&gt;alarm_time = (10U * me-&gt;alarm_time
-                  + ((SetEvt const *)e)-&gt;digit) % 10000U;
-BSP_showTime24H(&quot;*** Alarm reset &quot;,  me-&gt;alarm_time, 100U);</action>
-      <tran_glyph conn="8,18,3,3,-2,10,2">
-       <action box="0,-2,11,2"/>
-      </tran_glyph>
-     </tran>
-     <state_glyph node="8,5,32,15">
-      <entry box="1,2,6,2"/>
-      <exit box="1,4,6,2"/>
-     </state_glyph>
-    </state>
-    <state name="month">
-     <entry>BSP_showTime24H(&quot;*** Alarm ON &quot;,  me-&gt;alarm_time, 60U);</entry>
-     <tran trig="ADVal">
-      <tran_glyph conn="8,31,3,-1,14">
-       <action box="0,-2,14,2"/>
-      </tran_glyph>
-     </tran>
-     <tran trig="Button" target="../../3">
-      <action>BSP_showMsg(&quot;*** Cannot set Alarm when it is ON&quot;);</action>
-      <tran_glyph conn="8,35,3,3,-2,16,2">
-       <action box="0,-2,14,2"/>
-      </tran_glyph>
-     </tran>
-     <state_glyph node="8,23,32,20">
-      <entry box="1,2,5,2"/>
-     </state_glyph>
-    </state>
-    <state name="day">
-     <entry>BSP_showTime24H(&quot;*** Alarm ON &quot;,  me-&gt;alarm_time, 60U);</entry>
-     <tran trig="ADVal">
-      <tran_glyph conn="8,54,3,-1,14">
-       <action box="0,-2,14,2"/>
-      </tran_glyph>
-     </tran>
-     <tran trig="Button" target="../../4">
-      <action>BSP_showMsg(&quot;*** Cannot set Alarm when it is ON&quot;);</action>
-      <tran_glyph conn="8,58,3,3,-2,15,2">
-       <action box="0,-2,14,2"/>
-      </tran_glyph>
-     </tran>
-     <state_glyph node="8,46,32,20">
-      <entry box="1,2,5,2"/>
-     </state_glyph>
-    </state>
-    <state name="hours">
-     <entry>BSP_showTime24H(&quot;*** Alarm ON &quot;,  me-&gt;alarm_time, 60U);</entry>
-     <tran trig="ADVal">
-      <tran_glyph conn="8,76,3,-1,14">
-       <action box="0,-2,14,2"/>
-      </tran_glyph>
-     </tran>
-     <tran trig="Button" target="../../5">
-      <action>BSP_showMsg(&quot;*** Cannot set Alarm when it is ON&quot;);</action>
-      <tran_glyph conn="8,80,3,3,-2,15,2">
-       <action box="0,-2,14,2"/>
-      </tran_glyph>
-     </tran>
-     <state_glyph node="8,68,32,20">
-      <entry box="1,2,5,2"/>
-     </state_glyph>
-    </state>
-    <state name="minutes">
-     <entry>BSP_showTime24H(&quot;*** Alarm ON &quot;,  me-&gt;alarm_time, 60U);</entry>
-     <tran trig="ADVal">
-      <tran_glyph conn="8,98,3,-1,14">
-       <action box="0,-2,14,2"/>
-      </tran_glyph>
-     </tran>
-     <tran trig="Button" target="../../6">
-      <action>BSP_showMsg(&quot;*** Cannot set Alarm when it is ON&quot;);</action>
-      <tran_glyph conn="8,102,3,3,-2,17,2">
-       <action box="0,-2,14,2"/>
-      </tran_glyph>
-     </tran>
-     <state_glyph node="8,90,32,20">
-      <entry box="1,2,5,2"/>
-     </state_glyph>
-    </state>
-    <state name="seconds">
-     <entry>BSP_showTime24H(&quot;*** Alarm ON &quot;,  me-&gt;alarm_time, 60U);</entry>
-     <exit>//blub
-</exit>
-     <tran trig="ADVal">
-      <tran_glyph conn="8,122,3,-1,14">
-       <action box="0,-2,14,2"/>
-      </tran_glyph>
-     </tran>
-     <tran trig="Button">
-      <action>BSP_showMsg(&quot;*** Cannot set Alarm when it is ON&quot;);</action>
-      <tran_glyph conn="8,126,3,-1,14">
-       <action box="0,-2,14,2"/>
-      </tran_glyph>
-     </tran>
-     <state_glyph node="8,114,32,20">
-      <entry box="1,2,5,2"/>
-      <exit box="1,4,5,2"/>
-     </state_glyph>
-    </state>
-    <state_diagram size="49,139"/>
-   </statechart>
-  </class>
   <attribute name="APP_alarmClock" type="QActive * const" visibility="0x00" properties="0x00">
    <documentation>Opaque pointer to the single instance of the AlarmClock AO</documentation>
   </attribute>
-  <operation name="SetTime_ctor" type="void" visibility="0x00" properties="0x00">
-   <code>AlarmClock * const me = &amp;l_alarmClock;
-
-QActive_ctor(&amp;me-&gt;super, Q_STATE_CAST(&amp;AlarmClock_initial));
-Alarm_ctor(&amp;me-&gt;alarm); /* orthogonal component ctor */
-
-/* private time event ctor */
-QTimeEvt_ctorX(&amp;me-&gt;timeEvt, APP_alarmClock, TICK_SIG, 0U);</code>
-  </operation>
+  <operation name="AlarmClock_ctor" type="void" visibility="0x00" properties="0x00"/>
  </package>
  <directory name="./src">
   <file name="alarm.h">
    <text>#ifndef alarm_h
 #define alarm_h
 #include &quot;qp_port.h&quot;
+#include &quot;qmbsp.h&quot;
 
 #define Alarm_init(me_)           QHsm_init    ((QHsm *)(me_), (QEvent *)0)
 
@@ -438,19 +258,18 @@ $define(Components::Alarm)</text>
 #include &quot;qp_port.h&quot;
 #include &quot;alarm.h&quot;
 
+
 enum AlarmClockSignals {
     TICK_SIG = Q_USER_SIG, /* time tick event */
-    ALARM_SET_SIG,  /* set the alarm */
+    BUTTON_SIG,  /* advalue */
+    ADVal_SIG,
     ALARM_ON_SIG,   /* turn the alarm on */
     ALARM_OFF_SIG,  /* turn the alarm off */
     ALARM_SIG,  /* alarm event from Alarm component to AlarmClock container */
-    CLOCK_12H_SIG,  /* set the clock in 12H mode */
-    CLOCK_24H_SIG,  /* set the clock in 24H mode */
     TIME_SIG,       /* time event sent to Alarm (contains current time) */
     TERMINATE_SIG   /* terminate the application */
 };
 
-$declare(Events::SetEvt)
 $declare(Events::TimeEvt)
 
 $declare(Components::APP_alarmClock)

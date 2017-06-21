@@ -1024,20 +1024,30 @@ N#define bsp_h
 N
 N#include <stdint.h>
 N
+Ntypedef struct TimeTag {
+N    uint8_t hour;
+N    uint8_t minute;
+N    uint8_t second;
+N} Time;
+N
+Nint timeEquals(Time a, Time b);
+NTime timeAdd(Time time, uint8_t seconds);
+N
+N
 Nint  _kbhit(void);
 Nint   kbhit(void);
 Nint  _getch(void);
 Nint   getch(void);
 N
-W "src\qmbsp.h" 11 6 Deprecated declaration BSP_Init - give arg types
+W "src\qmbsp.h" 21 6 Deprecated declaration BSP_Init - give arg types
 Nvoid BSP_Init();
 Nvoid BSP_onKeyboardInput(uint8_t key); /* process the keyboard scan code */
 N
 N#define BSP_TICKS_PER_SEC    100U
 N
 Nvoid BSP_showMsg(char const *str);
-Nvoid BSP_showTime12H(char const *str, uint32_t time, uint32_t base);
-Nvoid BSP_showTime24H(char const *str, uint32_t time, uint32_t base);
+Nvoid BSP_showTime24H(char const *str, Time time);
+N
 N
 N#endif /* bsp_h */
 L 20 "src\main.c" 2
@@ -3297,6 +3307,7 @@ N/* @(/3/0) .................................................................*/
 N#ifndef alarm_h
 N#define alarm_h
 N#include "qp_port.h"
+N#include "qmbsp.h"
 N
 N#define Alarm_init(me_)           QHsm_init    ((QHsm *)(me_), (QEvent *)0)
 N
@@ -3306,7 +3317,7 @@ N/* protected: */
 N    QHsm super;
 N
 N/* private: */
-N    uint32_t alarm_time;
+N    Time time;
 N} Alarm;
 N
 N/* public: */
@@ -3324,34 +3335,25 @@ N
 N#endif /* alarm_h */
 L 23 "src\clock.h" 2
 N
+N
 Nenum AlarmClockSignals {
 N    TICK_SIG = Q_USER_SIG, /* time tick event */
-N    ALARM_SET_SIG,  /* set the alarm */
+N    BUTTON_SIG,  /* advalue */
+N    ADVal_SIG,
 N    ALARM_ON_SIG,   /* turn the alarm on */
 N    ALARM_OFF_SIG,  /* turn the alarm off */
 N    ALARM_SIG,  /* alarm event from Alarm component to AlarmClock container */
-N    CLOCK_12H_SIG,  /* set the clock in 12H mode */
-N    CLOCK_24H_SIG,  /* set the clock in 24H mode */
 N    TIME_SIG,       /* time event sent to Alarm (contains current time) */
 N    TERMINATE_SIG   /* terminate the application */
 N};
 N
 N/* @(/1/0) .................................................................*/
-Ntypedef struct SetEvtTag {
-N/* protected: */
-N    QEvt super;
-N
-N/* public: */
-N    uint8_t digit;
-N} SetEvt;
-N
-N/* @(/1/1) .................................................................*/
 Ntypedef struct TimeEvtTag {
 N/* protected: */
 N    QEvt super;
 N
 N/* public: */
-N    uint32_t current_time;
+N    Time current;
 N} TimeEvt;
 N
 N
@@ -3367,19 +3369,29 @@ N/* protected: */
 N    QActive super;
 N
 N/* private: */
-N    uint32_t current_time;
 N    Alarm alarm;
 N
 N/* public: */
 N    QTimeEvt timeEvt;
+N
+N/* private: */
+N    Time current;
+N
+N/* public: */
+N    uint32_t adval;
+N    uint8_t strength;
 N} AlarmClock;
 N
 N/* protected: */
 NQState AlarmClock_initial(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_timekeeping(AlarmClock * const me, QEvt const * const e);
-NQState AlarmClock_mode24h(AlarmClock * const me, QEvt const * const e);
-NQState AlarmClock_mode12h(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_setBrewStrength(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_showCurrentTime(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_set_hour(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_set_minute(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_enableAlarm(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_final(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_brewing(AlarmClock * const me, QEvt const * const e);
 N
 N
 N#endif /* clock_h */

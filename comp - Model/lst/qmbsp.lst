@@ -3218,20 +3218,30 @@ N#define bsp_h
 N
 N#include <stdint.h>
 N
+Ntypedef struct TimeTag {
+N    uint8_t hour;
+N    uint8_t minute;
+N    uint8_t second;
+N} Time;
+N
+Nint timeEquals(Time a, Time b);
+NTime timeAdd(Time time, uint8_t seconds);
+N
+N
 Nint  _kbhit(void);
 Nint   kbhit(void);
 Nint  _getch(void);
 Nint   getch(void);
 N
-W "src\qmbsp.h" 11 6 Deprecated declaration BSP_Init - give arg types
+W "src\qmbsp.h" 21 6 Deprecated declaration BSP_Init - give arg types
 Nvoid BSP_Init();
 Nvoid BSP_onKeyboardInput(uint8_t key); /* process the keyboard scan code */
 N
 N#define BSP_TICKS_PER_SEC    100U
 N
 Nvoid BSP_showMsg(char const *str);
-Nvoid BSP_showTime12H(char const *str, uint32_t time, uint32_t base);
-Nvoid BSP_showTime24H(char const *str, uint32_t time, uint32_t base);
+Nvoid BSP_showTime24H(char const *str, Time time);
+N
 N
 N#endif /* bsp_h */
 L 3 "src\qmbsp.c" 2
@@ -3280,6 +3290,7 @@ N/* @(/3/0) .................................................................*/
 N#ifndef alarm_h
 N#define alarm_h
 N#include "qp_port.h"
+N#include "qmbsp.h"
 N
 N#define Alarm_init(me_)           QHsm_init    ((QHsm *)(me_), (QEvent *)0)
 N
@@ -3289,7 +3300,7 @@ N/* protected: */
 N    QHsm super;
 N
 N/* private: */
-N    uint32_t alarm_time;
+N    Time time;
 N} Alarm;
 N
 N/* public: */
@@ -3307,34 +3318,25 @@ N
 N#endif /* alarm_h */
 L 23 "src\clock.h" 2
 N
+N
 Nenum AlarmClockSignals {
 N    TICK_SIG = Q_USER_SIG, /* time tick event */
-N    ALARM_SET_SIG,  /* set the alarm */
+N    BUTTON_SIG,  /* advalue */
+N    ADVal_SIG,
 N    ALARM_ON_SIG,   /* turn the alarm on */
 N    ALARM_OFF_SIG,  /* turn the alarm off */
 N    ALARM_SIG,  /* alarm event from Alarm component to AlarmClock container */
-N    CLOCK_12H_SIG,  /* set the clock in 12H mode */
-N    CLOCK_24H_SIG,  /* set the clock in 24H mode */
 N    TIME_SIG,       /* time event sent to Alarm (contains current time) */
 N    TERMINATE_SIG   /* terminate the application */
 N};
 N
 N/* @(/1/0) .................................................................*/
-Ntypedef struct SetEvtTag {
-N/* protected: */
-N    QEvt super;
-N
-N/* public: */
-N    uint8_t digit;
-N} SetEvt;
-N
-N/* @(/1/1) .................................................................*/
 Ntypedef struct TimeEvtTag {
 N/* protected: */
 N    QEvt super;
 N
 N/* public: */
-N    uint32_t current_time;
+N    Time current;
 N} TimeEvt;
 N
 N
@@ -3350,19 +3352,29 @@ N/* protected: */
 N    QActive super;
 N
 N/* private: */
-N    uint32_t current_time;
 N    Alarm alarm;
 N
 N/* public: */
 N    QTimeEvt timeEvt;
+N
+N/* private: */
+N    Time current;
+N
+N/* public: */
+N    uint32_t adval;
+N    uint8_t strength;
 N} AlarmClock;
 N
 N/* protected: */
 NQState AlarmClock_initial(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_timekeeping(AlarmClock * const me, QEvt const * const e);
-NQState AlarmClock_mode24h(AlarmClock * const me, QEvt const * const e);
-NQState AlarmClock_mode12h(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_setBrewStrength(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_showCurrentTime(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_set_hour(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_set_minute(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_enableAlarm(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_final(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_brewing(AlarmClock * const me, QEvt const * const e);
 N
 N
 N#endif /* clock_h */
@@ -5667,19 +5679,35 @@ N
 NQ_DEFINE_THIS_FILE
 Xstatic char_t const  Q_this_module_[] = "src\\qmbsp.c";
 N
+Nint timeEquals(Time a, Time b) {
+N  return a.hour == b.hour && a.minute == b.minute && a.second == b.second;
+N}
+N
+NTime timeAdd(Time time, uint8_t seconds) {
+N    time.second += seconds;
+N    time.minute += time.second / 60;
+N    time.second = time.second % 60;
+N
+N    time.hour += time.minute / 60;
+N    time.hour = time.minute % 60;
+N
+N    time.hour = time.hour % 24;
+N    return time;
+N}
+N
 N/*..........................................................................*/
 Nvoid BSP_Init( ) {
-W "src\qmbsp.c" 13 2 function "Init_Timer1" declared implicitly
+W "src\qmbsp.c" 29 2 function "Init_Timer1" declared implicitly
 N Init_Timer1( );
 N//	Init_timer0();
 N                               /* Init UART                   */
-W "src\qmbsp.c" 16 3 function "uart_init_0" declared implicitly
+W "src\qmbsp.c" 32 3 function "uart_init_0" declared implicitly
 N  uart_init_0 ( );
-W "src\qmbsp.c" 17 3 function "lcd_init" declared implicitly
+W "src\qmbsp.c" 33 3 function "lcd_init" declared implicitly
 N  lcd_init();
-W "src\qmbsp.c" 18 3 function "lcd_clear" declared implicitly
+W "src\qmbsp.c" 34 3 function "lcd_clear" declared implicitly
 N  lcd_clear();
-W "src\qmbsp.c" 19 3 function "set_cursor" declared implicitly
+W "src\qmbsp.c" 35 3 function "set_cursor" declared implicitly
 N  set_cursor (0, 1);
 N}
 N/*..........................................................................*/
@@ -5690,19 +5718,9 @@ N    fflush(stdout);
 X    fflush((& __stdout));
 N}
 N/*..........................................................................*/
-Nvoid BSP_showTime24H(char const *str, uint32_t time, uint32_t base) {
+Nvoid BSP_showTime24H(char const *str, Time  time) {
 N    printf(str);
-N    printf("%02d:%02d\n", (int)(time / base), (int)(time % base));
-N    fflush(stdout);
-X    fflush((& __stdout));
-N}
-N/*..........................................................................*/
-Nvoid BSP_showTime12H(char const *str, uint32_t time, uint32_t base) {
-N    uint32_t h = time / base;
-N
-N    printf(str);
-N    printf("%02d:%02d %s\n", (h % 12) ? (h % 12) : 12,
-N           time % base, (h / 12) ? "PM" : "AM");
+N	printf("%02d:%02d:%02d\n", time.hour, time.minute, time.second);
 N    fflush(stdout);
 X    fflush((& __stdout));
 N}
@@ -5723,70 +5741,7 @@ N/*..........................................................................*/
 Nvoid QF_onClockTick(void) {
 N    QF_TICK(&l_clock_tick); /* perform the QF clock tick processing */
 X    (QF_tickX_((uint_fast8_t)0));  
-N    if (_kbhit()) { /* any key pressed? */
-N        BSP_onKeyboardInput(_getch());
-N    }
 N}
-N/*..........................................................................*/
-Nvoid BSP_onKeyboardInput(uint8_t key) {
-N    switch (key) {
-N        case 'o': { /* 'o': Alarm on event? */
-N            QACTIVE_POST(APP_alarmClock,
-N                         Q_NEW(QEvt, ALARM_ON_SIG), (void *)0);
-X            ((void)(*((QActiveVtbl const *)((APP_alarmClock)->super . vptr))->post)((APP_alarmClock), (((QEvt *)QF_newX_((uint_fast16_t)sizeof(QEvt), (uint_fast16_t)0, (ALARM_ON_SIG)))), (uint_fast16_t)0));
-N            break;
-N        }
-N        case 'f': { /* 'f': Alarm off event? */
-N            QACTIVE_POST(APP_alarmClock,
-N                         Q_NEW(QEvt, ALARM_OFF_SIG), (void *)0);
-X            ((void)(*((QActiveVtbl const *)((APP_alarmClock)->super . vptr))->post)((APP_alarmClock), (((QEvt *)QF_newX_((uint_fast16_t)sizeof(QEvt), (uint_fast16_t)0, (ALARM_OFF_SIG)))), (uint_fast16_t)0));
-N            break;
-N        }
-N        case '1':   /* '1' */
-N        case '2':   /* '2' */
-N        case '3':   /* '3' */
-N        case '4':   /* '4' */
-N        case '5':   /* '5' */
-N        case '6':   /* '6' */
-N        case '7':   /* '7' */
-N        case '8':   /* '8' */
-N        case '9': { /* '9' */
-N            SetEvt *e = Q_NEW(SetEvt, ALARM_SET_SIG);
-X            SetEvt *e = ((SetEvt *)QF_newX_((uint_fast16_t)sizeof(SetEvt), (uint_fast16_t)0, (ALARM_SET_SIG)));
-N            e->digit = (uint8_t)(key - '0');
-N            QACTIVE_POST(APP_alarmClock, (QEvt *)e, (void *)0);
-X            ((void)(*((QActiveVtbl const *)((APP_alarmClock)->super . vptr))->post)((APP_alarmClock), ((QEvt *)e), (uint_fast16_t)0));
-N            break;
-N        }
-N        case '0': { /* '0' */
-N            SetEvt *e = Q_NEW(SetEvt, ALARM_SET_SIG);
-X            SetEvt *e = ((SetEvt *)QF_newX_((uint_fast16_t)sizeof(SetEvt), (uint_fast16_t)0, (ALARM_SET_SIG)));
-N            e->digit = 0;
-N            QACTIVE_POST(APP_alarmClock, (QEvt *)e, (void *)0);
-X            ((void)(*((QActiveVtbl const *)((APP_alarmClock)->super . vptr))->post)((APP_alarmClock), ((QEvt *)e), (uint_fast16_t)0));
-N            break;
-N        }
-N        case 'a': { /* 'a': Clock 12H event? */
-N            QACTIVE_POST(APP_alarmClock,
-N                         Q_NEW(QEvt, CLOCK_12H_SIG), (void *)0);
-X            ((void)(*((QActiveVtbl const *)((APP_alarmClock)->super . vptr))->post)((APP_alarmClock), (((QEvt *)QF_newX_((uint_fast16_t)sizeof(QEvt), (uint_fast16_t)0, (CLOCK_12H_SIG)))), (uint_fast16_t)0));
-N            break;
-N        }
-N        case 'b': { /* 'b': Clock 24H event? */
-N            QACTIVE_POST(APP_alarmClock,
-N                         Q_NEW(QEvt, CLOCK_24H_SIG), (void *)0);
-X            ((void)(*((QActiveVtbl const *)((APP_alarmClock)->super . vptr))->post)((APP_alarmClock), (((QEvt *)QF_newX_((uint_fast16_t)sizeof(QEvt), (uint_fast16_t)0, (CLOCK_24H_SIG)))), (uint_fast16_t)0));
-N            break;
-N        }
-N        case '\33': { /* ESC pressed? */
-N            QACTIVE_POST(APP_alarmClock,
-N                         Q_NEW(QEvt, TERMINATE_SIG), (void *)0);
-X            ((void)(*((QActiveVtbl const *)((APP_alarmClock)->super . vptr))->post)((APP_alarmClock), (((QEvt *)QF_newX_((uint_fast16_t)sizeof(QEvt), (uint_fast16_t)0, (TERMINATE_SIG)))), (uint_fast16_t)0));
-N            break;
-N        }
-N    }
-N}
-N
 N/*..........................................................................*/
 Nvoid Q_onAssert(char const * const file, int line) {
 N    fprintf(stderr, "Assertion failed in %s, line %d", file, line);

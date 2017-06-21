@@ -1289,7 +1289,7 @@ N
 N
 N#ifdef QM_ActiveObject
 N
-N	BSP_onKeyboardInput(buf);
+N	//BSP_onKeyboardInput(buf);
 N#endif
 N
 N

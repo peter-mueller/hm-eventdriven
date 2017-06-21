@@ -30,7 +30,8 @@ void Alarm_ctor(Alarm * const me) {
 /* @(/2/0/2) ...............................................................*/
 /* @(/2/0/2/0) */
 QState Alarm_initial(Alarm * const me, QEvt const * const e) {
-    me->alarm_time = 12U*60U;
+    Time t = {0,0};
+    me->time = t;
     (void)e; /* avoid compiler warning about unused parameter */
     return Q_TRAN(&Alarm_off);
 }
@@ -38,43 +39,9 @@ QState Alarm_initial(Alarm * const me, QEvt const * const e) {
 QState Alarm_off(Alarm * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
-        /* @(/2/0/2/1) */
-        case Q_ENTRY_SIG: {
-            /* while in the off state, the alarm is kept in decimal format */
-            me->alarm_time = (me->alarm_time/60)*100 + me->alarm_time%60;
-            BSP_showTime24H("*** Alarm OFF ", me->alarm_time, 100U);
-            status_ = Q_HANDLED();
-            break;
-        }
-        /* @(/2/0/2/1) */
-        case Q_EXIT_SIG: {
-            /* upon exit, the alarm is converted to binary format */
-            me->alarm_time = (me->alarm_time/100U)*60U + me->alarm_time%100U;
-            status_ = Q_HANDLED();
-            break;
-        }
         /* @(/2/0/2/1/0) */
         case ALARM_ON_SIG: {
-            /* @(/2/0/2/1/0/0) */
-            if ((me->alarm_time / 100U < 24U)
-&& (me->alarm_time % 100U < 60U)) {
-                status_ = Q_TRAN(&Alarm_on);
-            }
-            /* @(/2/0/2/1/0/1) */
-            else {
-                me->alarm_time = 0U;
-                BSP_showTime24H("*** Alarm reset", me->alarm_time, 100U);
-                status_ = Q_HANDLED();
-            }
-            break;
-        }
-        /* @(/2/0/2/1/1) */
-        case ALARM_SET_SIG: {
-            /* while setting, the alarm is kept in decimal format */
-            me->alarm_time = (10U * me->alarm_time
-                              + ((SetEvt const *)e)->digit) % 10000U;
-            BSP_showTime24H("*** Alarm reset ",  me->alarm_time, 100U);
-            status_ = Q_HANDLED();
+            status_ = Q_TRAN(&Alarm_on);
             break;
         }
         default: {
@@ -88,27 +55,15 @@ QState Alarm_off(Alarm * const me, QEvt const * const e) {
 QState Alarm_on(Alarm * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
-        /* @(/2/0/2/2) */
-        case Q_ENTRY_SIG: {
-            BSP_showTime24H("*** Alarm ON ",  me->alarm_time, 60U);
-            status_ = Q_HANDLED();
-            break;
-        }
         /* @(/2/0/2/2/0) */
         case ALARM_OFF_SIG: {
             status_ = Q_TRAN(&Alarm_off);
             break;
         }
         /* @(/2/0/2/2/1) */
-        case ALARM_SET_SIG: {
-            BSP_showMsg("*** Cannot set Alarm when it is ON");
-            status_ = Q_HANDLED();
-            break;
-        }
-        /* @(/2/0/2/2/2) */
         case TIME_SIG: {
-            /* @(/2/0/2/2/2/0) */
-            if (Q_EVT_CAST(TimeEvt)->current_time == me->alarm_time) {
+            /* @(/2/0/2/2/1/0) */
+            if (timeEquals(Q_EVT_CAST(TimeEvt)->current, me->time)) {
                 BSP_showMsg("ALARM!!!");
 
                 /* asynchronously post the event to the container AO */

@@ -306,20 +306,30 @@ N
 N
 L 5 "src\qmbsp.h" 2
 N
+Ntypedef struct TimeTag {
+N    uint8_t hour;
+N    uint8_t minute;
+N    uint8_t second;
+N} Time;
+N
+Nint timeEquals(Time a, Time b);
+NTime timeAdd(Time time, uint8_t seconds);
+N
+N
 Nint  _kbhit(void);
 Nint   kbhit(void);
 Nint  _getch(void);
 Nint   getch(void);
 N
-W "src\qmbsp.h" 11 6 Deprecated declaration BSP_Init - give arg types
+W "src\qmbsp.h" 21 6 Deprecated declaration BSP_Init - give arg types
 Nvoid BSP_Init();
 Nvoid BSP_onKeyboardInput(uint8_t key); /* process the keyboard scan code */
 N
 N#define BSP_TICKS_PER_SEC    100U
 N
 Nvoid BSP_showMsg(char const *str);
-Nvoid BSP_showTime12H(char const *str, uint32_t time, uint32_t base);
-Nvoid BSP_showTime24H(char const *str, uint32_t time, uint32_t base);
+Nvoid BSP_showTime24H(char const *str, Time time);
+N
 N
 N#endif /* bsp_h */
 L 19 "src\clock.c" 2
@@ -3273,6 +3283,7 @@ N#endif
 N
 N#endif /* qp_port_h */
 L 21 "src\alarm.h" 2
+N#include "qmbsp.h"
 N
 N#define Alarm_init(me_)           QHsm_init    ((QHsm *)(me_), (QEvent *)0)
 N
@@ -3282,7 +3293,7 @@ N/* protected: */
 N    QHsm super;
 N
 N/* private: */
-N    uint32_t alarm_time;
+N    Time time;
 N} Alarm;
 N
 N/* public: */
@@ -3324,34 +3335,25 @@ N
 N#include "qp_port.h"
 N#include "alarm.h"
 N
+N
 Nenum AlarmClockSignals {
 N    TICK_SIG = Q_USER_SIG, /* time tick event */
-N    ALARM_SET_SIG,  /* set the alarm */
+N    BUTTON_SIG,  /* advalue */
+N    ADVal_SIG,
 N    ALARM_ON_SIG,   /* turn the alarm on */
 N    ALARM_OFF_SIG,  /* turn the alarm off */
 N    ALARM_SIG,  /* alarm event from Alarm component to AlarmClock container */
-N    CLOCK_12H_SIG,  /* set the clock in 12H mode */
-N    CLOCK_24H_SIG,  /* set the clock in 24H mode */
 N    TIME_SIG,       /* time event sent to Alarm (contains current time) */
 N    TERMINATE_SIG   /* terminate the application */
 N};
 N
 N/* @(/1/0) .................................................................*/
-Ntypedef struct SetEvtTag {
-N/* protected: */
-N    QEvt super;
-N
-N/* public: */
-N    uint8_t digit;
-N} SetEvt;
-N
-N/* @(/1/1) .................................................................*/
 Ntypedef struct TimeEvtTag {
 N/* protected: */
 N    QEvt super;
 N
 N/* public: */
-N    uint32_t current_time;
+N    Time current;
 N} TimeEvt;
 N
 N
@@ -3367,19 +3369,29 @@ N/* protected: */
 N    QActive super;
 N
 N/* private: */
-N    uint32_t current_time;
 N    Alarm alarm;
 N
 N/* public: */
 N    QTimeEvt timeEvt;
+N
+N/* private: */
+N    Time current;
+N
+N/* public: */
+N    uint32_t adval;
+N    uint8_t strength;
 N} AlarmClock;
 N
 N/* protected: */
 NQState AlarmClock_initial(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_timekeeping(AlarmClock * const me, QEvt const * const e);
-NQState AlarmClock_mode24h(AlarmClock * const me, QEvt const * const e);
-NQState AlarmClock_mode12h(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_setBrewStrength(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_showCurrentTime(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_set_hour(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_set_minute(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_enableAlarm(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_final(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_brewing(AlarmClock * const me, QEvt const * const e);
 N
 N
 N#endif /* clock_h */
@@ -4436,35 +4448,30 @@ NQActive * const APP_alarmClock = &l_alarmClock.super; /* "opaque" pointer */
 N
 N/* @(/2/3) .................................................................*/
 Nvoid AlarmClock_ctor(void) {
-N    AlarmClock * const me = &l_alarmClock;
-N
-N    QActive_ctor(&me->super, Q_STATE_CAST(&AlarmClock_initial));
-X    QActive_ctor(&me->super, ((QStateHandler)(&AlarmClock_initial)));
-N    Alarm_ctor(&me->alarm); /* orthogonal component ctor */
-N
-N    /* private time event ctor */
-N    QTimeEvt_ctorX(&me->timeEvt, APP_alarmClock, TICK_SIG, 0U);
 N}
 N
 N/*..........................................................................*/
 N/* @(/2/1) .................................................................*/
-N/* @(/2/1/3) ...............................................................*/
-N/* @(/2/1/3/0) */
+N/* @(/2/1/5) ...............................................................*/
+N/* @(/2/1/5/0) */
 NQState AlarmClock_initial(AlarmClock * const me, QEvt const * const e) {
+N
+N    Time t = {0,0};
 N    (void)e; /* avoid compiler warning about unused parameter */
-N    me->current_time = 0U;
+N
+N    me->current = t;
 N
 N    /* (!) trigger the initial transition in the component */
 N    Alarm_init(&me->alarm);
 X    ((*(((QHsm *)(&me ->alarm)))->vptr->init)((((QHsm *)(&me ->alarm))), (((QEvent *)0))));
-N    return Q_TRAN(&AlarmClock_timekeeping);
-X    return ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_timekeeping)), (QState)Q_RET_TRAN);
+N    return Q_TRAN(&AlarmClock_showCurrentTime);
+X    return ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_showCurrentTime)), (QState)Q_RET_TRAN);
 N}
-N/* @(/2/1/3/1) .............................................................*/
+N/* @(/2/1/5/1) .............................................................*/
 NQState AlarmClock_timekeeping(AlarmClock * const me, QEvt const * const e) {
 N    QState status_;
 N    switch (e->sig) {
-N        /* @(/2/1/3/1) */
+N        /* @(/2/1/5/1) */
 N        case Q_ENTRY_SIG: {
 N            /* periodic timeout every second */
 N            QTimeEvt_armX(&me->timeEvt, BSP_TICKS_PER_SEC,
@@ -4475,51 +4482,21 @@ N            status_ = Q_HANDLED();
 X            status_ = ((QState)Q_RET_HANDLED);
 N            break;
 N        }
-N        /* @(/2/1/3/1) */
+N        /* @(/2/1/5/1) */
 N        case Q_EXIT_SIG: {
 N            QTimeEvt_disarm(&me->timeEvt);
 N            status_ = Q_HANDLED();
 X            status_ = ((QState)Q_RET_HANDLED);
 N            break;
 N        }
-N        /* @(/2/1/3/1/0) */
-N        case Q_INIT_SIG: {
-N            status_ = Q_TRAN(&AlarmClock_mode24h);
-X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_mode24h)), (QState)Q_RET_TRAN);
-N            break;
-N        }
-N        /* @(/2/1/3/1/1) */
-N        case CLOCK_24H_SIG: {
-N            status_ = Q_TRAN(&AlarmClock_mode24h);
-X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_mode24h)), (QState)Q_RET_TRAN);
-N            break;
-N        }
-N        /* @(/2/1/3/1/2) */
-N        case CLOCK_12H_SIG: {
-N            status_ = Q_TRAN(&AlarmClock_mode12h);
-X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_mode12h)), (QState)Q_RET_TRAN);
-N            break;
-N        }
-N        /* @(/2/1/3/1/3) */
+N        /* @(/2/1/5/1/0) */
 N        case ALARM_SIG: {
 N            BSP_showMsg("Wake up!!!");
-N            status_ = Q_HANDLED();
-X            status_ = ((QState)Q_RET_HANDLED);
+N            status_ = Q_TRAN(&AlarmClock_brewing);
+X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_brewing)), (QState)Q_RET_TRAN);
 N            break;
 N        }
-N        /* @(/2/1/3/1/4) */
-N        case ALARM_SET_SIG: /* intentionally fall through */
-N        case ALARM_ON_SIG: /* intentionally fall through */
-N        case ALARM_OFF_SIG: {
-N
-N            /* (!) synchronously dispatch to the orthogonal component */
-N            QHsm_dispatch(&me->alarm.super, e);
-X            ((*((&me ->alarm . super))->vptr->dispatch)(((&me ->alarm . super)), ((e))));
-N            status_ = Q_HANDLED();
-X            status_ = ((QState)Q_RET_HANDLED);
-N            break;
-N        }
-N        /* @(/2/1/3/1/5) */
+N        /* @(/2/1/5/1/1) */
 N        case TERMINATE_SIG: {
 N            BSP_showMsg("--> final");
 N            status_ = Q_TRAN(&AlarmClock_final);
@@ -4534,72 +4511,26 @@ N        }
 N    }
 N    return status_;
 N}
-N/* @(/2/1/3/1/6) ...........................................................*/
-NQState AlarmClock_mode24h(AlarmClock * const me, QEvt const * const e) {
+N/* @(/2/1/5/1/2) ...........................................................*/
+NQState AlarmClock_setBrewStrength(AlarmClock * const me, QEvt const * const e) {
 N    QState status_;
 N    switch (e->sig) {
-N        /* @(/2/1/3/1/6) */
-N        case Q_ENTRY_SIG: {
-N            BSP_showMsg("*** 24-hour mode");
-N            status_ = Q_HANDLED();
-X            status_ = ((QState)Q_RET_HANDLED);
-N            break;
-N        }
-N        /* @(/2/1/3/1/6/0) */
-N        case TICK_SIG: {
-N            TimeEvt pe; /* temporary synchronous event for the component */
-N
-N            /* roll over in 24-hr mode? */
-N            if (++me->current_time == 24U*60U) {
-N                me->current_time = 0U;
-N            }
-N            BSP_showTime24H("", me->current_time, 60U);
-N            pe.super.sig = TIME_SIG;
-N            pe.current_time = me->current_time;
-N
-N            /* (!) synchronously dispatch to the orthogonal component */
-N            QHsm_dispatch(&me->alarm.super, &pe.super);
-X            ((*((&me ->alarm . super))->vptr->dispatch)(((&me ->alarm . super)), ((&pe . super))));
-N
-N            status_ = Q_HANDLED();
-X            status_ = ((QState)Q_RET_HANDLED);
-N            break;
-N        }
-N        default: {
-N            status_ = Q_SUPER(&AlarmClock_timekeeping);
-X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_timekeeping)), (QState)Q_RET_SUPER);
-N            break;
-N        }
-N    }
-N    return status_;
-N}
-N/* @(/2/1/3/1/7) ...........................................................*/
-NQState AlarmClock_mode12h(AlarmClock * const me, QEvt const * const e) {
-N    QState status_;
-N    switch (e->sig) {
-N        /* @(/2/1/3/1/7) */
+N        /* @(/2/1/5/1/2) */
 N        case Q_ENTRY_SIG: {
 N            BSP_showMsg("*** 12-hour mode");
 N            status_ = Q_HANDLED();
 X            status_ = ((QState)Q_RET_HANDLED);
 N            break;
 N        }
-N        /* @(/2/1/3/1/7/0) */
-N        case TICK_SIG: {
-N            TimeEvt pe; /* temporary synchronous event for the component */
-N
-N            /* roll over in 12-hr mode? */
-N            if (++me->current_time == 12U*60U) {
-N                me->current_time = 0U;
-N            }
-N            BSP_showTime12H("", me->current_time, 60U);
-N            pe.super.sig = TIME_SIG;
-N            pe.current_time = me->current_time;
-N
-N            /* (!) synchronously dispatch to the orthogonal component */
-N            QHsm_dispatch(&me->alarm.super, &pe.super);
-X            ((*((&me ->alarm . super))->vptr->dispatch)(((&me ->alarm . super)), ((&pe . super))));
-N
+N        /* @(/2/1/5/1/2/0) */
+N        case BUTTON_SIG: {
+N            me->strength = me->adval;
+N            status_ = Q_TRAN(&AlarmClock_enableAlarm);
+X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_enableAlarm)), (QState)Q_RET_TRAN);
+N            break;
+N        }
+N        /* @(/2/1/5/1/2/1) */
+N        case ADVal_SIG: {
 N            status_ = Q_HANDLED();
 X            status_ = ((QState)Q_RET_HANDLED);
 N            break;
@@ -4612,15 +4543,176 @@ N        }
 N    }
 N    return status_;
 N}
-N/* @(/2/1/3/2) .............................................................*/
+N/* @(/2/1/5/1/3) ...........................................................*/
+NQState AlarmClock_showCurrentTime(AlarmClock * const me, QEvt const * const e) {
+N    QState status_;
+N    switch (e->sig) {
+N        /* @(/2/1/5/1/3) */
+N        case Q_ENTRY_SIG: {
+N            BSP_showMsg("*** 12-hour mode");
+N            status_ = Q_HANDLED();
+X            status_ = ((QState)Q_RET_HANDLED);
+N            break;
+N        }
+N        /* @(/2/1/5/1/3/0) */
+N        case TICK_SIG: {
+N            TimeEvt pe; /* temporary synchronous event for the component */
+N
+N            me->current = timeAdd(me->current, 1);
+N
+N            BSP_showTime24H("", me->current);
+N
+N            pe.super.sig = TIME_SIG;
+N            pe.current = me->current;
+N
+N            /* (!) synchronously dispatch to the orthogonal component */
+N            QHsm_dispatch(&me->alarm.super, &pe.super);
+X            ((*((&me ->alarm . super))->vptr->dispatch)(((&me ->alarm . super)), ((&pe . super))));
+N
+N            status_ = Q_HANDLED();
+X            status_ = ((QState)Q_RET_HANDLED);
+N            break;
+N        }
+N        /* @(/2/1/5/1/3/1) */
+N        case BUTTON_SIG: {
+N            status_ = Q_TRAN(&AlarmClock_set_hour);
+X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_set_hour)), (QState)Q_RET_TRAN);
+N            break;
+N        }
+N        default: {
+N            status_ = Q_SUPER(&AlarmClock_timekeeping);
+X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_timekeeping)), (QState)Q_RET_SUPER);
+N            break;
+N        }
+N    }
+N    return status_;
+N}
+N/* @(/2/1/5/1/4) ...........................................................*/
+NQState AlarmClock_set_hour(AlarmClock * const me, QEvt const * const e) {
+N    QState status_;
+N    switch (e->sig) {
+N        /* @(/2/1/5/1/4/0) */
+N        case ADVal_SIG: {
+N            status_ = Q_HANDLED();
+X            status_ = ((QState)Q_RET_HANDLED);
+N            break;
+N        }
+N        /* @(/2/1/5/1/4/1) */
+N        case BUTTON_SIG: {
+N            me->alarm.time.hour = me->adval;
+N            status_ = Q_TRAN(&AlarmClock_set_minute);
+X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_set_minute)), (QState)Q_RET_TRAN);
+N            break;
+N        }
+N        default: {
+N            status_ = Q_SUPER(&AlarmClock_timekeeping);
+X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_timekeeping)), (QState)Q_RET_SUPER);
+N            break;
+N        }
+N    }
+N    return status_;
+N}
+N/* @(/2/1/5/1/5) ...........................................................*/
+NQState AlarmClock_set_minute(AlarmClock * const me, QEvt const * const e) {
+N    QState status_;
+N    switch (e->sig) {
+N        /* @(/2/1/5/1/5/0) */
+N        case ADVal_SIG: {
+N            status_ = Q_HANDLED();
+X            status_ = ((QState)Q_RET_HANDLED);
+N            break;
+N        }
+N        /* @(/2/1/5/1/5/1) */
+N        case BUTTON_SIG: {
+N            me->alarm.time.minute = me->adval;
+N            status_ = Q_TRAN(&AlarmClock_setBrewStrength);
+X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_setBrewStrength)), (QState)Q_RET_TRAN);
+N            break;
+N        }
+N        default: {
+N            status_ = Q_SUPER(&AlarmClock_timekeeping);
+X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_timekeeping)), (QState)Q_RET_SUPER);
+N            break;
+N        }
+N    }
+N    return status_;
+N}
+N/* @(/2/1/5/1/6) ...........................................................*/
+NQState AlarmClock_enableAlarm(AlarmClock * const me, QEvt const * const e) {
+N    QState status_;
+N    switch (e->sig) {
+N        /* @(/2/1/5/1/6) */
+N        case Q_ENTRY_SIG: {
+N            BSP_showMsg("*** 12-hour mode");
+N            status_ = Q_HANDLED();
+X            status_ = ((QState)Q_RET_HANDLED);
+N            break;
+N        }
+N        /* @(/2/1/5/1/6/0) */
+N        case BUTTON_SIG: {
+N            QEvt *e =  Q_NEW(QEvt, ALARM_ON_SIG);
+X            QEvt *e =  ((QEvt *)QF_newX_((uint_fast16_t)sizeof(QEvt), (uint_fast16_t)0, (ALARM_ON_SIG)));
+N            QHsm_dispatch(&me->alarm.super, e);
+X            ((*((&me ->alarm . super))->vptr->dispatch)(((&me ->alarm . super)), ((e))));
+N            status_ = Q_TRAN(&AlarmClock_showCurrentTime);
+X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_showCurrentTime)), (QState)Q_RET_TRAN);
+N            break;
+N        }
+N        /* @(/2/1/5/1/6/1) */
+N        case ADVal_SIG: {
+N            status_ = Q_HANDLED();
+X            status_ = ((QState)Q_RET_HANDLED);
+N            break;
+N        }
+N        default: {
+N            status_ = Q_SUPER(&AlarmClock_timekeeping);
+X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_timekeeping)), (QState)Q_RET_SUPER);
+N            break;
+N        }
+N    }
+N    return status_;
+N}
+N/* @(/2/1/5/1/6/2) .........................................................*/
 NQState AlarmClock_final(AlarmClock * const me, QEvt const * const e) {
 N    QState status_;
 N    switch (e->sig) {
-N        /* @(/2/1/3/2) */
+N        /* @(/2/1/5/1/6/2) */
 N        case Q_ENTRY_SIG: {
 N            QF_stop(); /* terminate the application */
 N            status_ = Q_HANDLED();
 X            status_ = ((QState)Q_RET_HANDLED);
+N            break;
+N        }
+N        default: {
+N            status_ = Q_SUPER(&AlarmClock_enableAlarm);
+X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_enableAlarm)), (QState)Q_RET_SUPER);
+N            break;
+N        }
+N    }
+N    return status_;
+N}
+N/* @(/2/1/5/2) .............................................................*/
+NQState AlarmClock_brewing(AlarmClock * const me, QEvt const * const e) {
+N    QState status_;
+N    switch (e->sig) {
+N        /* @(/2/1/5/2/0) */
+N        case BUTTON_SIG: {
+N            status_ = Q_TRAN(&AlarmClock_timekeeping);
+X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_timekeeping)), (QState)Q_RET_TRAN);
+N            break;
+N        }
+N        /* @(/2/1/5/2/1) */
+N        case TICK_SIG: {
+N            /* @(/2/1/5/2/1/0) */
+N            if (false) {
+X            if (0) {
+N                status_ = Q_TRAN(&AlarmClock_timekeeping);
+X                status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&AlarmClock_timekeeping)), (QState)Q_RET_TRAN);
+N            }
+N            else {
+N                status_ = Q_UNHANDLED();
+X                status_ = ((QState)Q_RET_UNHANDLED);
+N            }
 N            break;
 N        }
 N        default: {

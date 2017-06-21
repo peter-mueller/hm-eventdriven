@@ -21,34 +21,25 @@
 #include "qp_port.h"
 #include "alarm.h"
 
+
 enum AlarmClockSignals {
     TICK_SIG = Q_USER_SIG, /* time tick event */
-    ALARM_SET_SIG,  /* set the alarm */
+    BUTTON_SIG,  /* advalue */
+    ADVal_SIG,
     ALARM_ON_SIG,   /* turn the alarm on */
     ALARM_OFF_SIG,  /* turn the alarm off */
     ALARM_SIG,  /* alarm event from Alarm component to AlarmClock container */
-    CLOCK_12H_SIG,  /* set the clock in 12H mode */
-    CLOCK_24H_SIG,  /* set the clock in 24H mode */
     TIME_SIG,       /* time event sent to Alarm (contains current time) */
     TERMINATE_SIG   /* terminate the application */
 };
 
 /* @(/1/0) .................................................................*/
-typedef struct SetEvtTag {
-/* protected: */
-    QEvt super;
-
-/* public: */
-    uint8_t digit;
-} SetEvt;
-
-/* @(/1/1) .................................................................*/
 typedef struct TimeEvtTag {
 /* protected: */
     QEvt super;
 
 /* public: */
-    uint32_t current_time;
+    Time current;
 } TimeEvt;
 
 
@@ -64,19 +55,29 @@ typedef struct AlarmClockTag {
     QActive super;
 
 /* private: */
-    uint32_t current_time;
     Alarm alarm;
 
 /* public: */
     QTimeEvt timeEvt;
+
+/* private: */
+    Time current;
+
+/* public: */
+    uint32_t adval;
+    uint8_t strength;
 } AlarmClock;
 
 /* protected: */
 QState AlarmClock_initial(AlarmClock * const me, QEvt const * const e);
 QState AlarmClock_timekeeping(AlarmClock * const me, QEvt const * const e);
-QState AlarmClock_mode24h(AlarmClock * const me, QEvt const * const e);
-QState AlarmClock_mode12h(AlarmClock * const me, QEvt const * const e);
+QState AlarmClock_setBrewStrength(AlarmClock * const me, QEvt const * const e);
+QState AlarmClock_showCurrentTime(AlarmClock * const me, QEvt const * const e);
+QState AlarmClock_set_hour(AlarmClock * const me, QEvt const * const e);
+QState AlarmClock_set_minute(AlarmClock * const me, QEvt const * const e);
+QState AlarmClock_enableAlarm(AlarmClock * const me, QEvt const * const e);
 QState AlarmClock_final(AlarmClock * const me, QEvt const * const e);
+QState AlarmClock_brewing(AlarmClock * const me, QEvt const * const e);
 
 
 #endif /* clock_h */

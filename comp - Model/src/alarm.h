@@ -28,7 +28,7 @@ typedef struct AlarmTag {
     QHsm super;
 
 /* private: */
-    Time time;
+    RTC_T time;
 } Alarm;
 
 /* public: */

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "qp_port.h"                /* the port of the QEP event processor */
 #include "ui.h"
+#include "clock.h"
 
 __irq void GPIO_IRQHandler (void);
 void button_up(void);
@@ -31,11 +32,11 @@ __irq void GPIO_IRQHandler(void)
 
 	rising = FIO2PIN & (1 << 10);        /* Value of P2.10 */
 
-	if(rising)
-		button_up();
-	else
+	if(rising) {
+		//button_up();
+	}else{
 		button_down();
-
+	}
 	IO2_INT_CLR = 1 << 10;					  /* Clear Interrupt                    */
 	VICVectAddr = 0;                      /* Acknowledge Interrupt              */
 	
@@ -44,30 +45,27 @@ __irq void GPIO_IRQHandler(void)
 
 void button_up()
 {
-#ifdef QM
 	static BaseEvt event;
-	event.super.sig = BUTTON_UP;
-	event.super.dynamic_ = 0;	
-	if(ao != 0)
-	QActive_postFIFO(ao, (QEvent *)&event);
-  printf("UP\n");
-#endif
+	event.super.sig = BUTTON_UP_SIG;
+	if(ao != 0) {
+
+		QF_INT_UNLOCK();
+		QActive_postFIFO(ao, (QEvent *)&event);
+		QF_INT_LOCK();
+	}
 }
 
 void button_down()
 {
-	#ifdef QM
 	static BaseEvt event;
-	event.super.sig = BUTTON_DOWN;
-	event.super.dynamic_ = 0;
-//	if(ao != 0)
-//		QActive_postFIFO(ao, (QEvent *)&event);
-//	printf("DOWN\n");
-#endif 
+	event.super.sig = BUTTON_DOWN_SIG;
+	if(ao != 0) {
+		QF_INT_UNLOCK();
+		QActive_postFIFO(ao, (QEvent *)&event);
+		QF_INT_LOCK();
+	}
 }
-	#ifdef QM
 void button_setAO(QActive* ao_)
 {
 	ao = ao_;
 }
-#endif

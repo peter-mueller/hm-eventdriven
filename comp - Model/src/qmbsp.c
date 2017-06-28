@@ -5,46 +5,41 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <button.h>
+#include <LPC23xx.H>   
+#include <rtc.h>
 
 Q_DEFINE_THIS_FILE
-
-int timeEquals(Time a, Time b) {
-  return a.hour == b.hour && a.minute == b.minute && a.second == b.second;
-}
-
-Time timeAdd(Time time, uint8_t seconds) {
-    time.second += seconds;
-    time.minute += time.second / 60;
-    time.second = time.second % 60;
-
-    time.hour += time.minute / 60;
-    time.hour = time.minute % 60;
-
-    time.hour = time.hour % 24;
-    return time;
-}
 
 /*..........................................................................*/
 void BSP_Init( ) {
  Init_Timer1( );
+	Timer0_Init();
 //	Init_timer0();
                                /* Init UART                   */
-  uart_init_0 ( );
+  uart_init_0 ();
+	ADC_Init();
+	RtcInit();
+	
+	button_init();
   lcd_init();
   lcd_clear();
-  set_cursor (0, 1);
 }
 /*..........................................................................*/
 void BSP_showMsg(char const *str) {
-    printf(str);
-    printf("\n");
-    fflush(stdout);
+	lcd_clear();
+  set_cursor (0, 0);
+	lcd_print (str);
 }
 /*..........................................................................*/
-void BSP_showTime24H(char const *str, Time  time) {
-    printf(str);
-	printf("%02d:%02d:%02d\n", time.hour, time.minute, time.second);
-    fflush(stdout);
+void BSP_showTime24H(RTC_T rtc) {
+	
+	char buffer [10];
+  lcd_clear();
+  set_cursor (0, 0);
+	//sprintf(buffer,"%02d:%02d:%02d\n", time.hour, time.minute, time.second)
+  snprintf(buffer, sizeof buffer,"%02d:%02d:%02d", rtc.hours, rtc.minutes, rtc.seconds);
+	lcd_print(buffer);
 }
 /*..........................................................................*/
 void QF_onStartup(void) {

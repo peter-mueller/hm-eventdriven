@@ -146,7 +146,7 @@
             <UsePdscDebugDescription>1</UsePdscDebugDescription>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>5</TargetSelection>
+          <TargetSelection>0</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -160,7 +160,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile>.\comp_ram.ini</InitializationFile>
-            <Driver>Segger\JLTAgdi.dll</Driver>
+            <Driver>BIN\UL2ARM.DLL</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -446,6 +446,16 @@
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\bsp\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\bsp\button.c</FilePath>
+            </File>
+            <File>
+              <FileName>lc2378rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\bsp\lc2378rtc.c</FilePath>
             </File>
           </Files>
         </Group>

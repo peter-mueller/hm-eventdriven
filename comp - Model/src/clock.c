@@ -18,6 +18,7 @@
 #include "qmbsp.h"
 #include "alarm.h"
 #include "clock.h"
+#include "button.h"
 
 #include <stdio.h>
 
@@ -31,6 +32,15 @@ QActive * const APP_alarmClock = &l_alarmClock.super; /* "opaque" pointer */
 
 /* @(/2/3) .................................................................*/
 void AlarmClock_ctor(void) {
+    AlarmClock * const me = &l_alarmClock;
+
+    QActive_ctor(&me->super, Q_STATE_CAST(&AlarmClock_initial));
+    Alarm_ctor(&me->alarm); /* orthogonal component ctor */
+
+    /* private time event ctor */
+    QTimeEvt_ctorX(&me->timeEvt, APP_alarmClock, TICK_SIG, 0U);
+    button_setAO(&me->super);
+    ad_setAO(&me->super);
 }
 
 /*..........................................................................*/
@@ -38,11 +48,10 @@ void AlarmClock_ctor(void) {
 /* @(/2/1/5) ...............................................................*/
 /* @(/2/1/5/0) */
 QState AlarmClock_initial(AlarmClock * const me, QEvt const * const e) {
+    Set_RTC(&(me->current));
+    Write_RTC(&(me->current));
 
-    Time t = {0,0};
     (void)e; /* avoid compiler warning about unused parameter */
-
-    me->current = t;
 
     /* (!) trigger the initial transition in the component */
     Alarm_init(&me->alarm);
@@ -91,18 +100,18 @@ QState AlarmClock_setBrewStrength(AlarmClock * const me, QEvt const * const e) {
     switch (e->sig) {
         /* @(/2/1/5/1/2) */
         case Q_ENTRY_SIG: {
-            BSP_showMsg("*** 12-hour mode");
+            BSP_showMsg("Set the Brew Strength");
             status_ = Q_HANDLED();
             break;
         }
         /* @(/2/1/5/1/2/0) */
-        case BUTTON_SIG: {
-            me->strength = me->adval;
+        case BUTTON_DOWN_SIG: {
+            //me->strength = me->adval;
             status_ = Q_TRAN(&AlarmClock_enableAlarm);
             break;
         }
         /* @(/2/1/5/1/2/1) */
-        case ADVal_SIG: {
+        case AD_CHANGED_SIG: {
             status_ = Q_HANDLED();
             break;
         }
@@ -119,30 +128,20 @@ QState AlarmClock_showCurrentTime(AlarmClock * const me, QEvt const * const e) {
     switch (e->sig) {
         /* @(/2/1/5/1/3) */
         case Q_ENTRY_SIG: {
-            BSP_showMsg("*** 12-hour mode");
+            BSP_showMsg("CofFee Machine");
             status_ = Q_HANDLED();
             break;
         }
         /* @(/2/1/5/1/3/0) */
-        case TICK_SIG: {
-            TimeEvt pe; /* temporary synchronous event for the component */
-
-            me->current = timeAdd(me->current, 1);
-
-            BSP_showTime24H("", me->current);
-
-            pe.super.sig = TIME_SIG;
-            pe.current = me->current;
-
-            /* (!) synchronously dispatch to the orthogonal component */
-            QHsm_dispatch(&me->alarm.super, &pe.super);
-
-            status_ = Q_HANDLED();
+        case BUTTON_DOWN_SIG: {
+            status_ = Q_TRAN(&AlarmClock_set_hour);
             break;
         }
         /* @(/2/1/5/1/3/1) */
-        case BUTTON_SIG: {
-            status_ = Q_TRAN(&AlarmClock_set_hour);
+        case TICK_SIG: {
+            Read_RTC(&(me->current));
+            BSP_showTime24H(me->current);
+            status_ = Q_HANDLED();
             break;
         }
         default: {
@@ -156,14 +155,22 @@ QState AlarmClock_showCurrentTime(AlarmClock * const me, QEvt const * const e) {
 QState AlarmClock_set_hour(AlarmClock * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
+        /* @(/2/1/5/1/4) */
+        case Q_ENTRY_SIG: {
+            BSP_showMsg("Set the Hour");
+            status_ = Q_HANDLED();
+            break;
+        }
         /* @(/2/1/5/1/4/0) */
-        case ADVal_SIG: {
+        case AD_CHANGED_SIG: {
+            me->alarm.time.hours = 4;
+            BSP_showTime24H(me->alarm.time);
             status_ = Q_HANDLED();
             break;
         }
         /* @(/2/1/5/1/4/1) */
-        case BUTTON_SIG: {
-            me->alarm.time.hour = me->adval;
+        case BUTTON_DOWN_SIG: {
+            //me->alarm.time.hour = me->adval;
             status_ = Q_TRAN(&AlarmClock_set_minute);
             break;
         }
@@ -178,14 +185,20 @@ QState AlarmClock_set_hour(AlarmClock * const me, QEvt const * const e) {
 QState AlarmClock_set_minute(AlarmClock * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
+        /* @(/2/1/5/1/5) */
+        case Q_ENTRY_SIG: {
+            BSP_showMsg("Set the Minute");
+            status_ = Q_HANDLED();
+            break;
+        }
         /* @(/2/1/5/1/5/0) */
-        case ADVal_SIG: {
+        case AD_CHANGED_SIG: {
             status_ = Q_HANDLED();
             break;
         }
         /* @(/2/1/5/1/5/1) */
-        case BUTTON_SIG: {
-            me->alarm.time.minute = me->adval;
+        case BUTTON_DOWN_SIG: {
+            //me->alarm.time.minute = me->adval;
             status_ = Q_TRAN(&AlarmClock_setBrewStrength);
             break;
         }
@@ -202,19 +215,22 @@ QState AlarmClock_enableAlarm(AlarmClock * const me, QEvt const * const e) {
     switch (e->sig) {
         /* @(/2/1/5/1/6) */
         case Q_ENTRY_SIG: {
-            BSP_showMsg("*** 12-hour mode");
+            BSP_showMsg("Enable the Alarm?");
             status_ = Q_HANDLED();
             break;
         }
         /* @(/2/1/5/1/6/0) */
-        case BUTTON_SIG: {
-            QEvt *e =  Q_NEW(QEvt, ALARM_ON_SIG);
-            QHsm_dispatch(&me->alarm.super, e);
+        case BUTTON_DOWN_SIG: {
+            //QEvt *e =  Q_NEW(QEvt, ALARM_ON_SIG);
+            //QHsm_dispatch(&me->alarm.super, e);
+
+             QACTIVE_POST(APP_alarmClock,
+                                     Q_NEW(QEvt, ALARM_ON_SIG), (void *)0);
             status_ = Q_TRAN(&AlarmClock_showCurrentTime);
             break;
         }
         /* @(/2/1/5/1/6/1) */
-        case ADVal_SIG: {
+        case AD_CHANGED_SIG: {
             status_ = Q_HANDLED();
             break;
         }
@@ -247,7 +263,7 @@ QState AlarmClock_brewing(AlarmClock * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         /* @(/2/1/5/2/0) */
-        case BUTTON_SIG: {
+        case BUTTON_DOWN_SIG: {
             status_ = Q_TRAN(&AlarmClock_timekeeping);
             break;
         }

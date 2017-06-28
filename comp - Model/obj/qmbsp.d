@@ -13,8 +13,11 @@
 .\obj\qmbsp.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h
 .\obj\qmbsp.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h
 .\obj\qmbsp.o: src\qmbsp.h
+.\obj\qmbsp.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\rtc.h
 .\obj\qmbsp.o: src\clock.h
 .\obj\qmbsp.o: src\alarm.h
 .\obj\qmbsp.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
 .\obj\qmbsp.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
 .\obj\qmbsp.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\time.h
+.\obj\qmbsp.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\button.h
+.\obj\qmbsp.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\LPC23xx.H

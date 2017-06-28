@@ -24,8 +24,8 @@
 
 
 /* Local-scope objects -----------------------------------------------------*/
-static QEvent const *l_alarmClockQSto[10];  /* queue storage for AlarmClock */
-static TimeEvt l_smlPoolSto[10];       /* storage for small-size event pool */
+static QEvent const *l_alarmClockQSto[50];  /* queue storage for AlarmClock */
+static TimeEvt l_smlPoolSto[10];      /* storage for small-size event pool */
 
 
 /*..........................................................................*/

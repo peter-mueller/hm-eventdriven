@@ -1,6 +1,7 @@
 .\obj\alarm.o: src\alarm.c
 .\obj\alarm.o: src\qmbsp.h
 .\obj\alarm.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+.\obj\alarm.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\rtc.h
 .\obj\alarm.o: src\alarm.h
 .\obj\alarm.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qp_port.h
 .\obj\alarm.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h

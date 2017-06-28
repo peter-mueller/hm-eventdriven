@@ -1,6 +1,7 @@
 .\obj\clock.o: src\clock.c
 .\obj\clock.o: src\qmbsp.h
 .\obj\clock.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+.\obj\clock.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\rtc.h
 .\obj\clock.o: src\alarm.h
 .\obj\clock.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qp_port.h
 .\obj\clock.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h
@@ -15,4 +16,5 @@
 .\obj\clock.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h
 .\obj\clock.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h
 .\obj\clock.o: src\clock.h
+.\obj\clock.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\button.h
 .\obj\clock.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h

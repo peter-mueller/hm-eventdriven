@@ -305,30 +305,46 @@ N
 N
 N
 L 5 "src\qmbsp.h" 2
+N#include <rtc.h>
+L 1 "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\rtc.h" 1
+N//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Header file <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+N#ifndef SERVICE_H_
+N#define SERVICE_H_
 N
-Ntypedef struct TimeTag {
-N    uint8_t hour;
-N    uint8_t minute;
-N    uint8_t second;
-N} Time;
+Ntypedef struct{
+Nunsigned char seconds;
+Nunsigned char minutes;
+Nunsigned char hours;
+Nunsigned char day_of_week;
+Nunsigned char day_of_month;
+Nunsigned char month;
+Nunsigned short int year;
+Nunsigned short int day_of_year;
+N}RTC_T;
 N
-Nint timeEquals(Time a, Time b);
-NTime timeAdd(Time time, uint8_t seconds);
+Nextern volatile unsigned char rtc_update;
 N
+Nvoid  Read_RTC(RTC_T* rtc);
+Nvoid  Write_RTC(RTC_T* new_rtc);
+Nvoid Set_RTC(	 RTC_T* new_rtc);
+W "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\rtc.h" 21 6 Deprecated declaration RtcInit - give arg types
+Nvoid RtcInit();
+N#endif
+L 6 "src\qmbsp.h" 2
 N
 Nint  _kbhit(void);
 Nint   kbhit(void);
 Nint  _getch(void);
 Nint   getch(void);
 N
-W "src\qmbsp.h" 21 6 Deprecated declaration BSP_Init - give arg types
+W "src\qmbsp.h" 12 6 Deprecated declaration BSP_Init - give arg types
 Nvoid BSP_Init();
 Nvoid BSP_onKeyboardInput(uint8_t key); /* process the keyboard scan code */
 N
 N#define BSP_TICKS_PER_SEC    100U
 N
 Nvoid BSP_showMsg(char const *str);
-Nvoid BSP_showTime24H(char const *str, Time time);
+Nvoid BSP_showTime24H(RTC_T time);
 N
 N
 N#endif /* bsp_h */
@@ -3293,7 +3309,7 @@ N/* protected: */
 N    QHsm super;
 N
 N/* private: */
-N    Time time;
+N    RTC_T time;
 N} Alarm;
 N
 N/* public: */
@@ -3338,8 +3354,9 @@ N
 N
 Nenum AlarmClockSignals {
 N    TICK_SIG = Q_USER_SIG, /* time tick event */
-N    BUTTON_SIG,  /* advalue */
-N    ADVal_SIG,
+N    BUTTON_DOWN_SIG,
+N    BUTTON_UP_SIG,
+N    AD_CHANGED_SIG,
 N    ALARM_ON_SIG,   /* turn the alarm on */
 N    ALARM_OFF_SIG,  /* turn the alarm off */
 N    ALARM_SIG,  /* alarm event from Alarm component to AlarmClock container */
@@ -3351,10 +3368,16 @@ N/* @(/1/0) .................................................................*/
 Ntypedef struct TimeEvtTag {
 N/* protected: */
 N    QEvt super;
+N} TimeEvt;
+N
+N/* @(/1/1) .................................................................*/
+Ntypedef struct ADEvtTag {
+N/* protected: */
+N    QEvt super;
 N
 N/* public: */
-N    Time current;
-N} TimeEvt;
+N    short value;
+N} ADEvt;
 N
 N
 Nextern QActive * const APP_alarmClock;
@@ -3373,13 +3396,9 @@ N    Alarm alarm;
 N
 N/* public: */
 N    QTimeEvt timeEvt;
-N
-N/* private: */
-N    Time current;
-N
-N/* public: */
 N    uint32_t adval;
 N    uint8_t strength;
+N    RTC_T current;
 N} AlarmClock;
 N
 N/* protected: */
@@ -3410,8 +3429,8 @@ N}
 N/* @(/2/0/2) ...............................................................*/
 N/* @(/2/0/2/0) */
 NQState Alarm_initial(Alarm * const me, QEvt const * const e) {
-N    Time t = {0,0};
-N    me->time = t;
+N    Set_RTC(&(me->time));
+N
 N    (void)e; /* avoid compiler warning about unused parameter */
 N    return Q_TRAN(&Alarm_off);
 X    return ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&Alarm_off)), (QState)Q_RET_TRAN);
@@ -3447,8 +3466,8 @@ N        }
 N        /* @(/2/0/2/2/1) */
 N        case TIME_SIG: {
 N            /* @(/2/0/2/2/1/0) */
-N            if (timeEquals(Q_EVT_CAST(TimeEvt)->current, me->time)) {
-X            if (timeEquals(((TimeEvt const *)e)->current, me->time)) {
+N            if (true) {
+X            if (1) {
 N                BSP_showMsg("ALARM!!!");
 N
 N                /* asynchronously post the event to the container AO */

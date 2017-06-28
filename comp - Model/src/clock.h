@@ -24,8 +24,9 @@
 
 enum AlarmClockSignals {
     TICK_SIG = Q_USER_SIG, /* time tick event */
-    BUTTON_SIG,  /* advalue */
-    ADVal_SIG,
+    BUTTON_DOWN_SIG,
+    BUTTON_UP_SIG,
+    AD_CHANGED_SIG,
     ALARM_ON_SIG,   /* turn the alarm on */
     ALARM_OFF_SIG,  /* turn the alarm off */
     ALARM_SIG,  /* alarm event from Alarm component to AlarmClock container */
@@ -37,10 +38,16 @@ enum AlarmClockSignals {
 typedef struct TimeEvtTag {
 /* protected: */
     QEvt super;
+} TimeEvt;
+
+/* @(/1/1) .................................................................*/
+typedef struct ADEvtTag {
+/* protected: */
+    QEvt super;
 
 /* public: */
-    Time current;
-} TimeEvt;
+    short value;
+} ADEvt;
 
 
 extern QActive * const APP_alarmClock;
@@ -59,13 +66,9 @@ typedef struct AlarmClockTag {
 
 /* public: */
     QTimeEvt timeEvt;
-
-/* private: */
-    Time current;
-
-/* public: */
     uint32_t adval;
     uint8_t strength;
+    RTC_T current;
 } AlarmClock;
 
 /* protected: */

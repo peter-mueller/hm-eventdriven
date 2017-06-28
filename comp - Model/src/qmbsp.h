@@ -2,16 +2,7 @@
 #define bsp_h
 
 #include <stdint.h>
-
-typedef struct TimeTag {
-    uint8_t hour;
-    uint8_t minute;
-    uint8_t second;
-} Time;
-
-int timeEquals(Time a, Time b);
-Time timeAdd(Time time, uint8_t seconds);
-
+#include <rtc.h>
 
 int  _kbhit(void);
 int   kbhit(void);
@@ -24,7 +15,7 @@ void BSP_onKeyboardInput(uint8_t key); /* process the keyboard scan code */
 #define BSP_TICKS_PER_SEC    100U
 
 void BSP_showMsg(char const *str);
-void BSP_showTime24H(char const *str, Time time);
+void BSP_showTime24H(RTC_T time);
 
 
 #endif /* bsp_h */

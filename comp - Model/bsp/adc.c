@@ -1,17 +1,38 @@
 #include <stdio.h>
 #include <LPC23xx.H>                    /* LPC23xx definitions                */
-
+#include <clock.h>
+#include "adc.h"
 
 static short AD_last;                          /* Last converted value               */
-
+QActive*  ad_ao = 0;
 
 /* A/D IRQ: Executed when A/D Conversion is done                              */
 __irq void ADC_IRQHandler(void) {
 
   AD_last = (AD0DR0 >> 6) & 0x3FF;      /* Read Conversion Result             */
+	
+	adc_change();
 
   VICVectAddr = 0;                      /* Acknowledge Interrupt              */
 }
+
+
+void adc_change()
+{
+	static ADEvt event;
+	event.super.sig = AD_CHANGED_SIG;
+	event.value = AD_last;
+	if(ad_ao != 0) {
+		QF_INT_UNLOCK();
+		QActive_postFIFO(ad_ao, (QEvent *)&event);
+		QF_INT_LOCK();
+	}
+}
+void ad_setAO(QActive* ao_)
+{
+	ad_ao = ao_;
+}
+
 
 
 

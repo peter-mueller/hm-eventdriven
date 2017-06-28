@@ -4,6 +4,7 @@
 .\obj\main.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdbool.h
 .\obj\main.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h
 .\obj\main.o: src\qmbsp.h
+.\obj\main.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\rtc.h
 .\obj\main.o: src\clock.h
 .\obj\main.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qp_port.h
 .\obj\main.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h

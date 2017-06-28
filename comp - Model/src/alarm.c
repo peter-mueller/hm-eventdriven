@@ -30,8 +30,8 @@ void Alarm_ctor(Alarm * const me) {
 /* @(/2/0/2) ...............................................................*/
 /* @(/2/0/2/0) */
 QState Alarm_initial(Alarm * const me, QEvt const * const e) {
-    Time t = {0,0};
-    me->time = t;
+    Set_RTC(&(me->time));
+
     (void)e; /* avoid compiler warning about unused parameter */
     return Q_TRAN(&Alarm_off);
 }
@@ -63,7 +63,7 @@ QState Alarm_on(Alarm * const me, QEvt const * const e) {
         /* @(/2/0/2/2/1) */
         case TIME_SIG: {
             /* @(/2/0/2/2/1/0) */
-            if (timeEquals(Q_EVT_CAST(TimeEvt)->current, me->time)) {
+            if (true) {
                 BSP_showMsg("ALARM!!!");
 
                 /* asynchronously post the event to the container AO */

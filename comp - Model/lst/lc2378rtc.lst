@@ -1,0 +1,2356 @@
+L 1 "bsp\lc2378rtc.c"
+N
+N
+N//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Source file<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+N
+N//#include <RTL.h>
+N#include <stdio.h>
+L 1 "C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h" 1
+N/* stdio.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.9 */
+N/* Copyright (C) Codemist Ltd., 1988-1993                       */
+N/* Copyright 1991-1998 ARM Limited. All rights reserved.        */
+N
+N/*
+N * RCS $Revision: 179217 $
+N * Checkin $Date: 2013-03-12 14:03:19 +0000 (Tue, 12 Mar 2013) $
+N * Revising $Author: sdouglas $
+N */
+N
+N/*
+N * stdio.h declares two types, several macros, and many functions for
+N * performing input and output. For a discussion on Streams and Files
+N * refer to sections 4.9.2 and 4.9.3 in the above ANSI draft, or to a
+N * modern textbook on C.
+N */
+N
+N#ifndef __stdio_h
+N#define __stdio_h
+N#define __ARMCLIB_VERSION 5040049
+N
+N/*
+N * Depending on compiler version __int64 or __INT64_TYPE__ should be defined.
+N */
+N#ifndef __int64
+N  #ifdef __INT64_TYPE__
+S    #define __int64 __INT64_TYPE__
+N  #endif
+N  /* On some architectures neither of these may be defined - if so, fall
+N     through and error out if used. */
+N#endif
+N
+N
+N#define _ARMABI __declspec(__nothrow)
+N
+N  #ifndef __STDIO_DECLS
+N  #define __STDIO_DECLS
+N
+N    #undef __CLIBNS
+N    #ifdef __cplusplus
+S      namespace std {
+S      #define __CLIBNS ::std::
+S        extern "C" {
+N    #else /* ndef __cplusplus */
+N      #define __CLIBNS
+N    #endif /* ndef __cplusplus */
+N
+N#if defined(__cplusplus) || !defined(__STRICT_ANSI__) || !defined(__size_t)
+X#if 0L || !0L || !0L
+N /* always defined in C++ and non-strict C for consistency of debug info */
+N  typedef unsigned int size_t;   /* see <stddef.h> */
+N  #if !defined(__cplusplus) && defined(__STRICT_ANSI__)
+X  #if !0L && 0L
+S    #define __size_t 1
+N  #endif
+N#endif
+N
+N#undef NULL
+N#define NULL 0                   /* see <stddef.h> */
+N
+N/* ANSI forbids va_list to be defined here */
+N/* keep in step with <stdarg.h> and <wchar.h> */
+N#if !defined(__va_list) && (defined(__cplusplus) || !defined(__STRICT_ANSI__) || !defined(__va_list_defined))
+X#if !0L && (0L || !0L || !0L)
+N/* always defined in C++ and non-strict C for consistency of debug info */
+N  typedef struct __va_list __va_list;
+N  #if !defined(__cplusplus) && defined(__STRICT_ANSI__)
+X  #if !0L && 0L
+S    #define __va_list_defined 1
+N  #endif
+N#endif
+N
+N   /*
+N    * If the compiler supports signalling nans as per N965 then it
+N    * will define __SUPPORT_SNAN__, in which case a user may define
+N    * _WANT_SNAN in order to obtain compliant versions of the printf
+N    * and scanf families of functions
+N    */
+N#if defined(__SUPPORT_SNAN__) && defined(_WANT_SNAN)
+X#if 0L && 0L
+S#pragma import(__use_snan)
+N#endif
+N
+Ntypedef struct __fpos_t_struct {
+N    unsigned __int64 __pos;
+N    /*
+N     * this structure is equivalent to an mbstate_t, but we're not
+N     * allowed to actually define the type name `mbstate_t' within
+N     * stdio.h
+N     */
+N    struct {
+N        unsigned int __state1, __state2;
+N    } __mbstate;
+N} fpos_t;
+N   /*
+N    * fpos_t is an object capable of recording all information needed to
+N    * specify uniquely every position within a file.
+N    */
+N
+N#define _SYS_OPEN 16
+N   /* _SYS_OPEN defines a limit on the number of open files that is imposed
+N    * by this C library
+N    */
+N
+Ntypedef struct __FILE FILE;
+N   /*
+N    * FILE is an object capable of recording all information needed to control
+N    * a stream, such as its file position indicator, a pointer to its
+N    * associated buffer, an error indicator that records whether a read/write
+N    * error has occurred and an end-of-file indicator that records whether the
+N    * end-of-file has been reached.
+N    * Its structure is not made known to library clients.
+N    */
+N
+Nextern FILE __stdin, __stdout, __stderr;
+Nextern FILE *__aeabi_stdin, *__aeabi_stdout, *__aeabi_stderr;
+N
+N#if _AEABI_PORTABILITY_LEVEL != 0 || (!defined _AEABI_PORTABILITY_LEVEL && __DEFAULT_AEABI_PORTABILITY_LEVEL != 0)
+X#if _AEABI_PORTABILITY_LEVEL != 0 || (!0L && __DEFAULT_AEABI_PORTABILITY_LEVEL != 0)
+S#define stdin  (__CLIBNS __aeabi_stdin)
+S   /* pointer to a FILE object associated with standard input stream */
+S#define stdout (__CLIBNS __aeabi_stdout)
+S   /* pointer to a FILE object associated with standard output stream */
+S#define stderr (__CLIBNS __aeabi_stderr)
+S   /* pointer to a FILE object associated with standard error stream */
+Sextern const int __aeabi_IOFBF;
+S#define _IOFBF (__CLIBNS __aeabi_IOFBF)
+Sextern const int __aeabi_IONBF;
+S#define _IONBF (__CLIBNS __aeabi_IONBF)
+Sextern const int __aeabi_IOLBF;
+S#define _IOLBF (__CLIBNS __aeabi_IOLBF)
+Sextern const int __aeabi_BUFSIZ;
+S#define BUFSIZ (__CLIBNS __aeabi_BUFSIZ)
+Sextern const int __aeabi_FOPEN_MAX;
+S#define FOPEN_MAX (__CLIBNS __aeabi_FOPEN_MAX)
+Sextern const int __aeabi_TMP_MAX;
+S#define TMP_MAX (__CLIBNS __aeabi_TMP_MAX)
+Sextern const int __aeabi_FILENAME_MAX;
+S#define FILENAME_MAX (__CLIBNS __aeabi_FILENAME_MAX)
+Sextern const int __aeabi_L_tmpnam;
+S#define L_tmpnam (__CLIBNS __aeabi_L_tmpnam)
+N#else
+N#define stdin  (&__CLIBNS __stdin)
+N   /* pointer to a FILE object associated with standard input stream */
+N#define stdout (&__CLIBNS __stdout)
+N   /* pointer to a FILE object associated with standard output stream */
+N#define stderr (&__CLIBNS __stderr)
+N   /* pointer to a FILE object associated with standard error stream */
+N
+N#define _IOFBF           0x100 /* fully buffered IO */
+N#define _IOLBF           0x200 /* line buffered IO */
+N#define _IONBF           0x400 /* unbuffered IO */
+N
+N    /* Various default file IO buffer sizes */
+N#define BUFSIZ       (512)  /* system buffer size (as used by setbuf) */
+N
+N#define FOPEN_MAX _SYS_OPEN
+N   /*
+N    * an integral constant expression that is the minimum number of files that
+N    * this implementation guarantees can be open simultaneously.
+N    */
+N
+N#define FILENAME_MAX 256
+N   /*
+N    * an integral constant expression that is the size of an array of char
+N    * large enough to hold the longest filename string
+N    */
+N#define L_tmpnam FILENAME_MAX
+N   /*
+N    * an integral constant expression that is the size of an array of char
+N    * large enough to hold a temporary file name string generated by the
+N    * tmpnam function.
+N    */
+N#define TMP_MAX 256
+N   /*
+N    * an integral constant expression that is the minimum number of unique
+N    * file names that shall be generated by the tmpnam function.
+N    */
+N
+N#endif
+N
+N#define EOF      (-1)
+N   /*
+N    * negative integral constant, indicates end-of-file, that is, no more input
+N    * from a stream.
+N    */
+N
+N#define SEEK_SET 0 /* start of stream (see fseek) */
+N#define SEEK_CUR 1 /* current position in stream (see fseek) */
+N#define SEEK_END 2 /* end of stream (see fseek) */
+N
+N    /*
+N     * _IOBIN is the flag passed to _sys_write to denote a binary
+N     * file.
+N     */
+N#define _IOBIN            0x04     /* binary stream */
+N
+N#define __STDIN_BUFSIZ  (64)  /* default stdin buffer size */
+N#define __STDOUT_BUFSIZ (64)  /* default stdout buffer size */
+N#define __STDERR_BUFSIZ (16)  /* default stderr buffer size */
+N
+Nextern _ARMABI int remove(const char * /*filename*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int remove(const char *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * causes the file whose name is the string pointed to by filename to be
+N    * removed. Subsequent attempts to open the file will fail, unless it is
+N    * created anew. If the file is open, the behaviour of the remove function
+N    * is implementation-defined.
+N    * Returns: zero if the operation succeeds, nonzero if it fails.
+N    */
+Nextern _ARMABI int rename(const char * /*old*/, const char * /*new*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int rename(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * causes the file whose name is the string pointed to by old to be
+N    * henceforth known by the name given by the string pointed to by new. The
+N    * file named old is effectively removed. If a file named by the string
+N    * pointed to by new exists prior to the call of the rename function, the
+N    * behaviour is implementation-defined.
+N    * Returns: zero if the operation succeeds, nonzero if it fails, in which
+N    *          case if the file existed previously it is still known by its
+N    *          original name.
+N    */
+Nextern _ARMABI FILE *tmpfile(void);
+Xextern __declspec(__nothrow) FILE *tmpfile(void);
+N   /*
+N    * creates a temporary binary file that will be automatically removed when
+N    * it is closed or at program termination. The file is opened for update.
+N    * Returns: a pointer to the stream of the file that it created. If the file
+N    *          cannot be created, a null pointer is returned.
+N    */
+Nextern _ARMABI char *tmpnam(char * /*s*/);
+Xextern __declspec(__nothrow) char *tmpnam(char *  );
+N   /*
+N    * generates a string that is not the same as the name of an existing file.
+N    * The tmpnam function generates a different string each time it is called,
+N    * up to TMP_MAX times. If it is called more than TMP_MAX times, the
+N    * behaviour is implementation-defined.
+N    * Returns: If the argument is a null pointer, the tmpnam function leaves
+N    *          its result in an internal static object and returns a pointer to
+N    *          that object. Subsequent calls to the tmpnam function may modify
+N    *          the same object. if the argument is not a null pointer, it is
+N    *          assumed to point to an array of at least L_tmpnam characters;
+N    *          the tmpnam function writes its result in that array and returns
+N    *          the argument as its value.
+N    */
+N
+Nextern _ARMABI int fclose(FILE * /*stream*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int fclose(FILE *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * causes the stream pointed to by stream to be flushed and the associated
+N    * file to be closed. Any unwritten buffered data for the stream are
+N    * delivered to the host environment to be written to the file; any unread
+N    * buffered data are discarded. The stream is disassociated from the file.
+N    * If the associated buffer was automatically allocated, it is deallocated.
+N    * Returns: zero if the stream was succesfully closed, or nonzero if any
+N    *          errors were detected or if the stream was already closed.
+N    */
+Nextern _ARMABI int fflush(FILE * /*stream*/);
+Xextern __declspec(__nothrow) int fflush(FILE *  );
+N   /*
+N    * If the stream points to an output or update stream in which the most
+N    * recent operation was output, the fflush function causes any unwritten
+N    * data for that stream to be delivered to the host environment to be
+N    * written to the file. If the stream points to an input or update stream,
+N    * the fflush function undoes the effect of any preceding ungetc operation
+N    * on the stream.
+N    * Returns: nonzero if a write error occurs.
+N    */
+Nextern _ARMABI FILE *fopen(const char * __restrict /*filename*/,
+Xextern __declspec(__nothrow) FILE *fopen(const char * __restrict  ,
+N                           const char * __restrict /*mode*/) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * opens the file whose name is the string pointed to by filename, and
+N    * associates a stream with it.
+N    * The argument mode points to a string beginning with one of the following
+N    * sequences:
+N    * "r"         open text file for reading
+N    * "w"         create text file for writing, or truncate to zero length
+N    * "a"         append; open text file or create for writing at eof
+N    * "rb"        open binary file for reading
+N    * "wb"        create binary file for writing, or truncate to zero length
+N    * "ab"        append; open binary file or create for writing at eof
+N    * "r+"        open text file for update (reading and writing)
+N    * "w+"        create text file for update, or truncate to zero length
+N    * "a+"        append; open text file or create for update, writing at eof
+N    * "r+b"/"rb+" open binary file for update (reading and writing)
+N    * "w+b"/"wb+" create binary file for update, or truncate to zero length
+N    * "a+b"/"ab+" append; open binary file or create for update, writing at eof
+N    *
+N    * Opening a file with read mode ('r' as the first character in the mode
+N    * argument) fails if the file does not exist or cannot be read.
+N    * Opening a file with append mode ('a' as the first character in the mode
+N    * argument) causes all subsequent writes to be forced to the current end of
+N    * file, regardless of intervening calls to the fseek function. In some
+N    * implementations, opening a binary file with append mode ('b' as the
+N    * second or third character in the mode argument) may initially position
+N    * the file position indicator beyond the last data written, because of the
+N    * NUL padding.
+N    * When a file is opened with update mode ('+' as the second or third
+N    * character in the mode argument), both input and output may be performed
+N    * on the associated stream. However, output may not be directly followed
+N    * by input without an intervening call to the fflush fuction or to a file
+N    * positioning function (fseek, fsetpos, or rewind), and input be not be
+N    * directly followed by output without an intervening call to the fflush
+N    * fuction or to a file positioning function, unless the input operation
+N    * encounters end-of-file. Opening a file with update mode may open or
+N    * create a binary stream in some implementations. When opened, a stream
+N    * is fully buffered if and only if it does not refer to an interactive
+N    * device. The error and end-of-file indicators for the stream are
+N    * cleared.
+N    * Returns: a pointer to the object controlling the stream. If the open
+N    *          operation fails, fopen returns a null pointer.
+N    */
+Nextern _ARMABI FILE *freopen(const char * __restrict /*filename*/,
+Xextern __declspec(__nothrow) FILE *freopen(const char * __restrict  ,
+N                    const char * __restrict /*mode*/,
+N                    FILE * __restrict /*stream*/) __attribute__((__nonnull__(2,3)));
+N   /*
+N    * opens the file whose name is the string pointed to by filename and
+N    * associates the stream pointed to by stream with it. The mode argument is
+N    * used just as in the fopen function.
+N    * The freopen function first attempts to close any file that is associated
+N    * with the specified stream. Failure to close the file successfully is
+N    * ignored. The error and end-of-file indicators for the stream are cleared.
+N    * Returns: a null pointer if the operation fails. Otherwise, freopen
+N    *          returns the value of the stream.
+N    */
+Nextern _ARMABI void setbuf(FILE * __restrict /*stream*/,
+Xextern __declspec(__nothrow) void setbuf(FILE * __restrict  ,
+N                    char * __restrict /*buf*/) __attribute__((__nonnull__(1)));
+N   /*
+N    * Except that it returns no value, the setbuf function is equivalent to the
+N    * setvbuf function invoked with the values _IOFBF for mode and BUFSIZ for
+N    * size, or (if buf is a null pointer), with the value _IONBF for mode.
+N    * Returns: no value.
+N    */
+Nextern _ARMABI int setvbuf(FILE * __restrict /*stream*/,
+Xextern __declspec(__nothrow) int setvbuf(FILE * __restrict  ,
+N                   char * __restrict /*buf*/,
+N                   int /*mode*/, size_t /*size*/) __attribute__((__nonnull__(1)));
+N   /*
+N    * may be used after the stream pointed to by stream has been associated
+N    * with an open file but before it is read or written. The argument mode
+N    * determines how stream will be buffered, as follows: _IOFBF causes
+N    * input/output to be fully buffered; _IOLBF causes output to be line
+N    * buffered (the buffer will be flushed when a new-line character is
+N    * written, when the buffer is full, or when input is requested); _IONBF
+N    * causes input/output to be completely unbuffered. If buf is not the null
+N    * pointer, the array it points to may be used instead of an automatically
+N    * allocated buffer (the buffer must have a lifetime at least as great as
+N    * the open stream, so the stream should be closed before a buffer that has
+N    * automatic storage duration is deallocated upon block exit). The argument
+N    * size specifies the size of the array. The contents of the array at any
+N    * time are indeterminate.
+N    * Returns: zero on success, or nonzero if an invalid value is given for
+N    *          mode or size, or if the request cannot be honoured.
+N    */
+N#pragma __printf_args
+Nextern _ARMABI int fprintf(FILE * __restrict /*stream*/,
+Xextern __declspec(__nothrow) int fprintf(FILE * __restrict  ,
+N                    const char * __restrict /*format*/, ...) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * writes output to the stream pointed to by stream, under control of the
+N    * string pointed to by format that specifies how subsequent arguments are
+N    * converted for output. If there are insufficient arguments for the format,
+N    * the behaviour is undefined. If the format is exhausted while arguments
+N    * remain, the excess arguments are evaluated but otherwise ignored. The
+N    * fprintf function returns when the end of the format string is reached.
+N    * The format shall be a multibyte character sequence, beginning and ending
+N    * in its initial shift state. The format is composed of zero or more
+N    * directives: ordinary multibyte characters (not %), which are copied
+N    * unchanged to the output stream; and conversion specifiers, each of which
+N    * results in fetching zero or more subsequent arguments. Each conversion
+N    * specification is introduced by the character %. For a description of the
+N    * available conversion specifiers refer to section 4.9.6.1 in the ANSI
+N    * draft mentioned at the start of this file or to any modern textbook on C.
+N    * The minimum value for the maximum number of characters producable by any
+N    * single conversion is at least 509.
+N    * Returns: the number of characters transmitted, or a negative value if an
+N    *          output error occurred.
+N    */
+N#pragma __printf_args
+Nextern _ARMABI int _fprintf(FILE * __restrict /*stream*/,
+Xextern __declspec(__nothrow) int _fprintf(FILE * __restrict  ,
+N                     const char * __restrict /*format*/, ...) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * is equivalent to fprintf, but does not support floating-point formats.
+N    * You can use instead of fprintf to improve code size.
+N    * Returns: as fprintf.
+N    */
+N#pragma __printf_args
+Nextern _ARMABI int printf(const char * __restrict /*format*/, ...) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int printf(const char * __restrict  , ...) __attribute__((__nonnull__(1)));
+N   /*
+N    * is equivalent to fprintf with the argument stdout interposed before the
+N    * arguments to printf.
+N    * Returns: the number of characters transmitted, or a negative value if an
+N    *          output error occurred.
+N    */
+N#pragma __printf_args
+Nextern _ARMABI int _printf(const char * __restrict /*format*/, ...) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int _printf(const char * __restrict  , ...) __attribute__((__nonnull__(1)));
+N   /*
+N    * is equivalent to printf, but does not support floating-point formats.
+N    * You can use instead of printf to improve code size.
+N    * Returns: as printf.
+N    */
+N#pragma __printf_args
+Nextern _ARMABI int sprintf(char * __restrict /*s*/, const char * __restrict /*format*/, ...) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int sprintf(char * __restrict  , const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * is equivalent to fprintf, except that the argument s specifies an array
+N    * into which the generated output is to be written, rather than to a
+N    * stream. A null character is written at the end of the characters written;
+N    * it is not counted as part of the returned sum.
+N    * Returns: the number of characters written to the array, not counting the
+N    *          terminating null character.
+N    */
+N#pragma __printf_args
+Nextern _ARMABI int _sprintf(char * __restrict /*s*/, const char * __restrict /*format*/, ...) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int _sprintf(char * __restrict  , const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * is equivalent to sprintf, but does not support floating-point formats.
+N    * You can use instead of sprintf to improve code size.
+N    * Returns: as sprintf.
+N    */
+N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__)
+X#if !0L || (1L && 199901L <= 199409L)
+N#pragma __printf_args
+Nextern _ARMABI int snprintf(char * __restrict /*s*/, size_t /*n*/,
+Xextern __declspec(__nothrow) int snprintf(char * __restrict  , size_t  ,
+N                     const char * __restrict /*format*/, ...) __attribute__((__nonnull__(3)));
+N   /*
+N    * is equivalent to fprintf, except that the argument s specifies an array
+N    * into which the generated output is to be written, rather than to a
+N    * stream. The argument n specifies the size of the output array, so as to
+N    * avoid overflowing the buffer.
+N    * A null character is written at the end of the characters written, even
+N    * if the formatting was not completed; it is not counted as part of the
+N    * returned sum. At most n characters of the output buffer are used,
+N    * _including_ the null character.
+N    * Returns: the number of characters that would have been written to the
+N    *          array, not counting the terminating null character, if the
+N    *          array had been big enough. So if the return is >=0 and <n, then
+N    *          the entire string was successfully formatted; if the return is
+N    *          >=n, the string was truncated (but there is still a null char
+N    *          at the end of what was written); if the return is <0, there was
+N    *          an error.
+N    */
+N#endif
+N#pragma __printf_args
+Nextern _ARMABI int _snprintf(char * __restrict /*s*/, size_t /*n*/,
+Xextern __declspec(__nothrow) int _snprintf(char * __restrict  , size_t  ,
+N                      const char * __restrict /*format*/, ...) __attribute__((__nonnull__(3)));
+N   /*
+N    * is equivalent to snprintf, but does not support floating-point formats.
+N    * You can use instead of snprintf to improve code size.
+N    * Returns: as snprintf.
+N    */
+N#pragma __scanf_args
+Nextern _ARMABI int fscanf(FILE * __restrict /*stream*/,
+Xextern __declspec(__nothrow) int fscanf(FILE * __restrict  ,
+N                    const char * __restrict /*format*/, ...) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * reads input from the stream pointed to by stream, under control of the
+N    * string pointed to by format that specifies the admissible input sequences
+N    * and how thay are to be converted for assignment, using subsequent
+N    * arguments as pointers to the objects to receive the converted input. If
+N    * there are insufficient arguments for the format, the behaviour is
+N    * undefined. If the format is exhausted while arguments remain, the excess
+N    * arguments are evaluated but otherwise ignored.
+N    * The format is composed of zero or more directives: one or more
+N    * white-space characters; an ordinary character (not %); or a conversion
+N    * specification. Each conversion specification is introduced by the
+N    * character %. For a description of the available conversion specifiers
+N    * refer to section 4.9.6.2 in the ANSI draft mentioned at the start of this
+N    * file, or to any modern textbook on C.
+N    * If end-of-file is encountered during input, conversion is terminated. If
+N    * end-of-file occurs before any characters matching the current directive
+N    * have been read (other than leading white space, where permitted),
+N    * execution of the current directive terminates with an input failure;
+N    * otherwise, unless execution of the current directive is terminated with a
+N    * matching failure, execution of the following directive (if any) is
+N    * terminated with an input failure.
+N    * If conversions terminates on a conflicting input character, the offending
+N    * input character is left unread in the input strem. Trailing white space
+N    * (including new-line characters) is left unread unless matched by a
+N    * directive. The success of literal matches and suppressed asignments is
+N    * not directly determinable other than via the %n directive.
+N    * Returns: the value of the macro EOF if an input failure occurs before any
+N    *          conversion. Otherwise, the fscanf function returns the number of
+N    *          input items assigned, which can be fewer than provided for, or
+N    *          even zero, in the event of an early conflict between an input
+N    *          character and the format.
+N    */
+N#pragma __scanf_args
+Nextern _ARMABI int _fscanf(FILE * __restrict /*stream*/,
+Xextern __declspec(__nothrow) int _fscanf(FILE * __restrict  ,
+N                     const char * __restrict /*format*/, ...) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * is equivalent to fscanf, but does not support floating-point formats.
+N    * You can use instead of fscanf to improve code size.
+N    * Returns: as fscanf.
+N    */
+N#pragma __scanf_args
+Nextern _ARMABI int scanf(const char * __restrict /*format*/, ...) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int scanf(const char * __restrict  , ...) __attribute__((__nonnull__(1)));
+N   /*
+N    * is equivalent to fscanf with the argument stdin interposed before the
+N    * arguments to scanf.
+N    * Returns: the value of the macro EOF if an input failure occurs before any
+N    *          conversion. Otherwise, the scanf function returns the number of
+N    *          input items assigned, which can be fewer than provided for, or
+N    *          even zero, in the event of an early matching failure.
+N    */
+N#pragma __scanf_args
+Nextern _ARMABI int _scanf(const char * __restrict /*format*/, ...) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int _scanf(const char * __restrict  , ...) __attribute__((__nonnull__(1)));
+N   /*
+N    * is equivalent to scanf, but does not support floating-point formats.
+N    * You can use instead of scanf to improve code size.
+N    * Returns: as scanf.
+N    */
+N#pragma __scanf_args
+Nextern _ARMABI int sscanf(const char * __restrict /*s*/,
+Xextern __declspec(__nothrow) int sscanf(const char * __restrict  ,
+N                    const char * __restrict /*format*/, ...) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * is equivalent to fscanf except that the argument s specifies a string
+N    * from which the input is to be obtained, rather than from a stream.
+N    * Reaching the end of the string is equivalent to encountering end-of-file
+N    * for the fscanf function.
+N    * Returns: the value of the macro EOF if an input failure occurs before any
+N    *          conversion. Otherwise, the scanf function returns the number of
+N    *          input items assigned, which can be fewer than provided for, or
+N    *          even zero, in the event of an early matching failure.
+N    */
+N#pragma __scanf_args
+Nextern _ARMABI int _sscanf(const char * __restrict /*s*/,
+Xextern __declspec(__nothrow) int _sscanf(const char * __restrict  ,
+N                     const char * __restrict /*format*/, ...) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * is equivalent to sscanf, but does not support floating-point formats.
+N    * You can use instead of sscanf to improve code size.
+N    * Returns: as sscanf.
+N    */
+N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__)
+X#if !0L || (1L && 199901L <= 199409L)
+N/* C99 additions */
+Nextern _ARMABI int vfscanf(FILE * __restrict /*stream*/, const char * __restrict /*format*/, __va_list) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int vfscanf(FILE * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI int vscanf(const char * __restrict /*format*/, __va_list) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int vscanf(const char * __restrict  , __va_list) __attribute__((__nonnull__(1)));
+Nextern _ARMABI int vsscanf(const char * __restrict /*s*/, const char * __restrict /*format*/, __va_list) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int vsscanf(const char * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
+N#endif
+Nextern _ARMABI int _vfscanf(FILE * __restrict /*stream*/, const char * __restrict /*format*/, __va_list) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int _vfscanf(FILE * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI int _vscanf(const char * __restrict /*format*/, __va_list) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int _vscanf(const char * __restrict  , __va_list) __attribute__((__nonnull__(1)));
+Nextern _ARMABI int _vsscanf(const char * __restrict /*s*/, const char * __restrict /*format*/, __va_list) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int _vsscanf(const char * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
+N
+Nextern _ARMABI int vprintf(const char * __restrict /*format*/, __va_list /*arg*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int vprintf(const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * is equivalent to printf, with the variable argument list replaced by arg,
+N    * which has been initialised by the va_start macro (and possibly subsequent
+N    * va_arg calls). The vprintf function does not invoke the va_end function.
+N    * Returns: the number of characters transmitted, or a negative value if an
+N    *          output error occurred.
+N    */
+Nextern _ARMABI int _vprintf(const char * __restrict /*format*/, __va_list /*arg*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int _vprintf(const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * is equivalent to vprintf, but does not support floating-point formats.
+N    * You can use instead of vprintf to improve code size.
+N    * Returns: as vprintf.
+N    */
+Nextern _ARMABI int vfprintf(FILE * __restrict /*stream*/,
+Xextern __declspec(__nothrow) int vfprintf(FILE * __restrict  ,
+N                    const char * __restrict /*format*/, __va_list /*arg*/) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * is equivalent to fprintf, with the variable argument list replaced by
+N    * arg, which has been initialised by the va_start macro (and possibly
+N    * subsequent va_arg calls). The vfprintf function does not invoke the
+N    * va_end function.
+N    * Returns: the number of characters transmitted, or a negative value if an
+N    *          output error occurred.
+N    */
+Nextern _ARMABI int vsprintf(char * __restrict /*s*/,
+Xextern __declspec(__nothrow) int vsprintf(char * __restrict  ,
+N                     const char * __restrict /*format*/, __va_list /*arg*/) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * is equivalent to sprintf, with the variable argument list replaced by
+N    * arg, which has been initialised by the va_start macro (and possibly
+N    * subsequent va_arg calls). The vsprintf function does not invoke the
+N    * va_end function.
+N    * Returns: the number of characters written in the array, not counting the
+N    *          terminating null character.
+N    */
+N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__)
+X#if !0L || (1L && 199901L <= 199409L)
+Nextern _ARMABI int vsnprintf(char * __restrict /*s*/, size_t /*n*/,
+Xextern __declspec(__nothrow) int vsnprintf(char * __restrict  , size_t  ,
+N                     const char * __restrict /*format*/, __va_list /*arg*/) __attribute__((__nonnull__(3)));
+N   /*
+N    * is equivalent to snprintf, with the variable argument list replaced by
+N    * arg, which has been initialised by the va_start macro (and possibly
+N    * subsequent va_arg calls). The vsprintf function does not invoke the
+N    * va_end function.
+N    * Returns: the number of characters that would have been written in the
+N    *          array, not counting the terminating null character. As
+N    *          snprintf.
+N    */
+N#endif
+Nextern _ARMABI int _vsprintf(char * __restrict /*s*/,
+Xextern __declspec(__nothrow) int _vsprintf(char * __restrict  ,
+N                      const char * __restrict /*format*/, __va_list /*arg*/) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * is equivalent to vsprintf, but does not support floating-point formats.
+N    * You can use instead of vsprintf to improve code size.
+N    * Returns: as vsprintf.
+N    */
+Nextern _ARMABI int _vfprintf(FILE * __restrict /*stream*/,
+Xextern __declspec(__nothrow) int _vfprintf(FILE * __restrict  ,
+N                     const char * __restrict /*format*/, __va_list /*arg*/) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * is equivalent to vfprintf, but does not support floating-point formats.
+N    * You can use instead of vfprintf to improve code size.
+N    * Returns: as vfprintf.
+N    */
+Nextern _ARMABI int _vsnprintf(char * __restrict /*s*/, size_t /*n*/,
+Xextern __declspec(__nothrow) int _vsnprintf(char * __restrict  , size_t  ,
+N                      const char * __restrict /*format*/, __va_list /*arg*/) __attribute__((__nonnull__(3)));
+N   /*
+N    * is equivalent to vsnprintf, but does not support floating-point formats.
+N    * You can use instead of vsnprintf to improve code size.
+N    * Returns: as vsnprintf.
+N    */
+Nextern _ARMABI int fgetc(FILE * /*stream*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int fgetc(FILE *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * obtains the next character (if present) as an unsigned char converted to
+N    * an int, from the input stream pointed to by stream, and advances the
+N    * associated file position indicator (if defined).
+N    * Returns: the next character from the input stream pointed to by stream.
+N    *          If the stream is at end-of-file, the end-of-file indicator is
+N    *          set and fgetc returns EOF. If a read error occurs, the error
+N    *          indicator is set and fgetc returns EOF.
+N    */
+Nextern _ARMABI char *fgets(char * __restrict /*s*/, int /*n*/,
+Xextern __declspec(__nothrow) char *fgets(char * __restrict  , int  ,
+N                    FILE * __restrict /*stream*/) __attribute__((__nonnull__(1,3)));
+N   /*
+N    * reads at most one less than the number of characters specified by n from
+N    * the stream pointed to by stream into the array pointed to by s. No
+N    * additional characters are read after a new-line character (which is
+N    * retained) or after end-of-file. A null character is written immediately
+N    * after the last character read into the array.
+N    * Returns: s if successful. If end-of-file is encountered and no characters
+N    *          have been read into the array, the contents of the array remain
+N    *          unchanged and a null pointer is returned. If a read error occurs
+N    *          during the operation, the array contents are indeterminate and a
+N    *          null pointer is returned.
+N    */
+Nextern _ARMABI int fputc(int /*c*/, FILE * /*stream*/) __attribute__((__nonnull__(2)));
+Xextern __declspec(__nothrow) int fputc(int  , FILE *  ) __attribute__((__nonnull__(2)));
+N   /*
+N    * writes the character specified by c (converted to an unsigned char) to
+N    * the output stream pointed to by stream, at the position indicated by the
+N    * asociated file position indicator (if defined), and advances the
+N    * indicator appropriately. If the file position indicator is not defined,
+N    * the character is appended to the output stream.
+N    * Returns: the character written. If a write error occurs, the error
+N    *          indicator is set and fputc returns EOF.
+N    */
+Nextern _ARMABI int fputs(const char * __restrict /*s*/, FILE * __restrict /*stream*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int fputs(const char * __restrict  , FILE * __restrict  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * writes the string pointed to by s to the stream pointed to by stream.
+N    * The terminating null character is not written.
+N    * Returns: EOF if a write error occurs; otherwise it returns a nonnegative
+N    *          value.
+N    */
+Nextern _ARMABI int getc(FILE * /*stream*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int getc(FILE *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * is equivalent to fgetc except that it may be implemented as an unsafe
+N    * macro (stream may be evaluated more than once, so the argument should
+N    * never be an expression with side-effects).
+N    * Returns: the next character from the input stream pointed to by stream.
+N    *          If the stream is at end-of-file, the end-of-file indicator is
+N    *          set and getc returns EOF. If a read error occurs, the error
+N    *          indicator is set and getc returns EOF.
+N    */
+N#ifdef __cplusplus
+S    inline int getchar() { return getc(stdin); }
+N#else
+N    #define getchar() getc(stdin)
+N    extern _ARMABI int (getchar)(void);
+X    extern __declspec(__nothrow) int (getchar)(void);
+N#endif
+N   /*
+N    * is equivalent to getc with the argument stdin.
+N    * Returns: the next character from the input stream pointed to by stdin.
+N    *          If the stream is at end-of-file, the end-of-file indicator is
+N    *          set and getchar returns EOF. If a read error occurs, the error
+N    *          indicator is set and getchar returns EOF.
+N    */
+Nextern _ARMABI char *gets(char * /*s*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) char *gets(char *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * reads characters from the input stream pointed to by stdin into the array
+N    * pointed to by s, until end-of-file is encountered or a new-line character
+N    * is read. Any new-line character is discarded, and a null character is
+N    * written immediately after the last character read into the array.
+N    * Returns: s if successful. If end-of-file is encountered and no characters
+N    *          have been read into the array, the contents of the array remain
+N    *          unchanged and a null pointer is returned. If a read error occurs
+N    *          during the operation, the array contents are indeterminate and a
+N    *          null pointer is returned.
+N    */
+Nextern _ARMABI int putc(int /*c*/, FILE * /*stream*/) __attribute__((__nonnull__(2)));
+Xextern __declspec(__nothrow) int putc(int  , FILE *  ) __attribute__((__nonnull__(2)));
+N   /*
+N    * is equivalent to fputc except that it may be implemented as aan unsafe
+N    * macro (stream may be evaluated more than once, so the argument should
+N    * never be an expression with side-effects).
+N    * Returns: the character written. If a write error occurs, the error
+N    *          indicator is set and putc returns EOF.
+N    */
+N#ifdef __cplusplus
+S    inline int putchar(int __c) { return putc(__c, stdout); }
+N#else
+N    #define putchar(c) putc(c, stdout)
+N    extern _ARMABI int (putchar)(int /*c*/);
+X    extern __declspec(__nothrow) int (putchar)(int  );
+N#endif
+N   /*
+N    * is equivalent to putc with the second argument stdout.
+N    * Returns: the character written. If a write error occurs, the error
+N    *          indicator is set and putc returns EOF.
+N    */
+Nextern _ARMABI int puts(const char * /*s*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int puts(const char *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * writes the string pointed to by s to the stream pointed to by stdout, and
+N    * appends a new-line character to the output. The terminating null
+N    * character is not written.
+N    * Returns: EOF if a write error occurs; otherwise it returns a nonnegative
+N    *          value.
+N    */
+Nextern _ARMABI int ungetc(int /*c*/, FILE * /*stream*/) __attribute__((__nonnull__(2)));
+Xextern __declspec(__nothrow) int ungetc(int  , FILE *  ) __attribute__((__nonnull__(2)));
+N   /*
+N    * pushes the character specified by c (converted to an unsigned char) back
+N    * onto the input stream pointed to by stream. The character will be
+N    * returned by the next read on that stream. An intervening call to the
+N    * fflush function or to a file positioning function (fseek, fsetpos,
+N    * rewind) discards any pushed-back characters. The extern _ARMABIal storage
+N    * corresponding to the stream is unchanged.
+N    * One character pushback is guaranteed. If the unget function is called too
+N    * many times on the same stream without an intervening read or file
+N    * positioning operation on that stream, the operation may fail.
+N    * If the value of c equals that of the macro EOF, the operation fails and
+N    * the input stream is unchanged.
+N    * A successful call to the ungetc function clears the end-of-file
+N    * indicator. The value of the file position indicator after reading or
+N    * discarding all pushed-back characters shall be the same as it was before
+N    * the characters were pushed back. For a text stream, the value of the file
+N    * position indicator after a successful call to the ungetc function is
+N    * unspecified until all pushed-back characters are read or discarded. For a
+N    * binary stream, the file position indicator is decremented by each
+N    * successful call to the ungetc function; if its value was zero before a
+N    * call, it is indeterminate after the call.
+N    * Returns: the character pushed back after conversion, or EOF if the
+N    *          operation fails.
+N    */
+N
+Nextern _ARMABI size_t fread(void * __restrict /*ptr*/,
+Xextern __declspec(__nothrow) size_t fread(void * __restrict  ,
+N                    size_t /*size*/, size_t /*nmemb*/, FILE * __restrict /*stream*/) __attribute__((__nonnull__(1,4)));
+N   /*
+N    * reads into the array pointed to by ptr, up to nmemb members whose size is
+N    * specified by size, from the stream pointed to by stream. The file
+N    * position indicator (if defined) is advanced by the number of characters
+N    * successfully read. If an error occurs, the resulting value of the file
+N    * position indicator is indeterminate. If a partial member is read, its
+N    * value is indeterminate. The ferror or feof function shall be used to
+N    * distinguish between a read error and end-of-file.
+N    * Returns: the number of members successfully read, which may be less than
+N    *          nmemb if a read error or end-of-file is encountered. If size or
+N    *          nmemb is zero, fread returns zero and the contents of the array
+N    *          and the state of the stream remain unchanged.
+N    */
+N
+Nextern _ARMABI size_t __fread_bytes_avail(void * __restrict /*ptr*/,
+Xextern __declspec(__nothrow) size_t __fread_bytes_avail(void * __restrict  ,
+N                    size_t /*count*/, FILE * __restrict /*stream*/) __attribute__((__nonnull__(1,3)));
+N   /*
+N    * reads into the array pointed to by ptr, up to count characters from the
+N    * stream pointed to by stream. The file position indicator (if defined)
+N    * is advanced by the number of characters successfully read. If an error
+N    * occurs, the resulting value of the file position indicator is
+N    * indeterminate. The ferror or feof function shall be used to
+N    * distinguish between a read error and end-of-file.  The call will block
+N    * only if no characters are available.
+N    * Returns: the number of characters successfully read, which may be less than
+N    *          count. If count is zero, __fread_bytes_avail returns zero and
+N    *          the contents of the array and the state of the stream remain
+N    *          unchanged.
+N    */
+N
+Nextern _ARMABI size_t fwrite(const void * __restrict /*ptr*/,
+Xextern __declspec(__nothrow) size_t fwrite(const void * __restrict  ,
+N                    size_t /*size*/, size_t /*nmemb*/, FILE * __restrict /*stream*/) __attribute__((__nonnull__(1,4)));
+N   /*
+N    * writes, from the array pointed to by ptr up to nmemb members whose size
+N    * is specified by size, to the stream pointed to by stream. The file
+N    * position indicator (if defined) is advanced by the number of characters
+N    * successfully written. If an error occurs, the resulting value of the file
+N    * position indicator is indeterminate.
+N    * Returns: the number of members successfully written, which will be less
+N    *          than nmemb only if a write error is encountered.
+N    */
+N
+Nextern _ARMABI int fgetpos(FILE * __restrict /*stream*/, fpos_t * __restrict /*pos*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int fgetpos(FILE * __restrict  , fpos_t * __restrict  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * stores the current value of the file position indicator for the stream
+N    * pointed to by stream in the object pointed to by pos. The value stored
+N    * contains unspecified information usable by the fsetpos function for
+N    * repositioning the stream to its position at the time  of the call to the
+N    * fgetpos function.
+N    * Returns: zero, if successful. Otherwise nonzero is returned and the
+N    *          integer expression errno is set to an implementation-defined
+N    *          nonzero value.
+N    */
+Nextern _ARMABI int fseek(FILE * /*stream*/, long int /*offset*/, int /*whence*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int fseek(FILE *  , long int  , int  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * sets the file position indicator for the stream pointed to by stream.
+N    * For a binary stream, the new position is at the signed number of
+N    * characters specified by offset away from the point specified by whence.
+N    * The specified point is the beginning of the file for SEEK_SET, the
+N    * current position in the file for SEEK_CUR, or end-of-file for SEEK_END.
+N    * A binary stream need not meaningfully support fseek calls with a whence
+N    * value of SEEK_END.
+N    * For a text stream, either offset shall be zero, or offset shall be a
+N    * value returned by an earlier call to the ftell function on the same
+N    * stream and whence shall be SEEK_SET.
+N    * The fseek function clears the end-of-file indicator and undoes any
+N    * effects of the ungetc function on the same stream. After an fseek call,
+N    * the next operation on an update stream may be either input or output.
+N    * Returns: nonzero only for a request that cannot be satisfied.
+N    */
+Nextern _ARMABI int fsetpos(FILE * __restrict /*stream*/, const fpos_t * __restrict /*pos*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int fsetpos(FILE * __restrict  , const fpos_t * __restrict  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * sets  the file position indicator for the stream pointed to by stream
+N    * according to the value of the object pointed to by pos, which shall be a
+N    * value returned by an earlier call to the fgetpos function on the same
+N    * stream.
+N    * The fsetpos function clears the end-of-file indicator and undoes any
+N    * effects of the ungetc function on the same stream. After an fsetpos call,
+N    * the next operation on an update stream may be either input or output.
+N    * Returns: zero, if successful. Otherwise nonzero is returned and the
+N    *          integer expression errno is set to an implementation-defined
+N    *          nonzero value.
+N    */
+Nextern _ARMABI long int ftell(FILE * /*stream*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) long int ftell(FILE *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * obtains the current value of the file position indicator for the stream
+N    * pointed to by stream. For a binary stream, the value is the number of
+N    * characters from the beginning of the file. For a text stream, the file
+N    * position indicator contains unspecified information, usable by the fseek
+N    * function for returning the file position indicator to its position at the
+N    * time of the ftell call; the difference between two such return values is
+N    * not necessarily a meaningful measure of the number of characters written
+N    * or read.
+N    * Returns: if successful, the current value of the file position indicator.
+N    *          On failure, the ftell function returns -1L and sets the integer
+N    *          expression errno to an implementation-defined nonzero value.
+N    */
+Nextern _ARMABI void rewind(FILE * /*stream*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) void rewind(FILE *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * sets the file position indicator for the stream pointed to by stream to
+N    * the beginning of the file. It is equivalent to
+N    *          (void)fseek(stream, 0L, SEEK_SET)
+N    * except that the error indicator for the stream is also cleared.
+N    * Returns: no value.
+N    */
+N
+Nextern _ARMABI void clearerr(FILE * /*stream*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) void clearerr(FILE *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * clears the end-of-file and error indicators for the stream pointed to by
+N    * stream. These indicators are cleared only when the file is opened or by
+N    * an explicit call to the clearerr function or to the rewind function.
+N    * Returns: no value.
+N    */
+N
+Nextern _ARMABI int feof(FILE * /*stream*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int feof(FILE *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * tests the end-of-file indicator for the stream pointed to by stream.
+N    * Returns: nonzero iff the end-of-file indicator is set for stream.
+N    */
+Nextern _ARMABI int ferror(FILE * /*stream*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int ferror(FILE *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * tests the error indicator for the stream pointed to by stream.
+N    * Returns: nonzero iff the error indicator is set for stream.
+N    */
+Nextern _ARMABI void perror(const char * /*s*/);
+Xextern __declspec(__nothrow) void perror(const char *  );
+N   /*
+N    * maps the error number  in the integer expression errno to an error
+N    * message. It writes a sequence of characters to the standard error stream
+N    * thus: first (if s is not a null pointer and the character pointed to by
+N    * s is not the null character), the string pointed to by s followed by a
+N    * colon and a space; then an appropriate error message string followed by
+N    * a new-line character. The contents of the error message strings are the
+N    * same as those returned by the strerror function with argument errno,
+N    * which are implementation-defined.
+N    * Returns: no value.
+N    */
+N
+Nextern _ARMABI int _fisatty(FILE * /*stream*/ ) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int _fisatty(FILE *   ) __attribute__((__nonnull__(1)));
+N    /* Returns 1 if the stream is tty (stdin), 0 otherwise. Not ANSI compliant.
+N     */
+N
+Nextern _ARMABI void __use_no_semihosting_swi(void);
+Xextern __declspec(__nothrow) void __use_no_semihosting_swi(void);
+Nextern _ARMABI void __use_no_semihosting(void);
+Xextern __declspec(__nothrow) void __use_no_semihosting(void);
+N    /*
+N     * Referencing either of these symbols will cause a link-time
+N     * error if any library functions that use semihosting SWI
+N     * calls are also present in the link, i.e. you define it if
+N     * you want to make sure you haven't accidentally used any such
+N     * SWIs.
+N     */
+N
+N    #ifdef __cplusplus
+S        }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif
+N  #endif /* __STDIO_DECLS */
+N
+N  #if _AEABI_PORTABILITY_LEVEL != 0 && !defined _AEABI_PORTABLE
+X  #if _AEABI_PORTABILITY_LEVEL != 0 && !0L
+S    #define _AEABI_PORTABLE
+N  #endif
+N
+N  #if defined(__cplusplus) && !defined(__STDIO_NO_EXPORTS)
+X  #if 0L && !0L
+S    using ::std::size_t;
+S    using ::std::fpos_t;
+S    using ::std::FILE;
+S    using ::std::remove;
+S    using ::std::rename;
+S    using ::std::tmpfile;
+S    using ::std::tmpnam;
+S    using ::std::fclose;
+S    using ::std::fflush;
+S    using ::std::fopen;
+S    using ::std::freopen;
+S    using ::std::setbuf;
+S    using ::std::setvbuf;
+S    using ::std::fprintf;
+S    using ::std::_fprintf;
+S    using ::std::printf;
+S    using ::std::_printf;
+S    using ::std::sprintf;
+S    using ::std::_sprintf;
+S    #if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__)
+S      using ::std::snprintf;
+S      using ::std::vsnprintf;
+S      using ::std::vfscanf;
+S      using ::std::vscanf;
+S      using ::std::vsscanf;
+S    #endif
+S    using ::std::_snprintf;
+S    using ::std::_vsnprintf;
+S    using ::std::fscanf;
+S    using ::std::_fscanf;
+S    using ::std::scanf;
+S    using ::std::_scanf;
+S    using ::std::sscanf;
+S    using ::std::_sscanf;
+S    using ::std::_vfscanf;
+S    using ::std::_vscanf;
+S    using ::std::_vsscanf;
+S    using ::std::vprintf;
+S    using ::std::_vprintf;
+S    using ::std::vfprintf;
+S    using ::std::_vfprintf;
+S    using ::std::vsprintf;
+S    using ::std::_vsprintf;
+S    using ::std::fgetc;
+S    using ::std::fgets;
+S    using ::std::fputc;
+S    using ::std::fputs;
+S    using ::std::getc;
+S    using ::std::getchar;
+S    using ::std::gets;
+S    using ::std::putc;
+S    using ::std::putchar;
+S    using ::std::puts;
+S    using ::std::ungetc;
+S    using ::std::fread;
+S    using ::std::__fread_bytes_avail;
+S    using ::std::fwrite;
+S    using ::std::fgetpos;
+S    using ::std::fseek;
+S    using ::std::fsetpos;
+S    using ::std::ftell;
+S    using ::std::rewind;
+S    using ::std::clearerr;
+S    using ::std::feof;
+S    using ::std::ferror;
+S    using ::std::perror;
+S    using ::std::_fisatty;
+S    using ::std::__use_no_semihosting_swi;
+S    using ::std::__use_no_semihosting;
+N  #endif
+N
+N#endif /* ndef __stdio_h */
+N
+N/* end of stdio.h */
+N
+L 7 "bsp\lc2378rtc.c" 2
+N#include <LPC23xx.H> /* LPC23xx definitions */
+L 1 "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\LPC23xx.H" 1
+N/******************************************************************************
+N *   LPC23xx.h:  Header file for NXP LPC23xx Family Microprocessors
+N *   The header file is the super set of all hardware definition of the 
+N *   peripherals for the LPC23xx family microprocessor.
+N *
+N *   Copyright(C) 2006-2009, NXP Semiconductor
+N *   All rights reserved.
+N *
+N *   History
+N *   2005.10.01  ver 1.00    Prelimnary version, first Release
+N *   2007.05.17  ver 1.01    several corrections
+N *   2007.09.05  ver 1.02    added VICVectPriorityx symbols
+N *   2007.09.05  ver 1.03    FIO1PIN1 value corrected
+N *   2008.04.23  ver 1.04    EMC_DYN_CFGx,EMC_DYN_RASCASx value corrected
+N *   2008.08.12  ver 1.05    EMC_STA_EXT_WAIT value corrected
+N *   2009.03.03  ver 1.06    Removed LPC24xx register references
+N *   2009.03.13  ver 1.07    FIO1MASK1,FIO1SET1,FIO1CLR1 value corrected
+N *
+N******************************************************************************/
+N
+N#ifndef __LPC23xx_H
+N#define __LPC23xx_H
+N
+N/* Vectored Interrupt Controller (VIC) */
+N#define VIC_BASE_ADDR	0xFFFFF000
+N#define VICIRQStatus   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x000))
+N#define VICFIQStatus   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x004))
+N#define VICRawIntr     (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x008))
+N#define VICIntSelect   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x00C))
+N#define VICIntEnable   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x010))
+N#define VICIntEnClr    (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x014))
+N#define VICSoftInt     (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x018))
+N#define VICSoftIntClr  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x01C))
+N#define VICProtection  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x020))
+N#define VICSWPrioMask  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x024))
+N
+N#define VICVectAddr0   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x100))
+N#define VICVectAddr1   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x104))
+N#define VICVectAddr2   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x108))
+N#define VICVectAddr3   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x10C))
+N#define VICVectAddr4   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x110))
+N#define VICVectAddr5   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x114))
+N#define VICVectAddr6   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x118))
+N#define VICVectAddr7   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x11C))
+N#define VICVectAddr8   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x120))
+N#define VICVectAddr9   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x124))
+N#define VICVectAddr10  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x128))
+N#define VICVectAddr11  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x12C))
+N#define VICVectAddr12  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x130))
+N#define VICVectAddr13  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x134))
+N#define VICVectAddr14  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x138))
+N#define VICVectAddr15  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x13C))
+N#define VICVectAddr16  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x140))
+N#define VICVectAddr17  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x144))
+N#define VICVectAddr18  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x148))
+N#define VICVectAddr19  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x14C))
+N#define VICVectAddr20  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x150))
+N#define VICVectAddr21  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x154))
+N#define VICVectAddr22  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x158))
+N#define VICVectAddr23  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x15C))
+N#define VICVectAddr24  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x160))
+N#define VICVectAddr25  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x164))
+N#define VICVectAddr26  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x168))
+N#define VICVectAddr27  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x16C))
+N#define VICVectAddr28  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x170))
+N#define VICVectAddr29  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x174))
+N#define VICVectAddr30  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x178))
+N#define VICVectAddr31  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x17C))
+N
+N/* The name convention below is from previous LPC2000 family MCUs, in LPC23xx/24xx,
+Nthese registers are known as "VICVectPriority(x)". */
+N#define VICVectCntl0   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x200))
+N#define VICVectCntl1   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x204))
+N#define VICVectCntl2   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x208))
+N#define VICVectCntl3   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x20C))
+N#define VICVectCntl4   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x210))
+N#define VICVectCntl5   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x214))
+N#define VICVectCntl6   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x218))
+N#define VICVectCntl7   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x21C))
+N#define VICVectCntl8   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x220))
+N#define VICVectCntl9   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x224))
+N#define VICVectCntl10  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x228))
+N#define VICVectCntl11  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x22C))
+N#define VICVectCntl12  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x230))
+N#define VICVectCntl13  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x234))
+N#define VICVectCntl14  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x238))
+N#define VICVectCntl15  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x23C))
+N#define VICVectCntl16  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x240))
+N#define VICVectCntl17  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x244))
+N#define VICVectCntl18  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x248))
+N#define VICVectCntl19  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x24C))
+N#define VICVectCntl20  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x250))
+N#define VICVectCntl21  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x254))
+N#define VICVectCntl22  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x258))
+N#define VICVectCntl23  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x25C))
+N#define VICVectCntl24  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x260))
+N#define VICVectCntl25  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x264))
+N#define VICVectCntl26  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x268))
+N#define VICVectCntl27  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x26C))
+N#define VICVectCntl28  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x270))
+N#define VICVectCntl29  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x274))
+N#define VICVectCntl30  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x278))
+N#define VICVectCntl31  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x27C))
+N
+N/* LPC23xx/24xx VICVectPriority(x)". */
+N#define VICVectPriority0   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x200))
+N#define VICVectPriority1   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x204))
+N#define VICVectPriority2   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x208))
+N#define VICVectPriority3   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x20C))
+N#define VICVectPriority4   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x210))
+N#define VICVectPriority5   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x214))
+N#define VICVectPriority6   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x218))
+N#define VICVectPriority7   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x21C))
+N#define VICVectPriority8   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x220))
+N#define VICVectPriority9   (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x224))
+N#define VICVectPriority10  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x228))
+N#define VICVectPriority11  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x22C))
+N#define VICVectPriority12  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x230))
+N#define VICVectPriority13  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x234))
+N#define VICVectPriority14  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x238))
+N#define VICVectPriority15  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x23C))
+N#define VICVectPriority16  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x240))
+N#define VICVectPriority17  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x244))
+N#define VICVectPriority18  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x248))
+N#define VICVectPriority19  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x24C))
+N#define VICVectPriority20  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x250))
+N#define VICVectPriority21  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x254))
+N#define VICVectPriority22  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x258))
+N#define VICVectPriority23  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x25C))
+N#define VICVectPriority24  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x260))
+N#define VICVectPriority25  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x264))
+N#define VICVectPriority26  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x268))
+N#define VICVectPriority27  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x26C))
+N#define VICVectPriority28  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x270))
+N#define VICVectPriority29  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x274))
+N#define VICVectPriority30  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x278))
+N#define VICVectPriority31  (*(volatile unsigned long *)(VIC_BASE_ADDR + 0x27C))
+N
+N#define VICVectAddr    (*(volatile unsigned long *)(VIC_BASE_ADDR + 0xF00))
+N
+N
+N/* Pin Connect Block */
+N#define PINSEL_BASE_ADDR	0xE002C000
+N#define PINSEL0        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x00))
+N#define PINSEL1        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x04))
+N#define PINSEL2        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x08))
+N#define PINSEL3        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x0C))
+N#define PINSEL4        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x10))
+N#define PINSEL5        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x14))
+N#define PINSEL6        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x18))
+N#define PINSEL7        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x1C))
+N#define PINSEL8        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x20))
+N#define PINSEL9        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x24))
+N#define PINSEL10       (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x28))
+N
+N#define PINMODE0        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x40))
+N#define PINMODE1        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x44))
+N#define PINMODE2        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x48))
+N#define PINMODE3        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x4C))
+N#define PINMODE4        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x50))
+N#define PINMODE5        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x54))
+N#define PINMODE6        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x58))
+N#define PINMODE7        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x5C))
+N#define PINMODE8        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x60))
+N#define PINMODE9        (*(volatile unsigned long *)(PINSEL_BASE_ADDR + 0x64))
+N
+N/* General Purpose Input/Output (GPIO) */
+N#define GPIO_BASE_ADDR		0xE0028000
+N#define IOPIN0         (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0x00))
+N#define IOSET0         (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0x04))
+N#define IODIR0         (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0x08))
+N#define IOCLR0         (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0x0C))
+N#define IOPIN1         (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0x10))
+N#define IOSET1         (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0x14))
+N#define IODIR1         (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0x18))
+N#define IOCLR1         (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0x1C))
+N
+N/* GPIO Interrupt Registers */
+N#define IO0_INT_EN_R    (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0x90)) 
+N#define IO0_INT_EN_F    (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0x94))
+N#define IO0_INT_STAT_R  (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0x84))
+N#define IO0_INT_STAT_F  (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0x88))
+N#define IO0_INT_CLR     (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0x8C))
+N
+N#define IO2_INT_EN_R    (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0xB0)) 
+N#define IO2_INT_EN_F    (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0xB4))
+N#define IO2_INT_STAT_R  (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0xA4))
+N#define IO2_INT_STAT_F  (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0xA8))
+N#define IO2_INT_CLR     (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0xAC))
+N
+N#define IO_INT_STAT     (*(volatile unsigned long *)(GPIO_BASE_ADDR + 0x80))
+N
+N#define PARTCFG_BASE_ADDR		0x3FFF8000
+N#define PARTCFG        (*(volatile unsigned long *)(PARTCFG_BASE_ADDR + 0x00)) 
+N
+N/* Fast I/O setup */
+N#define FIO_BASE_ADDR		0x3FFFC000
+N#define FIO0DIR        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x00)) 
+N#define FIO0MASK       (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x10))
+N#define FIO0PIN        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x14))
+N#define FIO0SET        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x18))
+N#define FIO0CLR        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x1C))
+N
+N#define FIO1DIR        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x20)) 
+N#define FIO1MASK       (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x30))
+N#define FIO1PIN        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x34))
+N#define FIO1SET        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x38))
+N#define FIO1CLR        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x3C))
+N
+N#define FIO2DIR        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x40)) 
+N#define FIO2MASK       (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x50))
+N#define FIO2PIN        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x54))
+N#define FIO2SET        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x58))
+N#define FIO2CLR        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x5C))
+N
+N#define FIO3DIR        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x60)) 
+N#define FIO3MASK       (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x70))
+N#define FIO3PIN        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x74))
+N#define FIO3SET        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x78))
+N#define FIO3CLR        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x7C))
+N
+N#define FIO4DIR        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x80)) 
+N#define FIO4MASK       (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x90))
+N#define FIO4PIN        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x94))
+N#define FIO4SET        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x98))
+N#define FIO4CLR        (*(volatile unsigned long *)(FIO_BASE_ADDR + 0x9C))
+N
+N/* FIOs can be accessed through WORD, HALF-WORD or BYTE. */
+N#define FIO0DIR0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x00)) 
+N#define FIO1DIR0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x20)) 
+N#define FIO2DIR0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x40)) 
+N#define FIO3DIR0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x60)) 
+N#define FIO4DIR0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x80)) 
+N
+N#define FIO0DIR1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x01)) 
+N#define FIO1DIR1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x21)) 
+N#define FIO2DIR1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x41)) 
+N#define FIO3DIR1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x61)) 
+N#define FIO4DIR1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x81)) 
+N
+N#define FIO0DIR2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x02)) 
+N#define FIO1DIR2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x22)) 
+N#define FIO2DIR2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x42)) 
+N#define FIO3DIR2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x62)) 
+N#define FIO4DIR2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x82)) 
+N
+N#define FIO0DIR3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x03)) 
+N#define FIO1DIR3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x23)) 
+N#define FIO2DIR3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x43)) 
+N#define FIO3DIR3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x63)) 
+N#define FIO4DIR3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x83)) 
+N
+N#define FIO0DIRL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x00)) 
+N#define FIO1DIRL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x20)) 
+N#define FIO2DIRL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x40)) 
+N#define FIO3DIRL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x60)) 
+N#define FIO4DIRL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x80)) 
+N
+N#define FIO0DIRU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x02)) 
+N#define FIO1DIRU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x22)) 
+N#define FIO2DIRU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x42)) 
+N#define FIO3DIRU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x62)) 
+N#define FIO4DIRU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x82)) 
+N
+N#define FIO0MASK0      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x10)) 
+N#define FIO1MASK0      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x30)) 
+N#define FIO2MASK0      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x50)) 
+N#define FIO3MASK0      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x70)) 
+N#define FIO4MASK0      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x90)) 
+N
+N#define FIO0MASK1      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x11)) 
+N#define FIO1MASK1      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x31)) 
+N#define FIO2MASK1      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x51)) 
+N#define FIO3MASK1      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x71)) 
+N#define FIO4MASK1      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x91)) 
+N
+N#define FIO0MASK2      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x12)) 
+N#define FIO1MASK2      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x32)) 
+N#define FIO2MASK2      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x52)) 
+N#define FIO3MASK2      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x72)) 
+N#define FIO4MASK2      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x92)) 
+N
+N#define FIO0MASK3      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x13)) 
+N#define FIO1MASK3      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x33)) 
+N#define FIO2MASK3      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x53)) 
+N#define FIO3MASK3      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x73)) 
+N#define FIO4MASK3      (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x93)) 
+N
+N#define FIO0MASKL      (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x10)) 
+N#define FIO1MASKL      (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x30)) 
+N#define FIO2MASKL      (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x50)) 
+N#define FIO3MASKL      (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x70)) 
+N#define FIO4MASKL      (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x90)) 
+N
+N#define FIO0MASKU      (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x12)) 
+N#define FIO1MASKU      (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x32)) 
+N#define FIO2MASKU      (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x52)) 
+N#define FIO3MASKU      (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x72)) 
+N#define FIO4MASKU      (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x92)) 
+N
+N#define FIO0PIN0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x14)) 
+N#define FIO1PIN0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x34)) 
+N#define FIO2PIN0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x54)) 
+N#define FIO3PIN0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x74)) 
+N#define FIO4PIN0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x94)) 
+N
+N#define FIO0PIN1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x15)) 
+N#define FIO1PIN1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x35)) 
+N#define FIO2PIN1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x55)) 
+N#define FIO3PIN1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x75)) 
+N#define FIO4PIN1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x95)) 
+N
+N#define FIO0PIN2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x16)) 
+N#define FIO1PIN2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x36)) 
+N#define FIO2PIN2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x56)) 
+N#define FIO3PIN2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x76)) 
+N#define FIO4PIN2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x96)) 
+N
+N#define FIO0PIN3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x17)) 
+N#define FIO1PIN3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x37)) 
+N#define FIO2PIN3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x57)) 
+N#define FIO3PIN3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x77)) 
+N#define FIO4PIN3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x97)) 
+N
+N#define FIO0PINL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x14)) 
+N#define FIO1PINL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x34)) 
+N#define FIO2PINL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x54)) 
+N#define FIO3PINL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x74)) 
+N#define FIO4PINL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x94)) 
+N
+N#define FIO0PINU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x16)) 
+N#define FIO1PINU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x36)) 
+N#define FIO2PINU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x56)) 
+N#define FIO3PINU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x76)) 
+N#define FIO4PINU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x96)) 
+N
+N#define FIO0SET0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x18)) 
+N#define FIO1SET0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x38)) 
+N#define FIO2SET0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x58)) 
+N#define FIO3SET0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x78)) 
+N#define FIO4SET0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x98)) 
+N
+N#define FIO0SET1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x19)) 
+N#define FIO1SET1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x39)) 
+N#define FIO2SET1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x59)) 
+N#define FIO3SET1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x79)) 
+N#define FIO4SET1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x99)) 
+N
+N#define FIO0SET2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x1A)) 
+N#define FIO1SET2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x3A)) 
+N#define FIO2SET2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x5A)) 
+N#define FIO3SET2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x7A)) 
+N#define FIO4SET2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x9A)) 
+N
+N#define FIO0SET3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x1B)) 
+N#define FIO1SET3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x3B)) 
+N#define FIO2SET3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x5B)) 
+N#define FIO3SET3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x7B)) 
+N#define FIO4SET3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x9B)) 
+N
+N#define FIO0SETL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x18)) 
+N#define FIO1SETL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x38)) 
+N#define FIO2SETL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x58)) 
+N#define FIO3SETL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x78)) 
+N#define FIO4SETL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x98)) 
+N
+N#define FIO0SETU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x1A)) 
+N#define FIO1SETU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x3A)) 
+N#define FIO2SETU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x5A)) 
+N#define FIO3SETU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x7A)) 
+N#define FIO4SETU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x9A)) 
+N
+N#define FIO0CLR0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x1C)) 
+N#define FIO1CLR0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x3C)) 
+N#define FIO2CLR0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x5C)) 
+N#define FIO3CLR0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x7C)) 
+N#define FIO4CLR0       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x9C)) 
+N
+N#define FIO0CLR1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x1D)) 
+N#define FIO1CLR1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x3D)) 
+N#define FIO2CLR1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x5D)) 
+N#define FIO3CLR1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x7D)) 
+N#define FIO4CLR1       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x9D)) 
+N
+N#define FIO0CLR2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x1E)) 
+N#define FIO1CLR2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x3E)) 
+N#define FIO2CLR2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x5E)) 
+N#define FIO3CLR2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x7E)) 
+N#define FIO4CLR2       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x9E)) 
+N
+N#define FIO0CLR3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x1F)) 
+N#define FIO1CLR3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x3F)) 
+N#define FIO2CLR3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x5F)) 
+N#define FIO3CLR3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x7F)) 
+N#define FIO4CLR3       (*(volatile unsigned char *)(FIO_BASE_ADDR + 0x9F)) 
+N
+N#define FIO0CLRL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x1C)) 
+N#define FIO1CLRL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x3C)) 
+N#define FIO2CLRL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x5C)) 
+N#define FIO3CLRL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x7C)) 
+N#define FIO4CLRL       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x9C)) 
+N
+N#define FIO0CLRU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x1E)) 
+N#define FIO1CLRU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x3E)) 
+N#define FIO2CLRU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x5E)) 
+N#define FIO3CLRU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x7E)) 
+N#define FIO4CLRU       (*(volatile unsigned short *)(FIO_BASE_ADDR + 0x9E)) 
+N
+N
+N/* System Control Block(SCB) modules include Memory Accelerator Module,
+NPhase Locked Loop, VPB divider, Power Control, External Interrupt, 
+NReset, and Code Security/Debugging */
+N#define SCB_BASE_ADDR	0xE01FC000
+N
+N/* Memory Accelerator Module (MAM) */
+N#define MAMCR          (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x000))
+N#define MAMTIM         (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x004))
+N#define MEMMAP         (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x040))
+N
+N/* Phase Locked Loop (PLL) */
+N#define PLLCON         (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x080))
+N#define PLLCFG         (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x084))
+N#define PLLSTAT        (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x088))
+N#define PLLFEED        (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x08C))
+N
+N/* Power Control */
+N#define PCON           (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x0C0))
+N#define PCONP          (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x0C4))
+N
+N/* Clock Divider */
+N// #define APBDIV         (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x100))
+N#define CCLKCFG        (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x104))
+N#define USBCLKCFG      (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x108))
+N#define CLKSRCSEL      (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x10C))
+N#define PCLKSEL0       (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x1A8))
+N#define PCLKSEL1       (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x1AC))
+N	
+N/* External Interrupts */
+N#define EXTINT         (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x140))
+N#define INTWAKE        (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x144))
+N#define EXTMODE        (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x148))
+N#define EXTPOLAR       (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x14C))
+N
+N/* Reset, reset source identification */
+N#define RSIR           (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x180))
+N
+N/* RSID, code security protection */
+N#define CSPR           (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x184))
+N
+N/* AHB configuration */
+N#define AHBCFG1        (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x188))
+N#define AHBCFG2        (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x18C))
+N
+N/* System Controls and Status */
+N#define SCS            (*(volatile unsigned long *)(SCB_BASE_ADDR + 0x1A0))	
+N
+N/* MPMC(EMC) registers */
+N#define STATIC_MEM0_BASE		0x80000000
+N#define STATIC_MEM1_BASE		0x81000000
+N#define STATIC_MEM2_BASE		0x82000000
+N#define STATIC_MEM3_BASE		0x83000000
+N
+N#define DYNAMIC_MEM0_BASE		0xA0000000
+N#define DYNAMIC_MEM1_BASE		0xB0000000
+N#define DYNAMIC_MEM2_BASE		0xC0000000
+N#define DYNAMIC_MEM3_BASE		0xD0000000
+N
+N/* External Memory Controller (EMC) */
+N#define EMC_BASE_ADDR		0xFFE08000
+N#define EMC_CTRL       (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x000))
+N#define EMC_STAT       (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x004))
+N#define EMC_CONFIG     (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x008))
+N
+N/* Dynamic RAM access registers */
+N#define EMC_DYN_CTRL     (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x020))
+N#define EMC_DYN_RFSH     (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x024))
+N#define EMC_DYN_RD_CFG   (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x028))
+N#define EMC_DYN_RP       (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x030))
+N#define EMC_DYN_RAS      (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x034))
+N#define EMC_DYN_SREX     (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x038))
+N#define EMC_DYN_APR      (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x03C))
+N#define EMC_DYN_DAL      (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x040))
+N#define EMC_DYN_WR       (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x044))
+N#define EMC_DYN_RC       (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x048))
+N#define EMC_DYN_RFC      (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x04C))
+N#define EMC_DYN_XSR      (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x050))
+N#define EMC_DYN_RRD      (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x054))
+N#define EMC_DYN_MRD      (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x058))
+N
+N#define EMC_DYN_CFG0     (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x100))
+N#define EMC_DYN_RASCAS0  (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x104))
+N#define EMC_DYN_CFG1     (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x120))
+N#define EMC_DYN_RASCAS1  (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x124))
+N#define EMC_DYN_CFG2     (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x140))
+N#define EMC_DYN_RASCAS2  (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x144))
+N#define EMC_DYN_CFG3     (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x160))
+N#define EMC_DYN_RASCAS3  (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x164))
+N
+N/* static RAM access registers */
+N#define EMC_STA_CFG0      (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x200))
+N#define EMC_STA_WAITWEN0  (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x204))
+N#define EMC_STA_WAITOEN0  (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x208))
+N#define EMC_STA_WAITRD0   (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x20C))
+N#define EMC_STA_WAITPAGE0 (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x210))
+N#define EMC_STA_WAITWR0   (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x214))
+N#define EMC_STA_WAITTURN0 (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x218))
+N
+N#define EMC_STA_CFG1      (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x220))
+N#define EMC_STA_WAITWEN1  (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x224))
+N#define EMC_STA_WAITOEN1  (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x228))
+N#define EMC_STA_WAITRD1   (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x22C))
+N#define EMC_STA_WAITPAGE1 (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x230))
+N#define EMC_STA_WAITWR1   (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x234))
+N#define EMC_STA_WAITTURN1 (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x238))
+N
+N#define EMC_STA_CFG2      (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x240))
+N#define EMC_STA_WAITWEN2  (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x244))
+N#define EMC_STA_WAITOEN2  (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x248))
+N#define EMC_STA_WAITRD2   (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x24C))
+N#define EMC_STA_WAITPAGE2 (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x250))
+N#define EMC_STA_WAITWR2   (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x254))
+N#define EMC_STA_WAITTURN2 (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x258))
+N
+N#define EMC_STA_CFG3      (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x260))
+N#define EMC_STA_WAITWEN3  (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x264))
+N#define EMC_STA_WAITOEN3  (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x268))
+N#define EMC_STA_WAITRD3   (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x26C))
+N#define EMC_STA_WAITPAGE3 (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x270))
+N#define EMC_STA_WAITWR3   (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x274))
+N#define EMC_STA_WAITTURN3 (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x278))
+N
+N#define EMC_STA_EXT_WAIT  (*(volatile unsigned long *)(EMC_BASE_ADDR + 0x080))
+N
+N	
+N/* Timer 0 */
+N#define TMR0_BASE_ADDR		0xE0004000
+N#define T0IR           (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x00))
+N#define T0TCR          (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x04))
+N#define T0TC           (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x08))
+N#define T0PR           (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x0C))
+N#define T0PC           (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x10))
+N#define T0MCR          (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x14))
+N#define T0MR0          (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x18))
+N#define T0MR1          (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x1C))
+N#define T0MR2          (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x20))
+N#define T0MR3          (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x24))
+N#define T0CCR          (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x28))
+N#define T0CR0          (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x2C))
+N#define T0CR1          (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x30))
+N#define T0CR2          (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x34))
+N#define T0CR3          (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x38))
+N#define T0EMR          (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x3C))
+N#define T0CTCR         (*(volatile unsigned long *)(TMR0_BASE_ADDR + 0x70))
+N
+N/* Timer 1 */
+N#define TMR1_BASE_ADDR		0xE0008000
+N#define T1IR           (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x00))
+N#define T1TCR          (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x04))
+N#define T1TC           (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x08))
+N#define T1PR           (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x0C))
+N#define T1PC           (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x10))
+N#define T1MCR          (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x14))
+N#define T1MR0          (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x18))
+N#define T1MR1          (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x1C))
+N#define T1MR2          (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x20))
+N#define T1MR3          (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x24))
+N#define T1CCR          (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x28))
+N#define T1CR0          (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x2C))
+N#define T1CR1          (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x30))
+N#define T1CR2          (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x34))
+N#define T1CR3          (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x38))
+N#define T1EMR          (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x3C))
+N#define T1CTCR         (*(volatile unsigned long *)(TMR1_BASE_ADDR + 0x70))
+N
+N/* Timer 2 */
+N#define TMR2_BASE_ADDR		0xE0070000
+N#define T2IR           (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x00))
+N#define T2TCR          (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x04))
+N#define T2TC           (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x08))
+N#define T2PR           (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x0C))
+N#define T2PC           (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x10))
+N#define T2MCR          (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x14))
+N#define T2MR0          (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x18))
+N#define T2MR1          (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x1C))
+N#define T2MR2          (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x20))
+N#define T2MR3          (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x24))
+N#define T2CCR          (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x28))
+N#define T2CR0          (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x2C))
+N#define T2CR1          (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x30))
+N#define T2CR2          (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x34))
+N#define T2CR3          (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x38))
+N#define T2EMR          (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x3C))
+N#define T2CTCR         (*(volatile unsigned long *)(TMR2_BASE_ADDR + 0x70))
+N
+N/* Timer 3 */
+N#define TMR3_BASE_ADDR		0xE0074000
+N#define T3IR           (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x00))
+N#define T3TCR          (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x04))
+N#define T3TC           (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x08))
+N#define T3PR           (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x0C))
+N#define T3PC           (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x10))
+N#define T3MCR          (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x14))
+N#define T3MR0          (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x18))
+N#define T3MR1          (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x1C))
+N#define T3MR2          (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x20))
+N#define T3MR3          (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x24))
+N#define T3CCR          (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x28))
+N#define T3CR0          (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x2C))
+N#define T3CR1          (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x30))
+N#define T3CR2          (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x34))
+N#define T3CR3          (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x38))
+N#define T3EMR          (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x3C))
+N#define T3CTCR         (*(volatile unsigned long *)(TMR3_BASE_ADDR + 0x70))
+N
+N
+N/* Pulse Width Modulator (PWM) */
+N#define PWM0_BASE_ADDR		0xE0014000
+N#define PWM0IR          (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x00))
+N#define PWM0TCR         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x04))
+N#define PWM0TC          (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x08))
+N#define PWM0PR          (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x0C))
+N#define PWM0PC          (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x10))
+N#define PWM0MCR         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x14))
+N#define PWM0MR0         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x18))
+N#define PWM0MR1         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x1C))
+N#define PWM0MR2         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x20))
+N#define PWM0MR3         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x24))
+N#define PWM0CCR         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x28))
+N#define PWM0CR0         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x2C))
+N#define PWM0CR1         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x30))
+N#define PWM0CR2         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x34))
+N#define PWM0CR3         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x38))
+N#define PWM0MR4         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x40))
+N#define PWM0MR5         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x44))
+N#define PWM0MR6         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x48))
+N#define PWM0PCR         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x4C))
+N#define PWM0LER         (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x50))
+N#define PWM0CTCR        (*(volatile unsigned long *)(PWM0_BASE_ADDR + 0x70))
+N
+N#define PWM1_BASE_ADDR		0xE0018000
+N#define PWM1IR          (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x00))
+N#define PWM1TCR         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x04))
+N#define PWM1TC          (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x08))
+N#define PWM1PR          (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x0C))
+N#define PWM1PC          (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x10))
+N#define PWM1MCR         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x14))
+N#define PWM1MR0         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x18))
+N#define PWM1MR1         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x1C))
+N#define PWM1MR2         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x20))
+N#define PWM1MR3         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x24))
+N#define PWM1CCR         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x28))
+N#define PWM1CR0         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x2C))
+N#define PWM1CR1         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x30))
+N#define PWM1CR2         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x34))
+N#define PWM1CR3         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x38))
+N#define PWM1MR4         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x40))
+N#define PWM1MR5         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x44))
+N#define PWM1MR6         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x48))
+N#define PWM1PCR         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x4C))
+N#define PWM1LER         (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x50))
+N#define PWM1CTCR        (*(volatile unsigned long *)(PWM1_BASE_ADDR + 0x70))
+N
+N
+N/* Universal Asynchronous Receiver Transmitter 0 (UART0) */
+N#define UART0_BASE_ADDR		0xE000C000
+N#define U0RBR          (*(volatile unsigned long *)(UART0_BASE_ADDR + 0x00))
+N#define U0THR          (*(volatile unsigned long *)(UART0_BASE_ADDR + 0x00))
+N#define U0DLL          (*(volatile unsigned long *)(UART0_BASE_ADDR + 0x00))
+N#define U0DLM          (*(volatile unsigned long *)(UART0_BASE_ADDR + 0x04))
+N#define U0IER          (*(volatile unsigned long *)(UART0_BASE_ADDR + 0x04))
+N#define U0IIR          (*(volatile unsigned long *)(UART0_BASE_ADDR + 0x08))
+N#define U0FCR          (*(volatile unsigned long *)(UART0_BASE_ADDR + 0x08))
+N#define U0LCR          (*(volatile unsigned long *)(UART0_BASE_ADDR + 0x0C))
+N#define U0LSR          (*(volatile unsigned long *)(UART0_BASE_ADDR + 0x14))
+N#define U0SCR          (*(volatile unsigned long *)(UART0_BASE_ADDR + 0x1C))
+N#define U0ACR          (*(volatile unsigned long *)(UART0_BASE_ADDR + 0x20))
+N#define U0ICR          (*(volatile unsigned long *)(UART0_BASE_ADDR + 0x24))
+N#define U0FDR          (*(volatile unsigned long *)(UART0_BASE_ADDR + 0x28))
+N#define U0TER          (*(volatile unsigned long *)(UART0_BASE_ADDR + 0x30))
+N
+N/* Universal Asynchronous Receiver Transmitter 1 (UART1) */
+N#define UART1_BASE_ADDR		0xE0010000
+N#define U1RBR          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x00))
+N#define U1THR          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x00))
+N#define U1DLL          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x00))
+N#define U1DLM          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x04))
+N#define U1IER          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x04))
+N#define U1IIR          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x08))
+N#define U1FCR          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x08))
+N#define U1LCR          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x0C))
+N#define U1MCR          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x10))
+N#define U1LSR          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x14))
+N#define U1MSR          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x18))
+N#define U1SCR          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x1C))
+N#define U1ACR          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x20))
+N#define U1FDR          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x28))
+N#define U1TER          (*(volatile unsigned long *)(UART1_BASE_ADDR + 0x30))
+N
+N/* Universal Asynchronous Receiver Transmitter 2 (UART2) */
+N#define UART2_BASE_ADDR		0xE0078000
+N#define U2RBR          (*(volatile unsigned long *)(UART2_BASE_ADDR + 0x00))
+N#define U2THR          (*(volatile unsigned long *)(UART2_BASE_ADDR + 0x00))
+N#define U2DLL          (*(volatile unsigned long *)(UART2_BASE_ADDR + 0x00))
+N#define U2DLM          (*(volatile unsigned long *)(UART2_BASE_ADDR + 0x04))
+N#define U2IER          (*(volatile unsigned long *)(UART2_BASE_ADDR + 0x04))
+N#define U2IIR          (*(volatile unsigned long *)(UART2_BASE_ADDR + 0x08))
+N#define U2FCR          (*(volatile unsigned long *)(UART2_BASE_ADDR + 0x08))
+N#define U2LCR          (*(volatile unsigned long *)(UART2_BASE_ADDR + 0x0C))
+N#define U2LSR          (*(volatile unsigned long *)(UART2_BASE_ADDR + 0x14))
+N#define U2SCR          (*(volatile unsigned long *)(UART2_BASE_ADDR + 0x1C))
+N#define U2ACR          (*(volatile unsigned long *)(UART2_BASE_ADDR + 0x20))
+N#define U2ICR          (*(volatile unsigned long *)(UART2_BASE_ADDR + 0x24))
+N#define U2FDR          (*(volatile unsigned long *)(UART2_BASE_ADDR + 0x28))
+N#define U2TER          (*(volatile unsigned long *)(UART2_BASE_ADDR + 0x30))
+N
+N/* Universal Asynchronous Receiver Transmitter 3 (UART3) */
+N#define UART3_BASE_ADDR		0xE007C000
+N#define U3RBR          (*(volatile unsigned long *)(UART3_BASE_ADDR + 0x00))
+N#define U3THR          (*(volatile unsigned long *)(UART3_BASE_ADDR + 0x00))
+N#define U3DLL          (*(volatile unsigned long *)(UART3_BASE_ADDR + 0x00))
+N#define U3DLM          (*(volatile unsigned long *)(UART3_BASE_ADDR + 0x04))
+N#define U3IER          (*(volatile unsigned long *)(UART3_BASE_ADDR + 0x04))
+N#define U3IIR          (*(volatile unsigned long *)(UART3_BASE_ADDR + 0x08))
+N#define U3FCR          (*(volatile unsigned long *)(UART3_BASE_ADDR + 0x08))
+N#define U3LCR          (*(volatile unsigned long *)(UART3_BASE_ADDR + 0x0C))
+N#define U3LSR          (*(volatile unsigned long *)(UART3_BASE_ADDR + 0x14))
+N#define U3SCR          (*(volatile unsigned long *)(UART3_BASE_ADDR + 0x1C))
+N#define U3ACR          (*(volatile unsigned long *)(UART3_BASE_ADDR + 0x20))
+N#define U3ICR          (*(volatile unsigned long *)(UART3_BASE_ADDR + 0x24))
+N#define U3FDR          (*(volatile unsigned long *)(UART3_BASE_ADDR + 0x28))
+N#define U3TER          (*(volatile unsigned long *)(UART3_BASE_ADDR + 0x30))
+N
+N/* I2C Interface 0 */
+N#define I2C0_BASE_ADDR		0xE001C000
+N#define I20CONSET      (*(volatile unsigned long *)(I2C0_BASE_ADDR + 0x00))
+N#define I20STAT        (*(volatile unsigned long *)(I2C0_BASE_ADDR + 0x04))
+N#define I20DAT         (*(volatile unsigned long *)(I2C0_BASE_ADDR + 0x08))
+N#define I20ADR         (*(volatile unsigned long *)(I2C0_BASE_ADDR + 0x0C))
+N#define I20SCLH        (*(volatile unsigned long *)(I2C0_BASE_ADDR + 0x10))
+N#define I20SCLL        (*(volatile unsigned long *)(I2C0_BASE_ADDR + 0x14))
+N#define I20CONCLR      (*(volatile unsigned long *)(I2C0_BASE_ADDR + 0x18))
+N
+N/* I2C Interface 1 */
+N#define I2C1_BASE_ADDR		0xE005C000
+N#define I21CONSET      (*(volatile unsigned long *)(I2C1_BASE_ADDR + 0x00))
+N#define I21STAT        (*(volatile unsigned long *)(I2C1_BASE_ADDR + 0x04))
+N#define I21DAT         (*(volatile unsigned long *)(I2C1_BASE_ADDR + 0x08))
+N#define I21ADR         (*(volatile unsigned long *)(I2C1_BASE_ADDR + 0x0C))
+N#define I21SCLH        (*(volatile unsigned long *)(I2C1_BASE_ADDR + 0x10))
+N#define I21SCLL        (*(volatile unsigned long *)(I2C1_BASE_ADDR + 0x14))
+N#define I21CONCLR      (*(volatile unsigned long *)(I2C1_BASE_ADDR + 0x18))
+N
+N/* I2C Interface 2 */
+N#define I2C2_BASE_ADDR		0xE0080000
+N#define I22CONSET      (*(volatile unsigned long *)(I2C2_BASE_ADDR + 0x00))
+N#define I22STAT        (*(volatile unsigned long *)(I2C2_BASE_ADDR + 0x04))
+N#define I22DAT         (*(volatile unsigned long *)(I2C2_BASE_ADDR + 0x08))
+N#define I22ADR         (*(volatile unsigned long *)(I2C2_BASE_ADDR + 0x0C))
+N#define I22SCLH        (*(volatile unsigned long *)(I2C2_BASE_ADDR + 0x10))
+N#define I22SCLL        (*(volatile unsigned long *)(I2C2_BASE_ADDR + 0x14))
+N#define I22CONCLR      (*(volatile unsigned long *)(I2C2_BASE_ADDR + 0x18))
+N
+N/* SPI0 (Serial Peripheral Interface 0) */
+N#define SPI0_BASE_ADDR		0xE0020000
+N#define S0SPCR         (*(volatile unsigned long *)(SPI0_BASE_ADDR + 0x00))
+N#define S0SPSR         (*(volatile unsigned long *)(SPI0_BASE_ADDR + 0x04))
+N#define S0SPDR         (*(volatile unsigned long *)(SPI0_BASE_ADDR + 0x08))
+N#define S0SPCCR        (*(volatile unsigned long *)(SPI0_BASE_ADDR + 0x0C))
+N#define S0SPINT        (*(volatile unsigned long *)(SPI0_BASE_ADDR + 0x1C))
+N
+N/* SSP0 Controller */
+N#define SSP0_BASE_ADDR		0xE0068000
+N#define SSP0CR0        (*(volatile unsigned long *)(SSP0_BASE_ADDR + 0x00))
+N#define SSP0CR1        (*(volatile unsigned long *)(SSP0_BASE_ADDR + 0x04))
+N#define SSP0DR         (*(volatile unsigned long *)(SSP0_BASE_ADDR + 0x08))
+N#define SSP0SR         (*(volatile unsigned long *)(SSP0_BASE_ADDR + 0x0C))
+N#define SSP0CPSR       (*(volatile unsigned long *)(SSP0_BASE_ADDR + 0x10))
+N#define SSP0IMSC       (*(volatile unsigned long *)(SSP0_BASE_ADDR + 0x14))
+N#define SSP0RIS        (*(volatile unsigned long *)(SSP0_BASE_ADDR + 0x18))
+N#define SSP0MIS        (*(volatile unsigned long *)(SSP0_BASE_ADDR + 0x1C))
+N#define SSP0ICR        (*(volatile unsigned long *)(SSP0_BASE_ADDR + 0x20))
+N#define SSP0DMACR      (*(volatile unsigned long *)(SSP0_BASE_ADDR + 0x24))
+N
+N/* SSP1 Controller */
+N#define SSP1_BASE_ADDR		0xE0030000
+N#define SSP1CR0        (*(volatile unsigned long *)(SSP1_BASE_ADDR + 0x00))
+N#define SSP1CR1        (*(volatile unsigned long *)(SSP1_BASE_ADDR + 0x04))
+N#define SSP1DR         (*(volatile unsigned long *)(SSP1_BASE_ADDR + 0x08))
+N#define SSP1SR         (*(volatile unsigned long *)(SSP1_BASE_ADDR + 0x0C))
+N#define SSP1CPSR       (*(volatile unsigned long *)(SSP1_BASE_ADDR + 0x10))
+N#define SSP1IMSC       (*(volatile unsigned long *)(SSP1_BASE_ADDR + 0x14))
+N#define SSP1RIS        (*(volatile unsigned long *)(SSP1_BASE_ADDR + 0x18))
+N#define SSP1MIS        (*(volatile unsigned long *)(SSP1_BASE_ADDR + 0x1C))
+N#define SSP1ICR        (*(volatile unsigned long *)(SSP1_BASE_ADDR + 0x20))
+N#define SSP1DMACR      (*(volatile unsigned long *)(SSP1_BASE_ADDR + 0x24))
+N
+N
+N/* Real Time Clock */
+N#define RTC_BASE_ADDR		0xE0024000
+N#define RTC_ILR         (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x00))
+N#define RTC_CTC         (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x04))
+N#define RTC_CCR         (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x08))
+N#define RTC_CIIR        (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x0C))
+N#define RTC_AMR         (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x10))
+N#define RTC_CTIME0      (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x14))
+N#define RTC_CTIME1      (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x18))
+N#define RTC_CTIME2      (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x1C))
+N#define RTC_SEC         (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x20))
+N#define RTC_MIN         (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x24))
+N#define RTC_HOUR        (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x28))
+N#define RTC_DOM         (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x2C))
+N#define RTC_DOW         (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x30))
+N#define RTC_DOY         (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x34))
+N#define RTC_MONTH       (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x38))
+N#define RTC_YEAR        (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x3C))
+N#define RTC_CISS        (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x40))
+N#define RTC_ALSEC       (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x60))
+N#define RTC_ALMIN       (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x64))
+N#define RTC_ALHOUR      (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x68))
+N#define RTC_ALDOM       (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x6C))
+N#define RTC_ALDOW       (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x70))
+N#define RTC_ALDOY       (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x74))
+N#define RTC_ALMON       (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x78))
+N#define RTC_ALYEAR      (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x7C))
+N#define RTC_PREINT      (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x80))
+N#define RTC_PREFRAC     (*(volatile unsigned long *)(RTC_BASE_ADDR + 0x84))
+N
+N
+N/* A/D Converter 0 (AD0) */
+N#define AD0_BASE_ADDR		0xE0034000
+N#define AD0CR          (*(volatile unsigned long *)(AD0_BASE_ADDR + 0x00))
+N#define AD0GDR         (*(volatile unsigned long *)(AD0_BASE_ADDR + 0x04))
+N#define AD0INTEN       (*(volatile unsigned long *)(AD0_BASE_ADDR + 0x0C))
+N#define AD0DR0         (*(volatile unsigned long *)(AD0_BASE_ADDR + 0x10))
+N#define AD0DR1         (*(volatile unsigned long *)(AD0_BASE_ADDR + 0x14))
+N#define AD0DR2         (*(volatile unsigned long *)(AD0_BASE_ADDR + 0x18))
+N#define AD0DR3         (*(volatile unsigned long *)(AD0_BASE_ADDR + 0x1C))
+N#define AD0DR4         (*(volatile unsigned long *)(AD0_BASE_ADDR + 0x20))
+N#define AD0DR5         (*(volatile unsigned long *)(AD0_BASE_ADDR + 0x24))
+N#define AD0DR6         (*(volatile unsigned long *)(AD0_BASE_ADDR + 0x28))
+N#define AD0DR7         (*(volatile unsigned long *)(AD0_BASE_ADDR + 0x2C))
+N#define AD0STAT        (*(volatile unsigned long *)(AD0_BASE_ADDR + 0x30))
+N
+N
+N/* D/A Converter */
+N#define DAC_BASE_ADDR		0xE006C000
+N#define DACR           (*(volatile unsigned long *)(DAC_BASE_ADDR + 0x00))
+N
+N
+N/* Watchdog */
+N#define WDG_BASE_ADDR		0xE0000000
+N#define WDMOD          (*(volatile unsigned long *)(WDG_BASE_ADDR + 0x00))
+N#define WDTC           (*(volatile unsigned long *)(WDG_BASE_ADDR + 0x04))
+N#define WDFEED         (*(volatile unsigned long *)(WDG_BASE_ADDR + 0x08))
+N#define WDTV           (*(volatile unsigned long *)(WDG_BASE_ADDR + 0x0C))
+N#define WDCLKSEL       (*(volatile unsigned long *)(WDG_BASE_ADDR + 0x10))
+N
+N/* CAN CONTROLLERS AND ACCEPTANCE FILTER */
+N#define CAN_ACCEPT_BASE_ADDR		0xE003C000
+N#define CAN_AFMR		(*(volatile unsigned long *)(CAN_ACCEPT_BASE_ADDR + 0x00))  	
+N#define CAN_SFF_SA 		(*(volatile unsigned long *)(CAN_ACCEPT_BASE_ADDR + 0x04))  	
+N#define CAN_SFF_GRP_SA 	(*(volatile unsigned long *)(CAN_ACCEPT_BASE_ADDR + 0x08))
+N#define CAN_EFF_SA 		(*(volatile unsigned long *)(CAN_ACCEPT_BASE_ADDR + 0x0C))
+N#define CAN_EFF_GRP_SA 	(*(volatile unsigned long *)(CAN_ACCEPT_BASE_ADDR + 0x10))  	
+N#define CAN_EOT 		(*(volatile unsigned long *)(CAN_ACCEPT_BASE_ADDR + 0x14))
+N#define CAN_LUT_ERR_ADR (*(volatile unsigned long *)(CAN_ACCEPT_BASE_ADDR + 0x18))  	
+N#define CAN_LUT_ERR 	(*(volatile unsigned long *)(CAN_ACCEPT_BASE_ADDR + 0x1C))
+N
+N#define CAN_CENTRAL_BASE_ADDR		0xE0040000  	
+N#define CAN_TX_SR 	(*(volatile unsigned long *)(CAN_CENTRAL_BASE_ADDR + 0x00))  	
+N#define CAN_RX_SR 	(*(volatile unsigned long *)(CAN_CENTRAL_BASE_ADDR + 0x04))  	
+N#define CAN_MSR 	(*(volatile unsigned long *)(CAN_CENTRAL_BASE_ADDR + 0x08))
+N
+N#define CAN1_BASE_ADDR		0xE0044000
+N#define CAN1MOD 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x00))  	
+N#define CAN1CMR 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x04))  	
+N#define CAN1GSR 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x08))  	
+N#define CAN1ICR 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x0C))  	
+N#define CAN1IER 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x10))
+N#define CAN1BTR 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x14))  	
+N#define CAN1EWL 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x18))  	
+N#define CAN1SR 		(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x1C))  	
+N#define CAN1RFS 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x20))  	
+N#define CAN1RID 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x24))
+N#define CAN1RDA 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x28))  	
+N#define CAN1RDB 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x2C))
+N  	
+N#define CAN1TFI1 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x30))  	
+N#define CAN1TID1 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x34))  	
+N#define CAN1TDA1 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x38))
+N#define CAN1TDB1 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x3C))  	
+N#define CAN1TFI2 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x40))  	
+N#define CAN1TID2 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x44))  	
+N#define CAN1TDA2 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x48))  	
+N#define CAN1TDB2 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x4C))
+N#define CAN1TFI3 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x50))  	
+N#define CAN1TID3 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x54))  	
+N#define CAN1TDA3 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x58))  	
+N#define CAN1TDB3 	(*(volatile unsigned long *)(CAN1_BASE_ADDR + 0x5C))
+N
+N#define CAN2_BASE_ADDR		0xE0048000
+N#define CAN2MOD 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x00))  	
+N#define CAN2CMR 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x04))  	
+N#define CAN2GSR 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x08))  	
+N#define CAN2ICR 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x0C))  	
+N#define CAN2IER 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x10))
+N#define CAN2BTR 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x14))  	
+N#define CAN2EWL 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x18))  	
+N#define CAN2SR 		(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x1C))  	
+N#define CAN2RFS 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x20))  	
+N#define CAN2RID 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x24))
+N#define CAN2RDA 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x28))  	
+N#define CAN2RDB 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x2C))
+N  	
+N#define CAN2TFI1 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x30))  	
+N#define CAN2TID1 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x34))  	
+N#define CAN2TDA1 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x38))
+N#define CAN2TDB1 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x3C))  	
+N#define CAN2TFI2 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x40))  	
+N#define CAN2TID2 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x44))  	
+N#define CAN2TDA2 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x48))  	
+N#define CAN2TDB2 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x4C))
+N#define CAN2TFI3 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x50))  	
+N#define CAN2TID3 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x54))  	
+N#define CAN2TDA3 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x58))  	
+N#define CAN2TDB3 	(*(volatile unsigned long *)(CAN2_BASE_ADDR + 0x5C))
+N
+N
+N/* MultiMedia Card Interface(MCI) Controller */
+N#define MCI_BASE_ADDR		0xE008C000
+N#define MCI_POWER      (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x00))
+N#define MCI_CLOCK      (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x04))
+N#define MCI_ARGUMENT   (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x08))
+N#define MCI_COMMAND    (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x0C))
+N#define MCI_RESP_CMD   (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x10))
+N#define MCI_RESP0      (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x14))
+N#define MCI_RESP1      (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x18))
+N#define MCI_RESP2      (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x1C))
+N#define MCI_RESP3      (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x20))
+N#define MCI_DATA_TMR   (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x24))
+N#define MCI_DATA_LEN   (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x28))
+N#define MCI_DATA_CTRL  (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x2C))
+N#define MCI_DATA_CNT   (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x30))
+N#define MCI_STATUS     (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x34))
+N#define MCI_CLEAR      (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x38))
+N#define MCI_MASK0      (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x3C))
+N#define MCI_MASK1      (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x40))
+N#define MCI_FIFO_CNT   (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x48))
+N#define MCI_FIFO       (*(volatile unsigned long *)(MCI_BASE_ADDR + 0x80))
+N
+N
+N/* I2S Interface Controller (I2S) */
+N#define I2S_BASE_ADDR		0xE0088000
+N#define I2S_DAO        (*(volatile unsigned long *)(I2S_BASE_ADDR + 0x00))
+N#define I2S_DAI        (*(volatile unsigned long *)(I2S_BASE_ADDR + 0x04))
+N#define I2S_TX_FIFO    (*(volatile unsigned long *)(I2S_BASE_ADDR + 0x08))
+N#define I2S_RX_FIFO    (*(volatile unsigned long *)(I2S_BASE_ADDR + 0x0C))
+N#define I2S_STATE      (*(volatile unsigned long *)(I2S_BASE_ADDR + 0x10))
+N#define I2S_DMA1       (*(volatile unsigned long *)(I2S_BASE_ADDR + 0x14))
+N#define I2S_DMA2       (*(volatile unsigned long *)(I2S_BASE_ADDR + 0x18))
+N#define I2S_IRQ        (*(volatile unsigned long *)(I2S_BASE_ADDR + 0x1C))
+N#define I2S_TXRATE     (*(volatile unsigned long *)(I2S_BASE_ADDR + 0x20))
+N#define I2S_RXRATE     (*(volatile unsigned long *)(I2S_BASE_ADDR + 0x24))
+N
+N
+N/* General-purpose DMA Controller */
+N#define DMA_BASE_ADDR		0xFFE04000
+N#define GPDMA_INT_STAT         (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x000))
+N#define GPDMA_INT_TCSTAT       (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x004))
+N#define GPDMA_INT_TCCLR        (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x008))
+N#define GPDMA_INT_ERR_STAT     (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x00C))
+N#define GPDMA_INT_ERR_CLR      (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x010))
+N#define GPDMA_RAW_INT_TCSTAT   (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x014))
+N#define GPDMA_RAW_INT_ERR_STAT (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x018))
+N#define GPDMA_ENABLED_CHNS     (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x01C))
+N#define GPDMA_SOFT_BREQ        (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x020))
+N#define GPDMA_SOFT_SREQ        (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x024))
+N#define GPDMA_SOFT_LBREQ       (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x028))
+N#define GPDMA_SOFT_LSREQ       (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x02C))
+N#define GPDMA_CONFIG           (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x030))
+N#define GPDMA_SYNC             (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x034))
+N
+N/* DMA channel 0 registers */
+N#define GPDMA_CH0_SRC      (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x100))
+N#define GPDMA_CH0_DEST     (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x104))
+N#define GPDMA_CH0_LLI      (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x108))
+N#define GPDMA_CH0_CTRL     (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x10C))
+N#define GPDMA_CH0_CFG      (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x110))
+N
+N/* DMA channel 1 registers */
+N#define GPDMA_CH1_SRC      (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x120))
+N#define GPDMA_CH1_DEST     (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x124))
+N#define GPDMA_CH1_LLI      (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x128))
+N#define GPDMA_CH1_CTRL     (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x12C))
+N#define GPDMA_CH1_CFG      (*(volatile unsigned long *)(DMA_BASE_ADDR + 0x130))
+N
+N
+N/* USB Controller */
+N#define USB_INT_BASE_ADDR	0xE01FC1C0
+N#define USB_BASE_ADDR		0xFFE0C200		/* USB Base Address */
+N
+N#define USB_INT_STAT    (*(volatile unsigned long *)(USB_INT_BASE_ADDR + 0x00))
+N
+N/* USB Device Interrupt Registers */
+N#define DEV_INT_STAT    (*(volatile unsigned long *)(USB_BASE_ADDR + 0x00))
+N#define DEV_INT_EN      (*(volatile unsigned long *)(USB_BASE_ADDR + 0x04))
+N#define DEV_INT_CLR     (*(volatile unsigned long *)(USB_BASE_ADDR + 0x08))
+N#define DEV_INT_SET     (*(volatile unsigned long *)(USB_BASE_ADDR + 0x0C))
+N#define DEV_INT_PRIO    (*(volatile unsigned long *)(USB_BASE_ADDR + 0x2C))
+N
+N/* USB Device Endpoint Interrupt Registers */
+N#define EP_INT_STAT     (*(volatile unsigned long *)(USB_BASE_ADDR + 0x30))
+N#define EP_INT_EN       (*(volatile unsigned long *)(USB_BASE_ADDR + 0x34))
+N#define EP_INT_CLR      (*(volatile unsigned long *)(USB_BASE_ADDR + 0x38))
+N#define EP_INT_SET      (*(volatile unsigned long *)(USB_BASE_ADDR + 0x3C))
+N#define EP_INT_PRIO     (*(volatile unsigned long *)(USB_BASE_ADDR + 0x40))
+N
+N/* USB Device Endpoint Realization Registers */
+N#define REALIZE_EP      (*(volatile unsigned long *)(USB_BASE_ADDR + 0x44))
+N#define EP_INDEX        (*(volatile unsigned long *)(USB_BASE_ADDR + 0x48))
+N#define MAXPACKET_SIZE  (*(volatile unsigned long *)(USB_BASE_ADDR + 0x4C))
+N
+N/* USB Device Command Reagisters */
+N#define CMD_CODE        (*(volatile unsigned long *)(USB_BASE_ADDR + 0x10))
+N#define CMD_DATA        (*(volatile unsigned long *)(USB_BASE_ADDR + 0x14))
+N
+N/* USB Device Data Transfer Registers */
+N#define RX_DATA         (*(volatile unsigned long *)(USB_BASE_ADDR + 0x18))
+N#define TX_DATA         (*(volatile unsigned long *)(USB_BASE_ADDR + 0x1C))
+N#define RX_PLENGTH      (*(volatile unsigned long *)(USB_BASE_ADDR + 0x20))
+N#define TX_PLENGTH      (*(volatile unsigned long *)(USB_BASE_ADDR + 0x24))
+N#define USB_CTRL        (*(volatile unsigned long *)(USB_BASE_ADDR + 0x28))
+N
+N/* USB Device DMA Registers */
+N#define DMA_REQ_STAT        (*(volatile unsigned long *)(USB_BASE_ADDR + 0x50))
+N#define DMA_REQ_CLR         (*(volatile unsigned long *)(USB_BASE_ADDR + 0x54))
+N#define DMA_REQ_SET         (*(volatile unsigned long *)(USB_BASE_ADDR + 0x58))
+N#define UDCA_HEAD           (*(volatile unsigned long *)(USB_BASE_ADDR + 0x80))
+N#define EP_DMA_STAT         (*(volatile unsigned long *)(USB_BASE_ADDR + 0x84))
+N#define EP_DMA_EN           (*(volatile unsigned long *)(USB_BASE_ADDR + 0x88))
+N#define EP_DMA_DIS          (*(volatile unsigned long *)(USB_BASE_ADDR + 0x8C))
+N#define DMA_INT_STAT        (*(volatile unsigned long *)(USB_BASE_ADDR + 0x90))
+N#define DMA_INT_EN          (*(volatile unsigned long *)(USB_BASE_ADDR + 0x94))
+N#define EOT_INT_STAT        (*(volatile unsigned long *)(USB_BASE_ADDR + 0xA0))
+N#define EOT_INT_CLR         (*(volatile unsigned long *)(USB_BASE_ADDR + 0xA4))
+N#define EOT_INT_SET         (*(volatile unsigned long *)(USB_BASE_ADDR + 0xA8))
+N#define NDD_REQ_INT_STAT    (*(volatile unsigned long *)(USB_BASE_ADDR + 0xAC))
+N#define NDD_REQ_INT_CLR     (*(volatile unsigned long *)(USB_BASE_ADDR + 0xB0))
+N#define NDD_REQ_INT_SET     (*(volatile unsigned long *)(USB_BASE_ADDR + 0xB4))
+N#define SYS_ERR_INT_STAT    (*(volatile unsigned long *)(USB_BASE_ADDR + 0xB8))
+N#define SYS_ERR_INT_CLR     (*(volatile unsigned long *)(USB_BASE_ADDR + 0xBC))
+N#define SYS_ERR_INT_SET     (*(volatile unsigned long *)(USB_BASE_ADDR + 0xC0))
+N
+N/* USB Host Controller */
+N#define USBHC_BASE_ADDR		0xFFE0C000
+N#define HC_REVISION         (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x00))
+N#define HC_CONTROL          (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x04))
+N#define HC_CMD_STAT         (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x08))
+N#define HC_INT_STAT         (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x0C))
+N#define HC_INT_EN           (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x10))
+N#define HC_INT_DIS          (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x14))
+N#define HC_HCCA             (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x18))
+N#define HC_PERIOD_CUR_ED    (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x1C))
+N#define HC_CTRL_HEAD_ED     (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x20))
+N#define HC_CTRL_CUR_ED      (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x24))
+N#define HC_BULK_HEAD_ED     (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x28))
+N#define HC_BULK_CUR_ED      (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x2C))
+N#define HC_DONE_HEAD        (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x30))
+N#define HC_FM_INTERVAL      (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x34))
+N#define HC_FM_REMAINING     (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x38))
+N#define HC_FM_NUMBER        (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x3C))
+N#define HC_PERIOD_START     (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x40))
+N#define HC_LS_THRHLD        (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x44))
+N#define HC_RH_DESCA         (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x48))
+N#define HC_RH_DESCB         (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x4C))
+N#define HC_RH_STAT          (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x50))
+N#define HC_RH_PORT_STAT1    (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x54))
+N#define HC_RH_PORT_STAT2    (*(volatile unsigned long *)(USBHC_BASE_ADDR + 0x58))
+N
+N/* USB OTG Controller */
+N#define USBOTG_BASE_ADDR	0xFFE0C100
+N#define OTG_INT_STAT        (*(volatile unsigned long *)(USBOTG_BASE_ADDR + 0x00))
+N#define OTG_INT_EN          (*(volatile unsigned long *)(USBOTG_BASE_ADDR + 0x04))
+N#define OTG_INT_SET         (*(volatile unsigned long *)(USBOTG_BASE_ADDR + 0x08))
+N#define OTG_INT_CLR         (*(volatile unsigned long *)(USBOTG_BASE_ADDR + 0x0C))
+N#define OTG_TIMER           (*(volatile unsigned long *)(USBOTG_BASE_ADDR + 0x14))
+N
+N#define USBOTG_I2C_BASE_ADDR	0xFFE0C300
+N#define OTG_I2C_RX          (*(volatile unsigned long *)(USBOTG_I2C_BASE_ADDR + 0x00))
+N#define OTG_I2C_TX          (*(volatile unsigned long *)(USBOTG_I2C_BASE_ADDR + 0x00))
+N#define OTG_I2C_STS         (*(volatile unsigned long *)(USBOTG_I2C_BASE_ADDR + 0x04))
+N#define OTG_I2C_CTL         (*(volatile unsigned long *)(USBOTG_I2C_BASE_ADDR + 0x08))
+N#define OTG_I2C_CLKHI       (*(volatile unsigned long *)(USBOTG_I2C_BASE_ADDR + 0x0C))
+N#define OTG_I2C_CLKLO       (*(volatile unsigned long *)(USBOTG_I2C_BASE_ADDR + 0x10))
+N
+N#define USBOTG_CLK_BASE_ADDR	0xFFE0CFF0
+N#define USBPortSel          (*(volatile unsigned long *)(USBOTG_BASE_ADDR + 0x10))
+N#define USBClkCtrl          (*(volatile unsigned long *)(USBOTG_CLK_BASE_ADDR + 0x04))
+N#define USBClkSt            (*(volatile unsigned long *)(USBOTG_CLK_BASE_ADDR + 0x08))
+N
+N/* Ethernet MAC (32 bit data bus) -- all registers are RW unless indicated in parentheses */
+N#define MAC_BASE_ADDR		0xFFE00000 /* AHB Peripheral # 0 */
+N#define MAC_MAC1            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x000)) /* MAC config reg 1 */
+N#define MAC_MAC2            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x004)) /* MAC config reg 2 */
+N#define MAC_IPGT            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x008)) /* b2b InterPacketGap reg */
+N#define MAC_IPGR            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x00C)) /* non b2b InterPacketGap reg */
+N#define MAC_CLRT            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x010)) /* CoLlision window/ReTry reg */
+N#define MAC_MAXF            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x014)) /* MAXimum Frame reg */
+N#define MAC_SUPP            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x018)) /* PHY SUPPort reg */
+N#define MAC_TEST            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x01C)) /* TEST reg */
+N#define MAC_MCFG            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x020)) /* MII Mgmt ConFiG reg */
+N#define MAC_MCMD            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x024)) /* MII Mgmt CoMmanD reg */
+N#define MAC_MADR            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x028)) /* MII Mgmt ADdRess reg */
+N#define MAC_MWTD            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x02C)) /* MII Mgmt WriTe Data reg (WO) */
+N#define MAC_MRDD            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x030)) /* MII Mgmt ReaD Data reg (RO) */
+N#define MAC_MIND            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x034)) /* MII Mgmt INDicators reg (RO) */
+N
+N#define MAC_SA0             (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x040)) /* Station Address 0 reg */
+N#define MAC_SA1             (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x044)) /* Station Address 1 reg */
+N#define MAC_SA2             (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x048)) /* Station Address 2 reg */
+N
+N#define MAC_COMMAND         (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x100)) /* Command reg */
+N#define MAC_STATUS          (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x104)) /* Status reg (RO) */
+N#define MAC_RXDESCRIPTOR    (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x108)) /* Rx descriptor base address reg */
+N#define MAC_RXSTATUS        (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x10C)) /* Rx status base address reg */
+N#define MAC_RXDESCRIPTORNUM (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x110)) /* Rx number of descriptors reg */
+N#define MAC_RXPRODUCEINDEX  (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x114)) /* Rx produce index reg (RO) */
+N#define MAC_RXCONSUMEINDEX  (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x118)) /* Rx consume index reg */
+N#define MAC_TXDESCRIPTOR    (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x11C)) /* Tx descriptor base address reg */
+N#define MAC_TXSTATUS        (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x120)) /* Tx status base address reg */
+N#define MAC_TXDESCRIPTORNUM (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x124)) /* Tx number of descriptors reg */
+N#define MAC_TXPRODUCEINDEX  (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x128)) /* Tx produce index reg */
+N#define MAC_TXCONSUMEINDEX  (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x12C)) /* Tx consume index reg (RO) */
+N
+N#define MAC_TSV0            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x158)) /* Tx status vector 0 reg (RO) */
+N#define MAC_TSV1            (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x15C)) /* Tx status vector 1 reg (RO) */
+N#define MAC_RSV             (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x160)) /* Rx status vector reg (RO) */
+N
+N#define MAC_FLOWCONTROLCNT  (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x170)) /* Flow control counter reg */
+N#define MAC_FLOWCONTROLSTS  (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x174)) /* Flow control status reg */
+N
+N#define MAC_RXFILTERCTRL    (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x200)) /* Rx filter ctrl reg */
+N#define MAC_RXFILTERWOLSTS  (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x204)) /* Rx filter WoL status reg (RO) */
+N#define MAC_RXFILTERWOLCLR  (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x208)) /* Rx filter WoL clear reg (WO) */
+N
+N#define MAC_HASHFILTERL     (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x210)) /* Hash filter LSBs reg */
+N#define MAC_HASHFILTERH     (*(volatile unsigned long *)(MAC_BASE_ADDR + 0x214)) /* Hash filter MSBs reg */
+N
+N#define MAC_INTSTATUS       (*(volatile unsigned long *)(MAC_BASE_ADDR + 0xFE0)) /* Interrupt status reg (RO) */
+N#define MAC_INTENABLE       (*(volatile unsigned long *)(MAC_BASE_ADDR + 0xFE4)) /* Interrupt enable reg  */
+N#define MAC_INTCLEAR        (*(volatile unsigned long *)(MAC_BASE_ADDR + 0xFE8)) /* Interrupt clear reg (WO) */
+N#define MAC_INTSET          (*(volatile unsigned long *)(MAC_BASE_ADDR + 0xFEC)) /* Interrupt set reg (WO) */
+N
+N#define MAC_POWERDOWN       (*(volatile unsigned long *)(MAC_BASE_ADDR + 0xFF4)) /* Power-down reg */
+N#define MAC_MODULEID        (*(volatile unsigned long *)(MAC_BASE_ADDR + 0xFFC)) /* Module ID reg (RO) */
+N
+N
+N#endif  // __LPC23xx_H
+N
+L 8 "bsp\lc2378rtc.c" 2
+N#include  "rtc.h"
+L 1 "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\rtc.h" 1
+N//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Header file <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+N#ifndef SERVICE_H_
+N#define SERVICE_H_
+N
+Ntypedef struct{
+Nunsigned char seconds;
+Nunsigned char minutes;
+Nunsigned char hours;
+Nunsigned char day_of_week;
+Nunsigned char day_of_month;
+Nunsigned char month;
+Nunsigned short int year;
+Nunsigned short int day_of_year;
+N}RTC_T;
+N
+Nextern volatile unsigned char rtc_update;
+N
+Nvoid  Read_RTC(RTC_T* rtc);
+Nvoid  Write_RTC(RTC_T* new_rtc);
+Nvoid Set_RTC(	 RTC_T* new_rtc);
+W "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\rtc.h" 21 6 Deprecated declaration RtcInit - give arg types
+Nvoid RtcInit();
+N#endif
+L 9 "bsp\lc2378rtc.c" 2
+N
+Nvolatile unsigned char rtc_update;
+N
+N/*****************************************************************************************/
+N
+Nvoid Set_RTC(	 RTC_T* new_rtc) {
+N
+N 	 new_rtc->seconds = 0x00;
+N   	 new_rtc->minutes= 0x30;
+N	 new_rtc->hours= 0xE;
+N  	 new_rtc->day_of_week= 0x03;
+N	 new_rtc->day_of_month= 0x07;
+N	 new_rtc->month= 0x0C;
+N     new_rtc->year = 2017;
+N
+N
+N}
+N
+Nvoid Write_RTC(RTC_T* new_rtc){
+N
+N
+N	
+N
+N	RTC_CCR &=  0x01; /* disable RTC */
+X	(*(volatile unsigned long *)(0xE0024000 + 0x08)) &=  0x01;  
+N	RTC_SEC = new_rtc->seconds;
+X	(*(volatile unsigned long *)(0xE0024000 + 0x20)) = new_rtc->seconds;
+N	RTC_MIN = new_rtc->minutes;
+X	(*(volatile unsigned long *)(0xE0024000 + 0x24)) = new_rtc->minutes;
+N	RTC_HOUR = new_rtc->hours;
+X	(*(volatile unsigned long *)(0xE0024000 + 0x28)) = new_rtc->hours;
+N	RTC_DOW = new_rtc->day_of_week;
+X	(*(volatile unsigned long *)(0xE0024000 + 0x30)) = new_rtc->day_of_week;
+N	RTC_DOM = new_rtc->day_of_month;
+X	(*(volatile unsigned long *)(0xE0024000 + 0x2C)) = new_rtc->day_of_month;
+N	RTC_MONTH = new_rtc->month;
+X	(*(volatile unsigned long *)(0xE0024000 + 0x38)) = new_rtc->month;
+N	RTC_YEAR = new_rtc->year;
+X	(*(volatile unsigned long *)(0xE0024000 + 0x3C)) = new_rtc->year;
+N	RTC_DOY = new_rtc->day_of_year;
+X	(*(volatile unsigned long *)(0xE0024000 + 0x34)) = new_rtc->day_of_year;
+N	RTC_CCR |= 0x01; /* enable RTC */
+X	(*(volatile unsigned long *)(0xE0024000 + 0x08)) |= 0x01;  
+N
+N
+N
+N
+N}
+N
+N
+N/*****************************************************************************************/
+Nvoid Read_RTC(RTC_T* rtc){
+N
+N
+Nrtc->seconds = ((RTC_CTIME0 & 0x0000003F)>> 0);
+Xrtc->seconds = (((*(volatile unsigned long *)(0xE0024000 + 0x14)) & 0x0000003F)>> 0);
+Nrtc->minutes = ((RTC_CTIME0 & 0x00003F00)>> 8);
+Xrtc->minutes = (((*(volatile unsigned long *)(0xE0024000 + 0x14)) & 0x00003F00)>> 8);
+Nrtc->hours = ((RTC_CTIME0 & 0x001F0000)>> 16);
+Xrtc->hours = (((*(volatile unsigned long *)(0xE0024000 + 0x14)) & 0x001F0000)>> 16);
+Nrtc->day_of_week = ((RTC_CTIME0 & 0x07000000)>> 24);
+Xrtc->day_of_week = (((*(volatile unsigned long *)(0xE0024000 + 0x14)) & 0x07000000)>> 24);
+Nrtc->day_of_month = ((RTC_CTIME1 & 0x0000001F)>> 0);
+Xrtc->day_of_month = (((*(volatile unsigned long *)(0xE0024000 + 0x18)) & 0x0000001F)>> 0);
+Nrtc->month = ((RTC_CTIME1 & 0x0000FF00)>> 8);
+Xrtc->month = (((*(volatile unsigned long *)(0xE0024000 + 0x18)) & 0x0000FF00)>> 8);
+Nrtc->year = ((RTC_CTIME1 & 0x0FFF0000)>> 16);
+Xrtc->year = (((*(volatile unsigned long *)(0xE0024000 + 0x18)) & 0x0FFF0000)>> 16);
+Nrtc->day_of_year = ((RTC_CTIME2 & 0x00000FFF)>> 0);
+Xrtc->day_of_year = (((*(volatile unsigned long *)(0xE0024000 + 0x1C)) & 0x00000FFF)>> 0);
+N
+NRTC_CCR |= 0x01;
+X(*(volatile unsigned long *)(0xE0024000 + 0x08)) |= 0x01;
+N
+Nreturn;
+N
+N}
+N/*****************************************************************************************/
+Nvoid isr_rtc_event(void) __irq {
+N
+N/* one secound RTC interrupt heandler*/
+Nif (RTC_ILR &=0x00000001){
+Xif ((*(volatile unsigned long *)(0xE0024000 + 0x00)) &=0x00000001){
+NRTC_ILR = 0x00000001;
+X(*(volatile unsigned long *)(0xE0024000 + 0x00)) = 0x00000001;
+Nrtc_update = 1;
+N}
+NVICVectAddr = 0; /* Acknowledge Interrupt */
+X(*(volatile unsigned long *)(0xFFFFF000 + 0xF00)) = 0;  
+N}
+N/*****************************************************************************************/
+Nvoid RtcInit(){
+N
+NRTC_PREINT = 0x016d;
+X(*(volatile unsigned long *)(0xE0024000 + 0x80)) = 0x016d;
+NRTC_PREFRAC = 0x1680;
+X(*(volatile unsigned long *)(0xE0024000 + 0x84)) = 0x1680;
+NPCONP |= 0x200; /* Enable power for RTC */
+X(*(volatile unsigned long *)(0xE01FC000 + 0x0C4)) |= 0x200;  
+NRTC_CCR = 0x012; /* CTC reset and select RTC clock from 32 Khz.oscillator 0x 0x12 */
+X(*(volatile unsigned long *)(0xE0024000 + 0x08)) = 0x012;  
+NRTC_ILR = 0xFF; /* Clear RTC interrupt register */
+X(*(volatile unsigned long *)(0xE0024000 + 0x00)) = 0xFF;  
+NRTC_AMR = 0xFF; /* Dasable all the alrams. */
+X(*(volatile unsigned long *)(0xE0024000 + 0x10)) = 0xFF;  
+NRTC_CISS = 0; /* Disable all subsecond interrupts. */
+X(*(volatile unsigned long *)(0xE0024000 + 0x40)) = 0;  
+NRTC_CCR = 0x01; /* Enable RTC */
+X(*(volatile unsigned long *)(0xE0024000 + 0x08)) = 0x01;  
+NRTC_CIIR = 0x01; /* Enable only second count interrupt. minute */
+X(*(volatile unsigned long *)(0xE0024000 + 0x0C)) = 0x01;  
+N
+NVICVectAddr13 = (unsigned int)isr_rtc_event; /* Set Interrupt Vector */
+X(*(volatile unsigned long *)(0xFFFFF000 + 0x134)) = (unsigned int)isr_rtc_event;  
+NVICVectCntl13 = 13; /* use it for RTC Interrupt */
+X(*(volatile unsigned long *)(0xFFFFF000 + 0x234)) = 13;  
+NVICIntEnable = (1 << 13); /* Enable Interrupt */
+X(*(volatile unsigned long *)(0xFFFFF000 + 0x010)) = (1 << 13);  
+N}
+N
+N
+N/*****************************************************************************************/
+N

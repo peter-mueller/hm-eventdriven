@@ -19,7 +19,7 @@ void Set_RTC(	 RTC_T* new_rtc) {
   	 new_rtc->day_of_week= 0x03;
 	 new_rtc->day_of_month= 0x07;
 	 new_rtc->month= 0x0C;
-     new_rtc->year = 2010;
+     new_rtc->year = 2017;
 
 
 }

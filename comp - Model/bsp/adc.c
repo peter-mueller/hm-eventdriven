@@ -3,8 +3,9 @@
 #include <clock.h>
 #include "adc.h"
 
+__irq void ADC_IRQHandler (void);
 static short AD_last;                          /* Last converted value               */
-QActive*  ad_ao = 0;
+QActive*  ao2 = 0;
 
 /* A/D IRQ: Executed when A/D Conversion is done                              */
 __irq void ADC_IRQHandler(void) {
@@ -22,15 +23,18 @@ void adc_change()
 	static ADEvt event;
 	event.super.sig = AD_CHANGED_SIG;
 	event.value = AD_last;
-	if(ad_ao != 0) {
+	if(ao2 != 0){
 		QF_INT_UNLOCK();
-		QActive_postFIFO(ad_ao, (QEvent *)&event);
+		//QActive_postFIFO(ao2, (QEvent *)&event);
+		 QACTIVE_POST(ao2,
+                         (QEvent *)&event, (void *)0);
 		QF_INT_LOCK();
 	}
+	
 }
 void ad_setAO(QActive* ao_)
 {
-	ad_ao = ao_;
+	ao2 = ao_;
 }
 
 

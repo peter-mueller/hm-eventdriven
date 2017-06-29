@@ -1,5 +1,5 @@
 .\obj\button.o: bsp\button.c
-.\obj\button.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\button.h
+.\obj\button.o: bsp\button.h
 .\obj\button.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h
 .\obj\button.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h
 .\obj\button.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h

@@ -3239,8 +3239,7 @@ N
 Nvoid  Read_RTC(RTC_T* rtc);
 Nvoid  Write_RTC(RTC_T* new_rtc);
 Nvoid Set_RTC(	 RTC_T* new_rtc);
-W "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\rtc.h" 21 6 Deprecated declaration RtcInit - give arg types
-Nvoid RtcInit();
+Nvoid RtcInit(void);
 N#endif
 L 6 "src\qmbsp.h" 2
 N
@@ -3249,8 +3248,7 @@ Nint   kbhit(void);
 Nint  _getch(void);
 Nint   getch(void);
 N
-W "src\qmbsp.h" 12 6 Deprecated declaration BSP_Init - give arg types
-Nvoid BSP_Init();
+Nvoid BSP_Init(void);
 Nvoid BSP_onKeyboardInput(uint8_t key); /* process the keyboard scan code */
 N
 N#define BSP_TICKS_PER_SEC    100U
@@ -3392,8 +3390,8 @@ NQState AlarmClock_showCurrentTime(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_set_hour(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_set_minute(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_enableAlarm(AlarmClock * const me, QEvt const * const e);
-NQState AlarmClock_final(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_brewing(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_final(AlarmClock * const me, QEvt const * const e);
 N
 N
 N#endif /* clock_h */
@@ -6868,50 +6866,62 @@ N#endif  // __LPC23xx_H
 N
 L 10 "src\qmbsp.c" 2
 N#include <rtc.h>
+N#include <adc.h>
+L 1 "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\adc.h" 1
+N#ifndef ADC_H
+N#define ADC_H
+N
+N#include "qf_port.h"
+Nvoid ADC_Init(void);
+Nvoid ad_setAO(QActive* ao_);
+Nvoid adc_change(void);
+N
+N
+N#endif
+L 12 "src\qmbsp.c" 2
 N
 NQ_DEFINE_THIS_FILE
 Xstatic char_t const  Q_this_module_[] = "src\\qmbsp.c";
 N
 N/*..........................................................................*/
 Nvoid BSP_Init( ) {
-W "src\qmbsp.c" 16 2 function "Init_Timer1" declared implicitly
+W "src\qmbsp.c" 17 2 function "Init_Timer1" declared implicitly
 N Init_Timer1( );
-W "src\qmbsp.c" 17 2 function "Timer0_Init" declared implicitly
+W "src\qmbsp.c" 18 2 function "Timer0_Init" declared implicitly
 N	Timer0_Init();
 N//	Init_timer0();
 N                               /* Init UART                   */
-W "src\qmbsp.c" 20 3 function "uart_init_0" declared implicitly
+W "src\qmbsp.c" 21 3 function "uart_init_0" declared implicitly
 N  uart_init_0 ();
-W "src\qmbsp.c" 21 2 function "ADC_Init" declared implicitly
 N	ADC_Init();
 N	RtcInit();
 N	
 N	button_init();
-W "src\qmbsp.c" 25 3 function "lcd_init" declared implicitly
+W "src\qmbsp.c" 26 3 function "lcd_init" declared implicitly
 N  lcd_init();
-W "src\qmbsp.c" 26 3 function "lcd_clear" declared implicitly
+W "src\qmbsp.c" 27 3 function "lcd_clear" declared implicitly
 N  lcd_clear();
 N}
 N/*..........................................................................*/
 Nvoid BSP_showMsg(char const *str) {
-W "src\qmbsp.c" 30 2 function "lcd_clear" declared implicitly
+W "src\qmbsp.c" 31 2 function "lcd_clear" declared implicitly
 N	lcd_clear();
-W "src\qmbsp.c" 31 3 function "set_cursor" declared implicitly
+W "src\qmbsp.c" 32 3 function "set_cursor" declared implicitly
 N  set_cursor (0, 0);
-W "src\qmbsp.c" 32 2 function "lcd_print" declared implicitly
+W "src\qmbsp.c" 33 2 function "lcd_print" declared implicitly
 N	lcd_print (str);
 N}
 N/*..........................................................................*/
 Nvoid BSP_showTime24H(RTC_T rtc) {
 N	
 N	char buffer [10];
-W "src\qmbsp.c" 38 3 function "lcd_clear" declared implicitly
+W "src\qmbsp.c" 39 3 function "lcd_clear" declared implicitly
 N  lcd_clear();
-W "src\qmbsp.c" 39 3 function "set_cursor" declared implicitly
+W "src\qmbsp.c" 40 3 function "set_cursor" declared implicitly
 N  set_cursor (0, 0);
 N	//sprintf(buffer,"%02d:%02d:%02d\n", time.hour, time.minute, time.second)
 N  snprintf(buffer, sizeof buffer,"%02d:%02d:%02d", rtc.hours, rtc.minutes, rtc.seconds);
-W "src\qmbsp.c" 42 2 function "lcd_print" declared implicitly
+W "src\qmbsp.c" 43 2 function "lcd_print" declared implicitly
 N	lcd_print(buffer);
 N}
 N/*..........................................................................*/
@@ -6955,4 +6965,4 @@ N	 FILE *f;
 N return	 ( fgetc(  f) );
 N}
 N	
-W "src\qmbsp.c" 12 1 variable "Q_this_module_" was declared but never referenced
+W "src\qmbsp.c" 13 1 variable "Q_this_module_" was declared but never referenced

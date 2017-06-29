@@ -2227,8 +2227,7 @@ N
 Nvoid  Read_RTC(RTC_T* rtc);
 Nvoid  Write_RTC(RTC_T* new_rtc);
 Nvoid Set_RTC(	 RTC_T* new_rtc);
-W "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\rtc.h" 21 6 Deprecated declaration RtcInit - give arg types
-Nvoid RtcInit();
+Nvoid RtcInit(void);
 N#endif
 L 9 "bsp\lc2378rtc.c" 2
 N

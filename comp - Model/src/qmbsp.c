@@ -8,6 +8,7 @@
 #include <button.h>
 #include <LPC23xx.H>   
 #include <rtc.h>
+#include <adc.h>
 
 Q_DEFINE_THIS_FILE
 

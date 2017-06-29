@@ -28,10 +28,10 @@ __irq void GPIO_IRQHandler(void)
 	int i;
 
 	
-	for(i = 0; i < 1000; i++);
+	for(i = 0; i < 2000; i++);
 
 	rising = FIO2PIN & (1 << 10);        /* Value of P2.10 */
-
+	
 	if(rising) {
 		//button_up();
 	}else{
@@ -46,11 +46,13 @@ __irq void GPIO_IRQHandler(void)
 void button_up()
 {
 	static BaseEvt event;
-	event.super.sig = BUTTON_UP_SIG;
+	event.super.sig = BUTTON_DOWN_SIG;
 	if(ao != 0) {
 
 		QF_INT_UNLOCK();
-		QActive_postFIFO(ao, (QEvent *)&event);
+		//QActive_postFIFO(ao, (QEvent *)&event);
+	 QACTIVE_POST(ao,
+									 (QEvent *)&event, (void *)0);
 		QF_INT_LOCK();
 	}
 }
@@ -61,7 +63,9 @@ void button_down()
 	event.super.sig = BUTTON_DOWN_SIG;
 	if(ao != 0) {
 		QF_INT_UNLOCK();
-		QActive_postFIFO(ao, (QEvent *)&event);
+		//QActive_postFIFO(ao, (QEvent *)&event);
+				 QACTIVE_POST(ao,
+                         (QEvent *)&event, (void *)0);
 		QF_INT_LOCK();
 	}
 }

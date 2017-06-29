@@ -9,7 +9,7 @@ int   kbhit(void);
 int  _getch(void);
 int   getch(void);
 
-void BSP_Init();
+void BSP_Init(void);
 void BSP_onKeyboardInput(uint8_t key); /* process the keyboard scan code */
 
 #define BSP_TICKS_PER_SEC    100U

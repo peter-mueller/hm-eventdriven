@@ -457,6 +457,16 @@
               <FileType>1</FileType>
               <FilePath>.\bsp\lc2378rtc.c</FilePath>
             </File>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\bsp\adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>adc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\bsp\adc.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

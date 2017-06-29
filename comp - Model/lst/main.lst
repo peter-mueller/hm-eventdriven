@@ -1045,8 +1045,7 @@ N
 Nvoid  Read_RTC(RTC_T* rtc);
 Nvoid  Write_RTC(RTC_T* new_rtc);
 Nvoid Set_RTC(	 RTC_T* new_rtc);
-W "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\rtc.h" 21 6 Deprecated declaration RtcInit - give arg types
-Nvoid RtcInit();
+Nvoid RtcInit(void);
 N#endif
 L 6 "src\qmbsp.h" 2
 N
@@ -1055,8 +1054,7 @@ Nint   kbhit(void);
 Nint  _getch(void);
 Nint   getch(void);
 N
-W "src\qmbsp.h" 12 6 Deprecated declaration BSP_Init - give arg types
-Nvoid BSP_Init();
+Nvoid BSP_Init(void);
 Nvoid BSP_onKeyboardInput(uint8_t key); /* process the keyboard scan code */
 N
 N#define BSP_TICKS_PER_SEC    100U
@@ -3409,8 +3407,8 @@ NQState AlarmClock_showCurrentTime(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_set_hour(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_set_minute(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_enableAlarm(AlarmClock * const me, QEvt const * const e);
-NQState AlarmClock_final(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_brewing(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_final(AlarmClock * const me, QEvt const * const e);
 N
 N
 N#endif /* clock_h */
@@ -4459,7 +4457,7 @@ L 24 "src\main.c" 2
 N
 N
 N/* Local-scope objects -----------------------------------------------------*/
-Nstatic QEvent const *l_alarmClockQSto[50];  /* queue storage for AlarmClock */
+Nstatic QEvent const *l_alarmClockQSto[10];  /* queue storage for AlarmClock */
 Nstatic TimeEvt l_smlPoolSto[10];      /* storage for small-size event pool */
 N
 N

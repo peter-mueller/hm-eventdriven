@@ -79,8 +79,8 @@ QState AlarmClock_showCurrentTime(AlarmClock * const me, QEvt const * const e);
 QState AlarmClock_set_hour(AlarmClock * const me, QEvt const * const e);
 QState AlarmClock_set_minute(AlarmClock * const me, QEvt const * const e);
 QState AlarmClock_enableAlarm(AlarmClock * const me, QEvt const * const e);
-QState AlarmClock_final(AlarmClock * const me, QEvt const * const e);
 QState AlarmClock_brewing(AlarmClock * const me, QEvt const * const e);
+QState AlarmClock_final(AlarmClock * const me, QEvt const * const e);
 
 
 #endif /* clock_h */

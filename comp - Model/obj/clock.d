@@ -17,4 +17,5 @@
 .\obj\clock.o: ..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h
 .\obj\clock.o: src\clock.h
 .\obj\clock.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\button.h
+.\obj\clock.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\adc.h
 .\obj\clock.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h

@@ -1,7 +1,7 @@
 L 1 "bsp\button.c"
 N
 N#include "button.h"
-L 1 "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\button.h" 1
+L 1 "bsp\button.h" 1
 N#ifndef BUTTON_H
 N#define BUTTON_H
 N
@@ -2593,7 +2593,7 @@ N
 L 55 "..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h" 2
 N
 N#endif                                                         /* qf_port_h */
-L 5 "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\button.h" 2
+L 5 "bsp\button.h" 2
 Nvoid button_init(void);
 Nvoid button_setAO(QActive* ao_);
 N
@@ -6524,8 +6524,7 @@ N
 Nvoid  Read_RTC(RTC_T* rtc);
 Nvoid  Write_RTC(RTC_T* new_rtc);
 Nvoid Set_RTC(	 RTC_T* new_rtc);
-W "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\rtc.h" 21 6 Deprecated declaration RtcInit - give arg types
-Nvoid RtcInit();
+Nvoid RtcInit(void);
 N#endif
 L 6 ".\src\qmbsp.h" 2
 N
@@ -6534,8 +6533,7 @@ Nint   kbhit(void);
 Nint  _getch(void);
 Nint   getch(void);
 N
-W ".\src\qmbsp.h" 12 6 Deprecated declaration BSP_Init - give arg types
-Nvoid BSP_Init();
+Nvoid BSP_Init(void);
 Nvoid BSP_onKeyboardInput(uint8_t key); /* process the keyboard scan code */
 N
 N#define BSP_TICKS_PER_SEC    100U
@@ -6631,8 +6629,8 @@ NQState AlarmClock_showCurrentTime(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_set_hour(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_set_minute(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_enableAlarm(AlarmClock * const me, QEvt const * const e);
-NQState AlarmClock_final(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_brewing(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_final(AlarmClock * const me, QEvt const * const e);
 N
 N
 N#endif /* clock_h */
@@ -6667,11 +6665,11 @@ N	int rising;
 N	int i;
 N
 N	
-N	for(i = 0; i < 1000; i++);
+N	for(i = 0; i < 2000; i++);
 N
 N	rising = FIO2PIN & (1 << 10);        /* Value of P2.10 */
 X	rising = (*(volatile unsigned long *)(0x3FFFC000 + 0x54)) & (1 << 10);         
-N
+N	
 N	if(rising) {
 N		//button_up();
 N	}else{
@@ -6688,13 +6686,15 @@ N
 Nvoid button_up()
 N{
 N	static BaseEvt event;
-N	event.super.sig = BUTTON_UP_SIG;
+N	event.super.sig = BUTTON_DOWN_SIG;
 N	if(ao != 0) {
 N
 N		QF_INT_UNLOCK();
 X		__enable_irq();;
-N		QActive_postFIFO(ao, (QEvent *)&event);
-X		((void)(*((QActiveVtbl const *)(((ao))->super . vptr))->post)(((ao)), (((QEvent *)&event)), (uint_fast16_t)0));
+N		//QActive_postFIFO(ao, (QEvent *)&event);
+N	 QACTIVE_POST(ao,
+N									 (QEvent *)&event, (void *)0);
+X	 ((void)(*((QActiveVtbl const *)((ao)->super . vptr))->post)((ao), ((QEvent *)&event), (uint_fast16_t)0));
 N		QF_INT_LOCK();
 X		__disable_irq();;
 N	}
@@ -6707,8 +6707,10 @@ N	event.super.sig = BUTTON_DOWN_SIG;
 N	if(ao != 0) {
 N		QF_INT_UNLOCK();
 X		__enable_irq();;
-N		QActive_postFIFO(ao, (QEvent *)&event);
-X		((void)(*((QActiveVtbl const *)(((ao))->super . vptr))->post)(((ao)), (((QEvent *)&event)), (uint_fast16_t)0));
+N		//QActive_postFIFO(ao, (QEvent *)&event);
+N				 QACTIVE_POST(ao,
+N                         (QEvent *)&event, (void *)0);
+X				 ((void)(*((QActiveVtbl const *)((ao)->super . vptr))->post)((ao), ((QEvent *)&event), (uint_fast16_t)0));
 N		QF_INT_LOCK();
 X		__disable_irq();;
 N	}

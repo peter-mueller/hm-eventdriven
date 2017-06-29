@@ -21,3 +21,4 @@
 .\obj\qmbsp.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\time.h
 .\obj\qmbsp.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\button.h
 .\obj\qmbsp.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\LPC23xx.H
+.\obj\qmbsp.o: ..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\adc.h

@@ -5484,8 +5484,7 @@ N
 Nvoid  Read_RTC(RTC_T* rtc);
 Nvoid  Write_RTC(RTC_T* new_rtc);
 Nvoid Set_RTC(	 RTC_T* new_rtc);
-W "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\rtc.h" 21 6 Deprecated declaration RtcInit - give arg types
-Nvoid RtcInit();
+Nvoid RtcInit(void);
 N#endif
 L 6 ".\src\qmbsp.h" 2
 N
@@ -5494,8 +5493,7 @@ Nint   kbhit(void);
 Nint  _getch(void);
 Nint   getch(void);
 N
-W ".\src\qmbsp.h" 12 6 Deprecated declaration BSP_Init - give arg types
-Nvoid BSP_Init();
+Nvoid BSP_Init(void);
 Nvoid BSP_onKeyboardInput(uint8_t key); /* process the keyboard scan code */
 N
 N#define BSP_TICKS_PER_SEC    100U
@@ -5591,8 +5589,8 @@ NQState AlarmClock_showCurrentTime(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_set_hour(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_set_minute(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_enableAlarm(AlarmClock * const me, QEvt const * const e);
-NQState AlarmClock_final(AlarmClock * const me, QEvt const * const e);
 NQState AlarmClock_brewing(AlarmClock * const me, QEvt const * const e);
+NQState AlarmClock_final(AlarmClock * const me, QEvt const * const e);
 N
 N
 N#endif /* clock_h */
@@ -5612,8 +5610,9 @@ N
 N#endif
 L 5 "bsp\adc.c" 2
 N
+N__irq void ADC_IRQHandler (void);
 Nstatic short AD_last;                          /* Last converted value               */
-NQActive*  ad_ao = 0;
+NQActive*  ao2 = 0;
 N
 N/* A/D IRQ: Executed when A/D Conversion is done                              */
 N__irq void ADC_IRQHandler(void) {
@@ -5633,18 +5632,21 @@ N{
 N	static ADEvt event;
 N	event.super.sig = AD_CHANGED_SIG;
 N	event.value = AD_last;
-N	if(ad_ao != 0) {
+N	if(ao2 != 0){
 N		QF_INT_UNLOCK();
 X		__enable_irq();;
-N		QActive_postFIFO(ad_ao, (QEvent *)&event);
-X		((void)(*((QActiveVtbl const *)(((ad_ao))->super . vptr))->post)(((ad_ao)), (((QEvent *)&event)), (uint_fast16_t)0));
+N		//QActive_postFIFO(ao2, (QEvent *)&event);
+N		 QACTIVE_POST(ao2,
+N                         (QEvent *)&event, (void *)0);
+X		 ((void)(*((QActiveVtbl const *)((ao2)->super . vptr))->post)((ao2), ((QEvent *)&event), (uint_fast16_t)0));
 N		QF_INT_LOCK();
 X		__disable_irq();;
 N	}
+N	
 N}
 Nvoid ad_setAO(QActive* ao_)
 N{
-N	ad_ao = ao_;
+N	ao2 = ao_;
 N}
 N
 N

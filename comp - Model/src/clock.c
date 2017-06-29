@@ -19,6 +19,7 @@
 #include "alarm.h"
 #include "clock.h"
 #include "button.h"
+#include "adc.h"
 
 #include <stdio.h>
 
@@ -51,11 +52,14 @@ QState AlarmClock_initial(AlarmClock * const me, QEvt const * const e) {
     Set_RTC(&(me->current));
     Write_RTC(&(me->current));
 
+    me->strength = 0U;
+    me->adval = 0U;
+
     (void)e; /* avoid compiler warning about unused parameter */
 
     /* (!) trigger the initial transition in the component */
     Alarm_init(&me->alarm);
-    return Q_TRAN(&AlarmClock_showCurrentTime);
+    return Q_TRAN(&AlarmClock_timekeeping);
 }
 /* @(/2/1/5/1) .............................................................*/
 QState AlarmClock_timekeeping(AlarmClock * const me, QEvt const * const e) {
@@ -76,12 +80,17 @@ QState AlarmClock_timekeeping(AlarmClock * const me, QEvt const * const e) {
             break;
         }
         /* @(/2/1/5/1/0) */
+        case Q_INIT_SIG: {
+            status_ = Q_TRAN(&AlarmClock_showCurrentTime);
+            break;
+        }
+        /* @(/2/1/5/1/1) */
         case ALARM_SIG: {
             BSP_showMsg("Wake up!!!");
             status_ = Q_TRAN(&AlarmClock_brewing);
             break;
         }
-        /* @(/2/1/5/1/1) */
+        /* @(/2/1/5/1/2) */
         case TERMINATE_SIG: {
             BSP_showMsg("--> final");
             status_ = Q_TRAN(&AlarmClock_final);
@@ -94,24 +103,30 @@ QState AlarmClock_timekeeping(AlarmClock * const me, QEvt const * const e) {
     }
     return status_;
 }
-/* @(/2/1/5/1/2) ...........................................................*/
+/* @(/2/1/5/1/3) ...........................................................*/
 QState AlarmClock_setBrewStrength(AlarmClock * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
-        /* @(/2/1/5/1/2) */
+        /* @(/2/1/5/1/3) */
         case Q_ENTRY_SIG: {
             BSP_showMsg("Set the Brew Strength");
             status_ = Q_HANDLED();
             break;
         }
-        /* @(/2/1/5/1/2/0) */
+        /* @(/2/1/5/1/3/0) */
         case BUTTON_DOWN_SIG: {
             //me->strength = me->adval;
             status_ = Q_TRAN(&AlarmClock_enableAlarm);
             break;
         }
-        /* @(/2/1/5/1/2/1) */
+        /* @(/2/1/5/1/3/1) */
         case AD_CHANGED_SIG: {
+            ADEvt* evt = (ADEvt*)e;
+            short newStrength = (evt->value)/(1024/5);
+            if( newStrength != me->strength){
+                me->strength = newStrength;
+               // BSP_showTime24H(me->alarm.time);
+            }
             status_ = Q_HANDLED();
             break;
         }
@@ -122,22 +137,22 @@ QState AlarmClock_setBrewStrength(AlarmClock * const me, QEvt const * const e) {
     }
     return status_;
 }
-/* @(/2/1/5/1/3) ...........................................................*/
+/* @(/2/1/5/1/4) ...........................................................*/
 QState AlarmClock_showCurrentTime(AlarmClock * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
-        /* @(/2/1/5/1/3) */
+        /* @(/2/1/5/1/4) */
         case Q_ENTRY_SIG: {
-            BSP_showMsg("CofFee Machine");
+            BSP_showMsg("Show current time");
             status_ = Q_HANDLED();
             break;
         }
-        /* @(/2/1/5/1/3/0) */
+        /* @(/2/1/5/1/4/0) */
         case BUTTON_DOWN_SIG: {
             status_ = Q_TRAN(&AlarmClock_set_hour);
             break;
         }
-        /* @(/2/1/5/1/3/1) */
+        /* @(/2/1/5/1/4/1) */
         case TICK_SIG: {
             Read_RTC(&(me->current));
             BSP_showTime24H(me->current);
@@ -151,24 +166,28 @@ QState AlarmClock_showCurrentTime(AlarmClock * const me, QEvt const * const e) {
     }
     return status_;
 }
-/* @(/2/1/5/1/4) ...........................................................*/
+/* @(/2/1/5/1/5) ...........................................................*/
 QState AlarmClock_set_hour(AlarmClock * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
-        /* @(/2/1/5/1/4) */
+        /* @(/2/1/5/1/5) */
         case Q_ENTRY_SIG: {
             BSP_showMsg("Set the Hour");
             status_ = Q_HANDLED();
             break;
         }
-        /* @(/2/1/5/1/4/0) */
+        /* @(/2/1/5/1/5/0) */
         case AD_CHANGED_SIG: {
-            me->alarm.time.hours = 4;
-            BSP_showTime24H(me->alarm.time);
+            ADEvt* evt = (ADEvt*)e;
+            short newHour = (evt->value)/(1024/23);
+            if( newHour != me->alarm.time.hours){
+                me->alarm.time.hours = newHour;
+                BSP_showTime24H(me->alarm.time);
+            }
             status_ = Q_HANDLED();
             break;
         }
-        /* @(/2/1/5/1/4/1) */
+        /* @(/2/1/5/1/5/1) */
         case BUTTON_DOWN_SIG: {
             //me->alarm.time.hour = me->adval;
             status_ = Q_TRAN(&AlarmClock_set_minute);
@@ -181,22 +200,28 @@ QState AlarmClock_set_hour(AlarmClock * const me, QEvt const * const e) {
     }
     return status_;
 }
-/* @(/2/1/5/1/5) ...........................................................*/
+/* @(/2/1/5/1/6) ...........................................................*/
 QState AlarmClock_set_minute(AlarmClock * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
-        /* @(/2/1/5/1/5) */
+        /* @(/2/1/5/1/6) */
         case Q_ENTRY_SIG: {
             BSP_showMsg("Set the Minute");
             status_ = Q_HANDLED();
             break;
         }
-        /* @(/2/1/5/1/5/0) */
+        /* @(/2/1/5/1/6/0) */
         case AD_CHANGED_SIG: {
+            ADEvt* evt = (ADEvt*)e;
+            short newMinutes = (evt->value)/(1024/59);
+            if( newMinutes != me->alarm.time.minutes){
+                me->alarm.time.minutes = newMinutes;
+                BSP_showTime24H(me->alarm.time);
+            }
             status_ = Q_HANDLED();
             break;
         }
-        /* @(/2/1/5/1/5/1) */
+        /* @(/2/1/5/1/6/1) */
         case BUTTON_DOWN_SIG: {
             //me->alarm.time.minute = me->adval;
             status_ = Q_TRAN(&AlarmClock_setBrewStrength);
@@ -209,50 +234,33 @@ QState AlarmClock_set_minute(AlarmClock * const me, QEvt const * const e) {
     }
     return status_;
 }
-/* @(/2/1/5/1/6) ...........................................................*/
+/* @(/2/1/5/1/7) ...........................................................*/
 QState AlarmClock_enableAlarm(AlarmClock * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
-        /* @(/2/1/5/1/6) */
+        /* @(/2/1/5/1/7) */
         case Q_ENTRY_SIG: {
             BSP_showMsg("Enable the Alarm?");
             status_ = Q_HANDLED();
             break;
         }
-        /* @(/2/1/5/1/6/0) */
+        /* @(/2/1/5/1/7/0) */
         case BUTTON_DOWN_SIG: {
             //QEvt *e =  Q_NEW(QEvt, ALARM_ON_SIG);
             //QHsm_dispatch(&me->alarm.super, e);
 
-             QACTIVE_POST(APP_alarmClock,
-                                     Q_NEW(QEvt, ALARM_ON_SIG), (void *)0);
+             //QACTIVE_POST(APP_alarmClock,
+              //                       Q_NEW(QEvt, ALARM_ON_SIG), (void *)0);
             status_ = Q_TRAN(&AlarmClock_showCurrentTime);
             break;
         }
-        /* @(/2/1/5/1/6/1) */
+        /* @(/2/1/5/1/7/1) */
         case AD_CHANGED_SIG: {
             status_ = Q_HANDLED();
             break;
         }
         default: {
             status_ = Q_SUPER(&AlarmClock_timekeeping);
-            break;
-        }
-    }
-    return status_;
-}
-/* @(/2/1/5/1/6/2) .........................................................*/
-QState AlarmClock_final(AlarmClock * const me, QEvt const * const e) {
-    QState status_;
-    switch (e->sig) {
-        /* @(/2/1/5/1/6/2) */
-        case Q_ENTRY_SIG: {
-            QF_stop(); /* terminate the application */
-            status_ = Q_HANDLED();
-            break;
-        }
-        default: {
-            status_ = Q_SUPER(&AlarmClock_enableAlarm);
             break;
         }
     }
@@ -276,6 +284,23 @@ QState AlarmClock_brewing(AlarmClock * const me, QEvt const * const e) {
             else {
                 status_ = Q_UNHANDLED();
             }
+            break;
+        }
+        default: {
+            status_ = Q_SUPER(&QHsm_top);
+            break;
+        }
+    }
+    return status_;
+}
+/* @(/2/1/5/3) .............................................................*/
+QState AlarmClock_final(AlarmClock * const me, QEvt const * const e) {
+    QState status_;
+    switch (e->sig) {
+        /* @(/2/1/5/3) */
+        case Q_ENTRY_SIG: {
+            QF_stop(); /* terminate the application */
+            status_ = Q_HANDLED();
             break;
         }
         default: {

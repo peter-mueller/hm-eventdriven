@@ -111,7 +111,7 @@
         <tPdscDbg>1</tPdscDbg>
         <sRunDeb>0</sRunDeb>
         <sLrtime>0</sLrtime>
-        <nTsel>5</nTsel>
+        <nTsel>0</nTsel>
         <sDll></sDll>
         <sDllPa></sDllPa>
         <sDlgDll></sDlgDll>
@@ -122,7 +122,7 @@
         <tDlgDll></tDlgDll>
         <tDlgPa></tDlgPa>
         <tIfile>.\comp_ram.ini</tIfile>
-        <pMon>Segger\JLTAgdi.dll</pMon>
+        <pMon>BIN\UL2ARM.DLL</pMon>
       </DebugOpt>
       <TargetDriverDllRegistry>
         <SetRegEntry>
@@ -148,7 +148,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>UL2ARM</Key>
-          <Name>-UV0321MAE -O15 -S135 -C0 -N00("ARM7TDMI-S Core") -D00(4F1F0F0F) -L00(4) -FO15 -FD40000000 -FC800 -FN1 -FF0LPC_IAP2_512 -FS00 -FL07E000</Name>
+          <Name>-UV1103P9E -O15 -S135 -C0 -N00("ARM7TDMI-S Core") -D00(4F1F0F0F) -L00(4) -FO15 -FD40000000 -FC800 -FN1 -FF0LPC_IAP2_512 -FS00 -FL07E000</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
       <Breakpoint/>
@@ -500,7 +500,7 @@
 
   <Group>
     <GroupName>qflib</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

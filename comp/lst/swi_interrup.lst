@@ -82,11 +82,11 @@ ARM Macro Assembler    Page 2
    51 00000064         
    52 00000064         
    53 00000064                 END
-Command Line: --debug --xref --diag_suppress=9931 --apcs=interwork --depend=.\o
-bj\swi_interrup.d -o.\obj\swi_interrup.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5
-\ARM\CMSIS\Include -IC:\Keil_v5\ARM\Inc\Philips --predefine="__MICROLIB SETA 1"
- --predefine="REMAP SETL {TRUE}" --predefine="RAM_MODE SETL {TRUE}" --list=.\ls
-t\swi_interrup.lst src\swi_interrup.s
+Command Line: --debug --xref --apcs=interwork --depend=.\obj\swi_interrup.d -o.
+\obj\swi_interrup.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -I
+C:\Keil_v5\ARM\Inc\Philips --predefine="__EVAL SETA 1" --predefine="__MICROLIB 
+SETA 1" --predefine="REMAP SETL {TRUE}" --predefine="RAM_MODE SETL {TRUE}" --li
+st=.\lst\swi_interrup.lst src\swi_interrup.s
 
 
 
@@ -151,4 +151,4 @@ Symbol: T_Bit
       At line 19 in file src\swi_interrup.s
 Comment: T_Bit used once
 1 symbol
-339 symbols in table
+340 symbols in table

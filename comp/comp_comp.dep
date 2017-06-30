@@ -1,17 +1,17 @@
 Dependencies for Project 'comp', Target 'comp': (DO NOT MODIFY !)
-F (.\src\Retarget.c)(0x5940D3C8)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\retarget.o --list_dir ".\\lst\\" --list --omf_browse .\obj\retarget.crf --depend .\obj\retarget.d)
+F (.\src\Retarget.c)(0x5940D3C8)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\retarget.o --list_dir ".\\lst\\" --list --omf_browse .\obj\retarget.crf --depend .\obj\retarget.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x53469CB4)
 I (C:\Keil_v5\ARM\ARMCC\include\rt_misc.h)(0x53469CB4)
-F (.\src\startup.s)(0x5940D3C8)(--cpu ARM7TDMI -g --apcs=interwork --pd "__MICROLIB SETA 1"  --predefine "REMAP SETL {TRUE}"  --predefine "RAM_MODE SETL {TRUE}"-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips--list .\lst\startup.lst --xref -o .\obj\startup.o --depend .\obj\startup.d)
-F (.\src\swi_interrup.s)(0x5940D3C8)(--cpu ARM7TDMI -g --apcs=interwork --pd "__MICROLIB SETA 1"  --predefine "REMAP SETL {TRUE}"  --predefine "RAM_MODE SETL {TRUE}"-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips--list .\lst\swi_interrup.lst --xref -o .\obj\swi_interrup.o --depend .\obj\swi_interrup.d)
-F (.\bsp\LCD_4bit.c)(0x5940D3C8)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\lcd_4bit.o --list_dir ".\\lst\\" --list --omf_browse .\obj\lcd_4bit.crf --depend .\obj\lcd_4bit.d)
+F (.\src\startup.s)(0x5940D3C8)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"  --predefine "REMAP SETL {TRUE}"  --predefine "RAM_MODE SETL {TRUE}"-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips--list .\lst\startup.lst --xref -o .\obj\startup.o --depend .\obj\startup.d)
+F (.\src\swi_interrup.s)(0x5940D3C8)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"  --predefine "REMAP SETL {TRUE}"  --predefine "RAM_MODE SETL {TRUE}"-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips--list .\lst\swi_interrup.lst --xref -o .\obj\swi_interrup.o --depend .\obj\swi_interrup.d)
+F (.\bsp\LCD_4bit.c)(0x5940D3C8)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\lcd_4bit.o --list_dir ".\\lst\\" --list --omf_browse .\obj\lcd_4bit.crf --depend .\obj\lcd_4bit.d)
 I (..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\LPC23xx.H)(0x5925280B)
-F (.\bsp\led.c)(0x5940D3C8)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\led.o --list_dir ".\\lst\\" --list --omf_browse .\obj\led.crf --depend .\obj\led.d)
+F (.\bsp\led.c)(0x5940D3C8)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\led.o --list_dir ".\\lst\\" --list --omf_browse .\obj\led.crf --depend .\obj\led.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x53469CB4)
 I (..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\LPC23xx.H)(0x5925280B)
-F (.\bsp\Serial.c)(0x5940D3C8)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\serial.o --list_dir ".\\lst\\" --list --omf_browse .\obj\serial.crf --depend .\obj\serial.d)
+F (.\bsp\Serial.c)(0x5940D3C8)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\serial.o --list_dir ".\\lst\\" --list --omf_browse .\obj\serial.crf --depend .\obj\serial.d)
 I (..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\LPC23xx.H)(0x5925280B)
-F (.\bsp\timer.c)(0x5940D3C8)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\timer.o --list_dir ".\\lst\\" --list --omf_browse .\obj\timer.crf --depend .\obj\timer.d)
+F (.\bsp\timer.c)(0x5940D3C8)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\timer.o --list_dir ".\\lst\\" --list --omf_browse .\obj\timer.crf --depend .\obj\timer.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x53469CB4)
 I (..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\LPC23xx.H)(0x5925280B)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qp_port.h)(0x59252805)
@@ -27,7 +27,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x5925
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
-F (.\src\qmbsp.c)(0x5940FC4C)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qmbsp.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qmbsp.crf --depend .\obj\qmbsp.d)
+F (.\src\qmbsp.c)(0x5940FC4C)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qmbsp.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qmbsp.crf --depend .\obj\qmbsp.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qp_port.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
@@ -47,7 +47,7 @@ I (src\alarm.h)(0x59411903)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x53469CB4)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x53469CB4)
 I (C:\Keil_v5\ARM\ARMCC\include\time.h)(0x53469CB4)
-F (.\src\alarm.c)(0x5940FE1A)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\alarm.o --list_dir ".\\lst\\" --list --omf_browse .\obj\alarm.crf --depend .\obj\alarm.d)
+F (.\src\alarm.c)(0x5940FE1A)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\alarm.o --list_dir ".\\lst\\" --list --omf_browse .\obj\alarm.crf --depend .\obj\alarm.d)
 I (src\qmbsp.h)(0x5940FA93)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
 I (src\alarm.h)(0x59411903)
@@ -64,7 +64,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (src\clock.h)(0x5940F9E6)
-F (.\src\clock.c)(0x59411903)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\clock.o --list_dir ".\\lst\\" --list --omf_browse .\obj\clock.crf --depend .\obj\clock.d)
+F (.\src\clock.c)(0x59411903)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\clock.o --list_dir ".\\lst\\" --list --omf_browse .\obj\clock.crf --depend .\obj\clock.d)
 I (src\qmbsp.h)(0x5940FA93)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
 I (src\alarm.h)(0x59411903)
@@ -82,7 +82,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (src\clock.h)(0x5940F9E6)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x53469CB4)
-F (.\src\main.c)(0x5941113E)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\main.o --list_dir ".\\lst\\" --list --omf_browse .\obj\main.crf --depend .\obj\main.d)
+F (.\src\main.c)(0x5941113E)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\main.o --list_dir ".\\lst\\" --list --omf_browse .\obj\main.crf --depend .\obj\main.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
@@ -100,21 +100,13 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (src\alarm.h)(0x59411903)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x53469CB4)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qep.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qep.crf --depend .\obj\qep.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qep.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qep.crf --depend .\obj\qep.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h)(0x59252806)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qfsm_dis.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qfsm_dis.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qfsm_dis.crf --depend .\obj\qfsm_dis.d)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qfsm_ini.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qfsm_ini.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qfsm_ini.crf --depend .\obj\qfsm_ini.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qfsm_dis.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qfsm_dis.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qfsm_dis.crf --depend .\obj\qfsm_dis.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
@@ -122,7 +114,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x592528
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qhsm_dis.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qhsm_dis.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qhsm_dis.crf --depend .\obj\qhsm_dis.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qfsm_ini.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qfsm_ini.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qfsm_ini.crf --depend .\obj\qfsm_ini.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
@@ -130,14 +122,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x592528
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qhsm_in.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qhsm_in.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qhsm_in.crf --depend .\obj\qhsm_in.d)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qhsm_ini.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qhsm_ini.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qhsm_ini.crf --depend .\obj\qhsm_ini.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qhsm_dis.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qhsm_dis.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qhsm_dis.crf --depend .\obj\qhsm_dis.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
@@ -145,27 +130,14 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x592528
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qhsm_top.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qhsm_top.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qhsm_top.crf --depend .\obj\qhsm_top.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qhsm_in.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qhsm_in.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qhsm_in.crf --depend .\obj\qhsm_in.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h)(0x59252806)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qmsm_dis.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qmsm_dis.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qmsm_dis.crf --depend .\obj\qmsm_dis.d)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qmsm_in.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qmsm_in.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qmsm_in.crf --depend .\obj\qmsm_in.d)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h)(0x59252806)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qmsm_ini.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qmsm_ini.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qmsm_ini.crf --depend .\obj\qmsm_ini.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qhsm_ini.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qhsm_ini.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qhsm_ini.crf --depend .\obj\qhsm_ini.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
@@ -173,7 +145,35 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x592528
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_ctor.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_ctor.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_ctor.crf --depend .\obj\qa_ctor.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qhsm_top.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qhsm_top.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qhsm_top.crf --depend .\obj\qhsm_top.d)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h)(0x59252806)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qmsm_dis.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qmsm_dis.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qmsm_dis.crf --depend .\obj\qmsm_dis.d)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h)(0x59252806)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qmsm_in.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qmsm_in.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qmsm_in.crf --depend .\obj\qmsm_in.d)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h)(0x59252806)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qmsm_ini.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qmsm_ini.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qmsm_ini.crf --depend .\obj\qmsm_ini.d)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qep\source\qep_pkg.h)(0x59252806)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_ctor.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_ctor.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_ctor.crf --depend .\obj\qa_ctor.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -184,7 +184,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_defer.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_defer.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_defer.crf --depend .\obj\qa_defer.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_defer.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_defer.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_defer.crf --depend .\obj\qa_defer.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -197,7 +197,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x5925
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_fifo.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_fifo.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_fifo.crf --depend .\obj\qa_fifo.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_fifo.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_fifo.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_fifo.crf --depend .\obj\qa_fifo.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -211,7 +211,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_get_.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_get_.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_get_.crf --depend .\obj\qa_get_.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_get_.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_get_.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_get_.crf --depend .\obj\qa_get_.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -225,7 +225,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_lifo.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_lifo.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_lifo.crf --depend .\obj\qa_lifo.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_lifo.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_lifo.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_lifo.crf --depend .\obj\qa_lifo.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -239,7 +239,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_sub.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_sub.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_sub.crf --depend .\obj\qa_sub.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_sub.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_sub.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_sub.crf --depend .\obj\qa_sub.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -253,7 +253,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_usub.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_usub.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_usub.crf --depend .\obj\qa_usub.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_usub.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_usub.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_usub.crf --depend .\obj\qa_usub.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -267,7 +267,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_usuba.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_usuba.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_usuba.crf --depend .\obj\qa_usuba.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qa_usuba.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qa_usuba.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qa_usuba.crf --depend .\obj\qa_usuba.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -281,7 +281,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qeq_fifo.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qeq_fifo.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qeq_fifo.crf --depend .\obj\qeq_fifo.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qeq_fifo.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qeq_fifo.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qeq_fifo.crf --depend .\obj\qeq_fifo.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -295,7 +295,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qeq_get.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qeq_get.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qeq_get.crf --depend .\obj\qeq_get.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qeq_get.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qeq_get.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qeq_get.crf --depend .\obj\qeq_get.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -309,7 +309,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qeq_init.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qeq_init.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qeq_init.crf --depend .\obj\qeq_init.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qeq_init.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qeq_init.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qeq_init.crf --depend .\obj\qeq_init.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -321,21 +321,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x592
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qeq_lifo.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qeq_lifo.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qeq_lifo.crf --depend .\obj\qeq_lifo.d)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_act.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_act.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_act.crf --depend .\obj\qf_act.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qeq_lifo.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qeq_lifo.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qeq_lifo.crf --depend .\obj\qeq_lifo.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -349,7 +335,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_gc.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_gc.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_gc.crf --depend .\obj\qf_gc.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_act.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_act.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_act.crf --depend .\obj\qf_act.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -363,18 +349,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_log2.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_log2.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_log2.crf --depend .\obj\qf_log2.d)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_new.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_new.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_new.crf --depend .\obj\qf_new.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_gc.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_gc.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_gc.crf --depend .\obj\qf_gc.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -388,7 +363,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pool.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_pool.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_pool.crf --depend .\obj\qf_pool.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_log2.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_log2.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_log2.crf --depend .\obj\qf_log2.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -399,21 +374,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_psini.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_psini.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_psini.crf --depend .\obj\qf_psini.d)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pspub.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_pspub.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_pspub.crf --depend .\obj\qf_pspub.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_new.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_new.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_new.crf --depend .\obj\qf_new.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -427,7 +388,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pwr2.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_pwr2.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_pwr2.crf --depend .\obj\qf_pwr2.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pool.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_pool.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_pool.crf --depend .\obj\qf_pool.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -439,7 +400,20 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x592
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_tick.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_tick.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_tick.crf --depend .\obj\qf_tick.d)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_psini.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_psini.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_psini.crf --depend .\obj\qf_psini.d)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pspub.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_pspub.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_pspub.crf --depend .\obj\qf_pspub.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -453,7 +427,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qma_ctor.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qma_ctor.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qma_ctor.crf --depend .\obj\qma_ctor.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pwr2.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_pwr2.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_pwr2.crf --depend .\obj\qf_pwr2.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -465,21 +439,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x592
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qmp_get.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qmp_get.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qmp_get.crf --depend .\obj\qmp_get.d)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qmp_init.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qmp_init.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qmp_init.crf --depend .\obj\qmp_init.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_tick.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qf_tick.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qf_tick.crf --depend .\obj\qf_tick.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -493,7 +453,19 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qmp_put.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qmp_put.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qmp_put.crf --depend .\obj\qmp_put.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qma_ctor.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qma_ctor.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qma_ctor.crf --depend .\obj\qma_ctor.d)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qmp_get.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qmp_get.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qmp_get.crf --depend .\obj\qmp_get.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -507,7 +479,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_arm.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qte_arm.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qte_arm.crf --depend .\obj\qte_arm.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qmp_init.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qmp_init.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qmp_init.crf --depend .\obj\qmp_init.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -521,46 +493,7 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_ctor.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qte_ctor.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qte_ctor.crf --depend .\obj\qte_ctor.d)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_ctr.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qte_ctr.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qte_ctr.crf --depend .\obj\qte_ctr.d)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_darm.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qte_darm.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qte_darm.crf --depend .\obj\qte_darm.d)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
-I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_rarm.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qte_rarm.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qte_rarm.crf --depend .\obj\qte_rarm.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qmp_put.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qmp_put.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qmp_put.crf --depend .\obj\qmp_put.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
@@ -574,7 +507,74 @@ I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x5925280
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
-F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qvanilla.c)(0x59252806)(-c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\lst\\" -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qvanilla.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qvanilla.crf --depend .\obj\qvanilla.d)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_arm.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qte_arm.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qte_arm.crf --depend .\obj\qte_arm.d)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_ctor.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qte_ctor.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qte_ctor.crf --depend .\obj\qte_ctor.d)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_ctr.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qte_ctr.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qte_ctr.crf --depend .\obj\qte_ctr.d)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_darm.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qte_darm.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qte_darm.crf --depend .\obj\qte_darm.d)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qte_rarm.c)(0x59252806)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qte_rarm.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qte_rarm.crf --depend .\obj\qte_rarm.d)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x53469CB4)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qep.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qvanilla.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qequeue.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qmpool.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qpset.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qf.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qf_pkg.h)(0x59252806)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qs_dummy.h)(0x59252805)
+I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include\qassert.h)(0x59252805)
+F (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\qf\source\qvanilla.c)(0x595375D7)(-c --cpu ARM7TDMI -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil -I..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\include-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-DQM_TICK -DQM_ActiveObject-o .\obj\qvanilla.o --list_dir ".\\lst\\" --list --omf_browse .\obj\qvanilla.crf --depend .\obj\qvanilla.d)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qf_port.h)(0x59252806)
 I (..\..\..\..\..\..\..\Frameworks\Quantum\qpc_5.3.1\qpc\ports\arm7\Keil\qep_port.h)(0x5937C089)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x53469CB4)

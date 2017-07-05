@@ -38,25 +38,47 @@ individuelle Umsetzung veranschaulicht.
 Anforderungen
 =============
 
-Es soll eine benutzerfreundliche Kaffeemaschine auf dem MCB2300
-realisiert werden.
+Das Ziel der Umsetzung ist eine benutzerfreundliche Kaffeemaschine,
+welche auf dem MCB2300 realisiert werden soll. Damit der Nutzer seinen Kaffee
+immer zum gewünschten Zeitpunkt erhält, soll eine Zeitsteuerung für den
+Brühvorgang umgesetzt werden. Dadurch kann er z.B. am Vortag die Kaffeemaschine
+so einstellen, dass am nächsten Morgen direkt nach dem Aufstehen der Kaffee
+schon bereit steht. Um dies zu erreichen ist ein Menü zum Einstellen der
+Alarmzeit einzubauen, bei dem sich sowohl Stunden als auch Minuten des geplanten
+Brühvorganges einstellen lassen.
+
+Damit die Kaffeemaschine z.B. während eines Urlaubs keinen Kaffee zubereitet,
+soll sich die Zeitsteuerung (Alarm) auch deaktiviert werden könne. Hierzu ist
+im Menü eine entsprechende Einstellung vorzusehen. Auch soll der
+Brühvorgang dann nicht stattfinden, wenn keine Kaffeekanne bereit steht. So wird
+ein Schaden beim Nutzer vermieden, der durch einen unkontrollierten Brühvorgang
+entstehen würde.
+
+Des Weiteren soll die Kaffeestärke vom Nutzer eingestellt werden können, damit er
+den Kaffee so erhält, wie er ihn bevorzugt trinkt. Dazu ist im Menü eine Einstellung
+für die Kaffeestärke einzurichten, welche zusätzlich die aktuell eingestellt Stärke
+auch durch separate Leuchten dauerhaft und unabhängig von der momentanen
+Anzeige darstellt.
+
+Aus diesen Anforderungen können folgende User Stories abgeleitet werden, die die
+benötigte Funktionalität noch einmal kurz zusammenfasst.
 
 User Stories
 ------------
 
--   Als Kaffeetrinker möchte die momentane Uhrzeit auf dem Display
+-   Als Kaffeetrinker möchte ich die momentane Uhrzeit auf dem Display
     sehen, um festzustellen, wann der nächste Kaffee gebraut wird.
 
--   Als Kaffeetrinker möchte beim ersten Start die Uhrzeit anpassen
-    können, um sie auf meine Ortszeit anzupassen.
-
--   Als Kaffeetrinker möchte die Startzeit für den Brühvorgang
+-   Als Kaffeetrinker möchte ich die Startzeit für den Brühvorgang
     einstellen, um erst so spät wie möglich aufstehen zu müssen.
 
--   Als Kaffeetrinker möchte die Stärke zwischen leicht, mittel und
+-   Als Kaffeetrinker möchte ich die Stärke zwischen leicht, mittel und
     stark einstellen, um den Kaffee anzupassen.
 
--   Als Kaffeetrinker möchte, dass der Kaffee nicht ausgegeben wird,
+-   Als Kaffeetrinker möchte ich den automatischen Brühvorgang ein- bzw.
+    ausstellen können, damit bei meiner Abwesenheit kein Kaffee gebrüht wird.
+
+-   Als Kaffeetrinker möchte ich, dass der Kaffee nicht ausgegeben wird,
     wenn kein Behälter unter der Ausgabe ist, um Sauereien zu vermeiden.
 
 Technische Anforderungen

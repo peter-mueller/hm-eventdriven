@@ -1,6 +1,5 @@
 ---
 documentclass: scrartcl
-classoption: twocolumn
 title: |
   EVENT DRIVEN SYSTEMS
 subtitle: |

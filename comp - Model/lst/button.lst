@@ -6663,8 +6663,8 @@ N}
 N
 N__irq void GPIO_IRQHandler(void)
 N{
-N	int rising;
-N	int i;
+N	static int rising;
+N	static int i;
 N
 N	
 N	for(i = 0; i < 2000; i++);

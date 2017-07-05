@@ -24,8 +24,8 @@ void button_init()
 
 __irq void GPIO_IRQHandler(void)
 {
-	int rising;
-	int i;
+	static int rising;
+	static int i;
 
 	
 	for(i = 0; i < 2000; i++);

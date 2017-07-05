@@ -86,7 +86,7 @@ me-&gt;alarmOn = 0U;
 
 /* (!) trigger the initial transition in the component */
 Alarm_init(&amp;me-&gt;alarm);</action>
-     <initial_glyph conn="2,3,5,0,12,3">
+     <initial_glyph conn="2,9,5,0,12,4">
       <action box="0,-2,6,2"/>
      </initial_glyph>
     </initial>
@@ -96,18 +96,18 @@ QTimeEvt_armX(&amp;me-&gt;timeEvt, BSP_TICKS_PER_SEC,
                             BSP_TICKS_PER_SEC);</entry>
      <exit>QTimeEvt_disarm(&amp;me-&gt;timeEvt);</exit>
      <initial target="../4">
-      <initial_glyph conn="5,16,5,3,-2,21,1">
+      <initial_glyph conn="5,22,5,3,-2,15,4">
        <action box="0,2,6,2"/>
       </initial_glyph>
      </initial>
      <tran trig="ALARM" target="../../2">
-      <tran_glyph conn="2,28,3,3,64,1,2">
+      <tran_glyph conn="2,28,3,3,97">
        <action box="0,-2,10,2"/>
       </tran_glyph>
      </tran>
      <tran trig="TERMINATE" target="../../3">
       <action>BSP_showMsg(&quot;--&gt; final&quot;);</action>
-      <tran_glyph conn="2,32,3,1,44,67,42">
+      <tran_glyph conn="2,30,3,3,41,51,61">
        <action box="0,-2,10,2"/>
       </tran_glyph>
      </tran>
@@ -115,7 +115,7 @@ QTimeEvt_armX(&amp;me-&gt;timeEvt, BSP_TICKS_PER_SEC,
       <entry>BSP_showMsg(&quot;Set the Brew Strength&quot;);</entry>
       <tran trig="BUTTON_DOWN" target="../../7">
        <action>//me-&gt;strength = me-&gt;adval;</action>
-       <tran_glyph conn="4,90,3,3,-1,9,1">
+       <tran_glyph conn="50,77,3,3,-5,-25,6">
         <action box="0,-2,6,2"/>
        </tran_glyph>
       </tran>
@@ -134,18 +134,18 @@ if( newStrength != me-&gt;strength){
        LED_Off(n);              /* Turn LED Off */
     }
 }</action>
-       <tran_glyph conn="4,88,3,-1,14">
+       <tran_glyph conn="50,75,3,-1,14">
         <action box="0,-2,6,2"/>
        </tran_glyph>
       </tran>
-      <state_glyph node="4,81,32,12">
+      <state_glyph node="50,68,32,12">
        <entry box="1,2,17,2"/>
       </state_glyph>
      </state>
      <state name="showCurrentTime">
       <entry>BSP_showMsg(&quot;Show current time&quot;);</entry>
       <tran trig="BUTTON_DOWN" target="../../5">
-       <tran_glyph conn="4,44,3,3,-2,10,2">
+       <tran_glyph conn="7,44,3,3,-2,10,2">
         <action box="0,-2,12,2"/>
        </tran_glyph>
       </tran>
@@ -155,11 +155,11 @@ BSP_showTime24H(me-&gt;current);
 
 QHsm_dispatch(&amp;me-&gt;alarm.super,  e);
 </action>
-       <tran_glyph conn="4,40,3,-1,9">
+       <tran_glyph conn="7,40,3,-1,9">
         <action box="0,-2,6,2"/>
        </tran_glyph>
       </tran>
-      <state_glyph node="4,34,32,12">
+      <state_glyph node="7,34,32,12">
        <entry box="1,2,5,2"/>
       </state_glyph>
      </state>
@@ -172,17 +172,17 @@ if( newHour != me-&gt;alarm.time.hours){
     me-&gt;alarm.time.hours = newHour;
     BSP_showTime24H(me-&gt;alarm.time);
 }</action>
-       <tran_glyph conn="4,58,3,-1,14">
+       <tran_glyph conn="7,58,3,-1,14">
         <action box="0,-2,10,2"/>
        </tran_glyph>
       </tran>
       <tran trig="BUTTON_DOWN" target="../../6">
        <action>//me-&gt;alarm.time.hour = me-&gt;adval;</action>
-       <tran_glyph conn="4,62,3,3,-1,5,1">
+       <tran_glyph conn="7,62,3,3,-2,6,2">
         <action box="0,-2,11,2"/>
        </tran_glyph>
       </tran>
-      <state_glyph node="4,49,32,15">
+      <state_glyph node="7,49,32,15">
        <entry box="1,2,5,2"/>
       </state_glyph>
      </state>
@@ -195,17 +195,17 @@ if( newMinutes != me-&gt;alarm.time.minutes){
     me-&gt;alarm.time.minutes = newMinutes;
     BSP_showTime24H(me-&gt;alarm.time);
 }</action>
-       <tran_glyph conn="4,73,3,-1,14">
+       <tran_glyph conn="7,74,3,-1,14">
         <action box="0,-2,10,2"/>
        </tran_glyph>
       </tran>
       <tran trig="BUTTON_DOWN" target="../../3">
        <action>//me-&gt;alarm.time.minute = me-&gt;adval;</action>
-       <tran_glyph conn="4,77,3,3,-1,9,1">
+       <tran_glyph conn="7,78,3,3,-2,5,40,-5,5">
         <action box="0,-2,11,2"/>
        </tran_glyph>
       </tran>
-      <state_glyph node="4,64,32,15">
+      <state_glyph node="7,65,32,15">
        <entry box="1,2,5,2"/>
       </state_glyph>
      </state>
@@ -221,7 +221,7 @@ QHsm_dispatch(&amp;me-&gt;alarm.super,  Q_NEW(QEvt, ALARM_ON_SIG));
 QHsm_dispatch(&amp;me-&gt;alarm.super,  Q_NEW(QEvt, ALARM_OFF_SIG));
 
 }</action>
-       <tran_glyph conn="36,99,1,1,2,-59,-2">
+       <tran_glyph conn="83,52,1,1,2,-12,-46">
         <action box="0,-2,6,2"/>
        </tran_glyph>
       </tran>
@@ -239,15 +239,15 @@ if (me-&gt;alarmOn != newAlarm) {
     }
 
 }</action>
-       <tran_glyph conn="4,102,3,-1,14">
+       <tran_glyph conn="51,55,3,-1,14">
         <action box="0,-2,6,2"/>
        </tran_glyph>
       </tran>
-      <state_glyph node="4,95,32,12">
+      <state_glyph node="51,48,32,12">
        <entry box="1,2,17,2"/>
       </state_glyph>
      </state>
-     <state_glyph node="2,6,42,103">
+     <state_glyph node="2,13,86,75">
       <entry box="1,2,6,2"/>
       <exit box="1,4,6,2"/>
      </state_glyph>
@@ -259,7 +259,7 @@ QTimeEvt_armX(&amp;me-&gt;timeEvt, BSP_TICKS_PER_SEC,
                             BSP_TICKS_PER_SEC);</entry>
      <exit>QTimeEvt_disarm(&amp;me-&gt;timeEvt);</exit>
      <tran trig="BUTTON_DOWN" target="../../1">
-      <tran_glyph conn="68,24,3,1,-22,-1,-2">
+      <tran_glyph conn="99,24,3,1,-11">
        <action box="0,-2,14,2"/>
       </tran_glyph>
      </tran>
@@ -275,32 +275,32 @@ for (n = 0; n &lt; 5; n++)               /* Show the Value                     *
       <choice target="../../../1">
        <guard>me-&gt;brewingTime &gt; me-&gt;strength*10</guard>
        <action>me-&gt;brewingTime = 0;</action>
-       <choice_glyph conn="73,44,4,1,-5,-29">
+       <choice_glyph conn="104,49,4,1,-10,-16">
         <action box="1,0,15,2"/>
        </choice_glyph>
       </choice>
       <choice>
        <guard>true</guard>
-       <choice_glyph conn="73,44,4,-1,9">
+       <choice_glyph conn="104,49,4,-1,9">
         <action box="1,0,6,2"/>
        </choice_glyph>
       </choice>
-      <tran_glyph conn="68,33,3,-1,25,11,-20">
+      <tran_glyph conn="99,38,3,-1,25,11,-20">
        <action box="0,-2,6,2"/>
       </tran_glyph>
      </tran>
-     <state_glyph node="68,8,56,64">
+     <state_glyph node="99,13,56,53">
       <entry box="1,2,5,2"/>
       <exit box="1,4,5,2"/>
      </state_glyph>
     </state>
     <state name="final">
      <entry brief="terminate">QF_stop(); /* terminate the application */</entry>
-     <state_glyph node="57,97,31,8">
+     <state_glyph node="104,78,31,8">
       <entry box="1,2,11,2"/>
      </state_glyph>
     </state>
-    <state_diagram size="146,111"/>
+    <state_diagram size="195,111"/>
    </statechart>
   </class>
   <attribute name="APP_alarmClock" type="QActive * const" visibility="0x00" properties="0x00">

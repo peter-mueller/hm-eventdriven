@@ -3397,6 +3397,8 @@ N    QTimeEvt timeEvt;
 N    uint32_t adval;
 N    uint8_t strength;
 N    RTC_T current;
+N    short alarmOn;
+N    short brewingTime;
 N} AlarmClock;
 N
 N/* protected: */

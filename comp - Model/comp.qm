@@ -40,9 +40,11 @@ NOTE: Requries QP5.</documentation>
        <action box="0,-2,14,2"/>
       </tran_glyph>
      </tran>
-     <tran trig="TIME">
+     <tran trig="TICK">
+      <action>RTC_T rtc;
+Read_RTC(&amp;rtc);</action>
       <choice>
-       <guard>true</guard>
+       <guard>rtc.hours == me-&gt;time.hours &amp;&amp; me-&gt;time.minutes ==  rtc.minutes &amp;&amp; rtc.seconds==0</guard>
        <action>BSP_showMsg(&quot;ALARM!!!&quot;);
 
 /* asynchronously post the event to the container AO */
@@ -67,13 +69,18 @@ QACTIVE_POST(APP_alarmClock, Q_NEW(QEvt, ALARM_SIG), me);</action>
    <attribute name="adval" type="uint32_t" visibility="0x00" properties="0x00"/>
    <attribute name="strength" type="uint8_t" visibility="0x00" properties="0x00"/>
    <attribute name="current" type="RTC_T" visibility="0x00" properties="0x00"/>
+   <attribute name="alarmOn" type="short" visibility="0x00" properties="0x00"/>
+   <attribute name="brewingTime" type="short" visibility="0x00" properties="0x00"/>
    <statechart>
     <initial target="../1">
      <action>Set_RTC(&amp;(me-&gt;current));
+me-&gt;current.seconds = 30;
 Write_RTC(&amp;(me-&gt;current));
 
 me-&gt;strength = 0U;
 me-&gt;adval = 0U;
+me-&gt;brewingTime = 0U;
+me-&gt;alarmOn = 0U;
 
 (void)e; /* avoid compiler warning about unused parameter */
 
@@ -94,8 +101,7 @@ QTimeEvt_armX(&amp;me-&gt;timeEvt, BSP_TICKS_PER_SEC,
       </initial_glyph>
      </initial>
      <tran trig="ALARM" target="../../2">
-      <action>BSP_showMsg(&quot;Wake up!!!&quot;);</action>
-      <tran_glyph conn="2,28,3,3,66">
+      <tran_glyph conn="2,28,3,3,64,1,2">
        <action box="0,-2,10,2"/>
       </tran_glyph>
      </tran>
@@ -117,8 +123,16 @@ QTimeEvt_armX(&amp;me-&gt;timeEvt, BSP_TICKS_PER_SEC,
        <action>ADEvt* evt = (ADEvt*)e;
 short newStrength = (evt-&gt;value)/(1024/5);
 if( newStrength != me-&gt;strength){
+    unsigned int n, v;
     me-&gt;strength = newStrength;
-   // BSP_showTime24H(me-&gt;alarm.time);
+
+    //v = (5*(me-&gt;AD_Print)) &gt;&gt; 9;          /* Scale the Value                    */
+    for (n = 0; n &lt; 5; n++)               /* Show the Value                     */
+    if (n &lt; newStrength) {
+        LED_On (n);              /* Turn LED On                        */
+    } else {
+       LED_Off(n);              /* Turn LED Off */
+    }
 }</action>
        <tran_glyph conn="4,88,3,-1,14">
         <action box="0,-2,6,2"/>
@@ -137,7 +151,10 @@ if( newStrength != me-&gt;strength){
       </tran>
       <tran trig="TICK">
        <action>Read_RTC(&amp;(me-&gt;current));
-BSP_showTime24H(me-&gt;current);</action>
+BSP_showTime24H(me-&gt;current);
+
+QHsm_dispatch(&amp;me-&gt;alarm.super,  e);
+</action>
        <tran_glyph conn="4,40,3,-1,9">
         <action box="0,-2,6,2"/>
        </tran_glyph>
@@ -173,7 +190,7 @@ if( newHour != me-&gt;alarm.time.hours){
       <entry>BSP_showMsg(&quot;Set the Minute&quot;);</entry>
       <tran trig="AD_CHANGED">
        <action>ADEvt* evt = (ADEvt*)e;
-short newMinutes = (evt-&gt;value)/(1024/59);
+short newMinutes = ((evt-&gt;value)/(1024/59)%60);
 if( newMinutes != me-&gt;alarm.time.minutes){
     me-&gt;alarm.time.minutes = newMinutes;
     BSP_showTime24H(me-&gt;alarm.time);
@@ -197,14 +214,31 @@ if( newMinutes != me-&gt;alarm.time.minutes){
       <tran trig="BUTTON_DOWN" target="../../4">
        <action>//QEvt *e =  Q_NEW(QEvt, ALARM_ON_SIG);
 //QHsm_dispatch(&amp;me-&gt;alarm.super, e);
+if (me-&gt;alarmOn) {
+QHsm_dispatch(&amp;me-&gt;alarm.super,  Q_NEW(QEvt, ALARM_ON_SIG));
 
- //QACTIVE_POST(APP_alarmClock,
-  //                       Q_NEW(QEvt, ALARM_ON_SIG), (void *)0);</action>
+} else {
+QHsm_dispatch(&amp;me-&gt;alarm.super,  Q_NEW(QEvt, ALARM_OFF_SIG));
+
+}</action>
        <tran_glyph conn="36,99,1,1,2,-59,-2">
         <action box="0,-2,6,2"/>
        </tran_glyph>
       </tran>
       <tran trig="AD_CHANGED">
+       <action>ADEvt* evt = (ADEvt*)e;
+short newAlarm = ((evt-&gt;value)/(1024/2)%2);
+   
+if (me-&gt;alarmOn != newAlarm) {
+    me-&gt;alarmOn = newAlarm;
+
+    if(newAlarm){
+        BSP_showMsg(&quot;Alarm On&quot;);
+    } else {
+        BSP_showMsg(&quot;Alarm Off&quot;);
+    }
+
+}</action>
        <tran_glyph conn="4,102,3,-1,14">
         <action box="0,-2,6,2"/>
        </tran_glyph>
@@ -219,23 +253,46 @@ if( newMinutes != me-&gt;alarm.time.minutes){
      </state_glyph>
     </state>
     <state name="brewing">
+     <entry>BSP_showMsg(&quot;Brewing!!&quot;);
+/* periodic timeout every second */
+QTimeEvt_armX(&amp;me-&gt;timeEvt, BSP_TICKS_PER_SEC,
+                            BSP_TICKS_PER_SEC);</entry>
+     <exit>QTimeEvt_disarm(&amp;me-&gt;timeEvt);</exit>
      <tran trig="BUTTON_DOWN" target="../../1">
-      <tran_glyph conn="68,23,3,1,-24">
+      <tran_glyph conn="68,24,3,1,-22,-1,-2">
        <action box="0,-2,14,2"/>
       </tran_glyph>
      </tran>
      <tran trig="TICK">
+      <action>unsigned short n;
+me-&gt;brewingTime++;
+for (n = 0; n &lt; 5; n++)               /* Show the Value                     */
+                if (n &lt; me-&gt;brewingTime/10) {
+                    LED_On (n);              /* Turn LED On                        */
+                } else {
+                   LED_Off(n);              /* Turn LED Off */
+                }</action>
       <choice target="../../../1">
-       <guard>false</guard>
-       <choice_glyph conn="79,32,4,1,7,-35">
+       <guard>me-&gt;brewingTime &gt; me-&gt;strength*10</guard>
+       <action>me-&gt;brewingTime = 0;</action>
+       <choice_glyph conn="73,44,4,1,-5,-29">
         <action box="1,0,15,2"/>
        </choice_glyph>
       </choice>
-      <tran_glyph conn="68,32,3,-1,11">
+      <choice>
+       <guard>true</guard>
+       <choice_glyph conn="73,44,4,-1,9">
+        <action box="1,0,6,2"/>
+       </choice_glyph>
+      </choice>
+      <tran_glyph conn="68,33,3,-1,25,11,-20">
        <action box="0,-2,6,2"/>
       </tran_glyph>
      </tran>
-     <state_glyph node="68,7,56,64"/>
+     <state_glyph node="68,8,56,64">
+      <entry box="1,2,5,2"/>
+      <exit box="1,4,5,2"/>
+     </state_glyph>
     </state>
     <state name="final">
      <entry brief="terminate">QF_stop(); /* terminate the application */</entry>

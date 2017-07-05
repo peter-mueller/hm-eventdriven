@@ -3380,6 +3380,8 @@ N    QTimeEvt timeEvt;
 N    uint32_t adval;
 N    uint8_t strength;
 N    RTC_T current;
+N    short alarmOn;
+N    short brewingTime;
 N} AlarmClock;
 N
 N/* protected: */
@@ -5692,6 +5694,19 @@ N
 N/* end of time.h */
 N
 L 8 "src\qmbsp.c" 2
+N#include "../bsp/led.h"
+L 1 "src\../bsp/led.h" 1
+N#ifndef LED_H
+N#define LED_H
+N
+Nvoid LED_Init(void);
+Nvoid LED_On (unsigned int num);
+Nvoid LED_Off (unsigned int num);
+Nvoid LED_Out (unsigned int value);
+N
+N
+N#endif
+L 9 "src\qmbsp.c" 2
 N#include <button.h>
 L 1 "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\button.h" 1
 N#ifndef BUTTON_H
@@ -5702,7 +5717,7 @@ Nvoid button_init(void);
 Nvoid button_setAO(QActive* ao_);
 N
 N#endif
-L 9 "src\qmbsp.c" 2
+L 10 "src\qmbsp.c" 2
 N#include <LPC23xx.H>   
 L 1 "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\LPC23xx.H" 1
 N/******************************************************************************
@@ -6864,7 +6879,7 @@ N
 N
 N#endif  // __LPC23xx_H
 N
-L 10 "src\qmbsp.c" 2
+L 11 "src\qmbsp.c" 2
 N#include <rtc.h>
 N#include <adc.h>
 L 1 "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\adc.h" 1
@@ -6878,50 +6893,49 @@ Nvoid adc_change(void);
 N
 N
 N#endif
-L 12 "src\qmbsp.c" 2
+L 13 "src\qmbsp.c" 2
 N
 NQ_DEFINE_THIS_FILE
 Xstatic char_t const  Q_this_module_[] = "src\\qmbsp.c";
 N
 N/*..........................................................................*/
 Nvoid BSP_Init( ) {
-W "src\qmbsp.c" 17 2 function "Init_Timer1" declared implicitly
+W "src\qmbsp.c" 18 2 function "Init_Timer1" declared implicitly
 N Init_Timer1( );
-W "src\qmbsp.c" 18 2 function "Timer0_Init" declared implicitly
-N	Timer0_Init();
-N//	Init_timer0();
+N	//Timer0_Init();
 N                               /* Init UART                   */
-W "src\qmbsp.c" 21 3 function "uart_init_0" declared implicitly
+N	LED_Init();
+W "src\qmbsp.c" 22 3 function "uart_init_0" declared implicitly
 N  uart_init_0 ();
 N	ADC_Init();
 N	RtcInit();
 N	
 N	button_init();
-W "src\qmbsp.c" 26 3 function "lcd_init" declared implicitly
+W "src\qmbsp.c" 27 3 function "lcd_init" declared implicitly
 N  lcd_init();
-W "src\qmbsp.c" 27 3 function "lcd_clear" declared implicitly
+W "src\qmbsp.c" 28 3 function "lcd_clear" declared implicitly
 N  lcd_clear();
 N}
 N/*..........................................................................*/
 Nvoid BSP_showMsg(char const *str) {
-W "src\qmbsp.c" 31 2 function "lcd_clear" declared implicitly
+W "src\qmbsp.c" 32 2 function "lcd_clear" declared implicitly
 N	lcd_clear();
-W "src\qmbsp.c" 32 3 function "set_cursor" declared implicitly
+W "src\qmbsp.c" 33 3 function "set_cursor" declared implicitly
 N  set_cursor (0, 0);
-W "src\qmbsp.c" 33 2 function "lcd_print" declared implicitly
+W "src\qmbsp.c" 34 2 function "lcd_print" declared implicitly
 N	lcd_print (str);
 N}
 N/*..........................................................................*/
 Nvoid BSP_showTime24H(RTC_T rtc) {
 N	
 N	char buffer [10];
-W "src\qmbsp.c" 39 3 function "lcd_clear" declared implicitly
+W "src\qmbsp.c" 40 3 function "lcd_clear" declared implicitly
 N  lcd_clear();
-W "src\qmbsp.c" 40 3 function "set_cursor" declared implicitly
+W "src\qmbsp.c" 41 3 function "set_cursor" declared implicitly
 N  set_cursor (0, 0);
 N	//sprintf(buffer,"%02d:%02d:%02d\n", time.hour, time.minute, time.second)
 N  snprintf(buffer, sizeof buffer,"%02d:%02d:%02d", rtc.hours, rtc.minutes, rtc.seconds);
-W "src\qmbsp.c" 43 2 function "lcd_print" declared implicitly
+W "src\qmbsp.c" 44 2 function "lcd_print" declared implicitly
 N	lcd_print(buffer);
 N}
 N/*..........................................................................*/
@@ -6965,4 +6979,4 @@ N	 FILE *f;
 N return	 ( fgetc(  f) );
 N}
 N	
-W "src\qmbsp.c" 13 1 variable "Q_this_module_" was declared but never referenced
+W "src\qmbsp.c" 14 1 variable "Q_this_module_" was declared but never referenced

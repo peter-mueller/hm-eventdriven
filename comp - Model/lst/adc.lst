@@ -5579,6 +5579,8 @@ N    QTimeEvt timeEvt;
 N    uint32_t adval;
 N    uint8_t strength;
 N    RTC_T current;
+N    short alarmOn;
+N    short brewingTime;
 N} AlarmClock;
 N
 N/* protected: */
@@ -5617,10 +5619,13 @@ N
 N/* A/D IRQ: Executed when A/D Conversion is done                              */
 N__irq void ADC_IRQHandler(void) {
 N
-N  AD_last = (AD0DR0 >> 6) & 0x3FF;      /* Read Conversion Result             */
-X  AD_last = ((*(volatile unsigned long *)(0xE0034000 + 0x10)) >> 6) & 0x3FF;       
+N  short AD_next = (AD0DR0 >> 6) & 0x3FF;      /* Read Conversion Result             */
+X  short AD_next = ((*(volatile unsigned long *)(0xE0034000 + 0x10)) >> 6) & 0x3FF;       
 N	
-N	adc_change();
+N	if (AD_last != AD_next) {
+N		AD_last = AD_next;
+N		adc_change();
+N	}
 N
 N  VICVectAddr = 0;                      /* Acknowledge Interrupt              */
 X  (*(volatile unsigned long *)(0xFFFFF000 + 0xF00)) = 0;                       

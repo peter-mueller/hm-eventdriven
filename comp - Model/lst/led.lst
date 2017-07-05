@@ -1039,6 +1039,19 @@ N
 N/* end of stdio.h */
 N
 L 3 "bsp\led.c" 2
+N#include "led.h"
+L 1 "bsp\led.h" 1
+N#ifndef LED_H
+N#define LED_H
+N
+Nvoid LED_Init(void);
+Nvoid LED_On (unsigned int num);
+Nvoid LED_Off (unsigned int num);
+Nvoid LED_Out (unsigned int value);
+N
+N
+N#endif
+L 4 "bsp\led.c" 2
 N#include <LPC23xx.H>                    /* LPC23xx definitions                */
 L 1 "..\..\..\..\..\..\..\CPU_Platforms\ARM\ARM7\MCB2300\include\LPC23xx.H" 1
 N/******************************************************************************
@@ -2200,7 +2213,7 @@ N
 N
 N#endif  // __LPC23xx_H
 N
-L 4 "bsp\led.c" 2
+L 5 "bsp\led.c" 2
 N
 N
 N

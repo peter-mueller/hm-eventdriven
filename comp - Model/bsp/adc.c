@@ -10,9 +10,12 @@ QActive*  ao2 = 0;
 /* A/D IRQ: Executed when A/D Conversion is done                              */
 __irq void ADC_IRQHandler(void) {
 
-  AD_last = (AD0DR0 >> 6) & 0x3FF;      /* Read Conversion Result             */
+  short AD_next = (AD0DR0 >> 6) & 0x3FF;      /* Read Conversion Result             */
 	
-	adc_change();
+	if (AD_last != AD_next) {
+		AD_last = AD_next;
+		adc_change();
+	}
 
   VICVectAddr = 0;                      /* Acknowledge Interrupt              */
 }

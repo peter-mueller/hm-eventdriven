@@ -5448,9 +5448,14 @@ N										/* ACK Timer1 int */
 N
 N
 N	
+N	
+N		AD0CR |= 0x01000000;                  /* Start A/D Conversion               */
+X		(*(volatile unsigned long *)(0xE0034000 + 0x00)) |= 0x01000000;                   
 N
 N	  T1IR        = 1;                      /* Clear interrupt flag               */
 X	  (*(volatile unsigned long *)(0xE0008000 + 0x00))        = 1;                       
+N		 
+N		 
 N
 N    VICVectAddr = 0;                      /* Acknowledge Interrupt              */
 X    (*(volatile unsigned long *)(0xFFFFF000 + 0xF00)) = 0;                       
@@ -5491,14 +5496,6 @@ N
 N
 N  clk_cntr++;
 N  
-N	
-N  AD0CR |= 0x01000000;                  /* Start A/D Conversion               */
-X  (*(volatile unsigned long *)(0xE0034000 + 0x00)) |= 0x01000000;                   
-N
-N  T0IR        = 1;                      /* Clear interrupt flag               */
-X  (*(volatile unsigned long *)(0xE0004000 + 0x00))        = 1;                       
-N  VICVectAddr = 0;                      /* Acknowledge Interrupt              */
-X  (*(volatile unsigned long *)(0xFFFFF000 + 0xF00)) = 0;                       
 N}
 N
 N

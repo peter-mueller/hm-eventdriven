@@ -69,6 +69,8 @@ typedef struct AlarmClockTag {
     uint32_t adval;
     uint8_t strength;
     RTC_T current;
+    short alarmOn;
+    short brewingTime;
 } AlarmClock;
 
 /* protected: */

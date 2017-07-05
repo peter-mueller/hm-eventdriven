@@ -3397,6 +3397,8 @@ N    QTimeEvt timeEvt;
 N    uint32_t adval;
 N    uint8_t strength;
 N    RTC_T current;
+N    short alarmOn;
+N    short brewingTime;
 N} AlarmClock;
 N
 N/* protected: */
@@ -3462,10 +3464,11 @@ X            status_ = ((((QMsm *)(me)))->temp . fun = ((QStateHandler)(&Alarm_o
 N            break;
 N        }
 N        /* @(/2/0/2/2/1) */
-N        case TIME_SIG: {
+N        case TICK_SIG: {
+N            RTC_T rtc;
+N            Read_RTC(&rtc);
 N            /* @(/2/0/2/2/1/0) */
-N            if (true) {
-X            if (1) {
+N            if (rtc.hours == me->time.hours && me->time.minutes ==  rtc.minutes && rtc.seconds==0) {
 N                BSP_showMsg("ALARM!!!");
 N
 N                /* asynchronously post the event to the container AO */

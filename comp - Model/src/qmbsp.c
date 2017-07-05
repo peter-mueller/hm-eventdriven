@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include "../bsp/led.h"
 #include <button.h>
 #include <LPC23xx.H>   
 #include <rtc.h>
@@ -15,9 +16,9 @@ Q_DEFINE_THIS_FILE
 /*..........................................................................*/
 void BSP_Init( ) {
  Init_Timer1( );
-	Timer0_Init();
-//	Init_timer0();
+	//Timer0_Init();
                                /* Init UART                   */
+	LED_Init();
   uart_init_0 ();
 	ADC_Init();
 	RtcInit();

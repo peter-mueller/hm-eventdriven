@@ -34,8 +34,12 @@ QF_INT_UNLOCK();
 
 
 	
+	
+		AD0CR |= 0x01000000;                  /* Start A/D Conversion               */
 
 	  T1IR        = 1;                      /* Clear interrupt flag               */
+		 
+		 
 
     VICVectAddr = 0;                      /* Acknowledge Interrupt              */
 }
@@ -69,11 +73,6 @@ __irq void T0_IRQHandler (void) {
 
   clk_cntr++;
   
-	
-  AD0CR |= 0x01000000;                  /* Start A/D Conversion               */
-
-  T0IR        = 1;                      /* Clear interrupt flag               */
-  VICVectAddr = 0;                      /* Acknowledge Interrupt              */
 }
 
 

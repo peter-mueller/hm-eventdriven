@@ -61,9 +61,11 @@ QState Alarm_on(Alarm * const me, QEvt const * const e) {
             break;
         }
         /* @(/2/0/2/2/1) */
-        case TIME_SIG: {
+        case TICK_SIG: {
+            RTC_T rtc;
+            Read_RTC(&rtc);
             /* @(/2/0/2/2/1/0) */
-            if (true) {
+            if (rtc.hours == me->time.hours && me->time.minutes ==  rtc.minutes && rtc.seconds==0) {
                 BSP_showMsg("ALARM!!!");
 
                 /* asynchronously post the event to the container AO */

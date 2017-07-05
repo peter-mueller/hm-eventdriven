@@ -84,32 +84,49 @@ User Stories
 Technische Anforderungen
 ------------------------
 
+Zusätzlich zu den zuvor genannten funktionalen Anforderungen gibt es auch
+technische Anforderungen, die die zur Verfügung stehende Hardware beschreiben.
+Mit ihnen wird die Umsetzung der funktionalen Anforderungen anhand der gegebenen
+Eingabe- und Anzeigemittel beschrieben.
+
+Für die Bedienung der Kaffeemaschine steht ein Knopf (INT0) und ein Potentiometer
+zur Verfügung. Hierüber soll das Menü gesteuert werden. Da keine Kaffeekanne und
+eine entsprechende Platzierungserkennung zur Verfügung steht, soll zusätzlich
+während des Brühvorgangs diese mittels des Knopfes simuliert werden.
+
+Um die Einstellungen und den aktuellen Status anzuzeigen, stehen ein LCD Display
+sowie eine reihe LEDs zur Verfügung. Dabei soll vorrangig das LCD Display verwendet
+werden, da die LEDs der Anzeige der Kaffeestärke vorbehalten sind.
+
+Im Folgenden wird die genaue Benutzung der Hardware beschrieben:
+
 Clock
-:   Integration der RTC mit gegebenem Treiber. Die Zeit soll nach ISO
-    auf dem LCD angezeigt werden: `2004-06-14T23:34:30`
+:   Integration der  (Real Time Clock) mit gegebenem Treiber. Die Zeit soll nach ISO
+    auf dem LCD angezeigt werden: `23:34:30`
 
 Control Menu
-
-:   Über den INT0 Knopf wird ein Menü durchlaufen. Drücken des Knopfes
-    bedeutet immer eine Bestätigung. Das Menü wird
+:   Über den INT0 Knopf wird ein Menü durchlaufen. Das Drücken des Knopfes
+    wird als Bestätigung interpretiert. Das Menü wird
     sequentiell durchlaufen.
 
-    1.  Kaffeestärke
-    2.  Startzeit für Brühvorgang
+    1.  Startzeit für Brühvorgang
+    2.  Kaffeestärke
+    3.  Alarm An/Aus
 
 Einstellen der Kaffeestärke
-:   AD/DC Rad wechselt zwischen leicht, mittel und stark. Die LEDs
-    zeigen die Stärke an. Zwei für leicht, vier für mittel und sechs
+:   Mit dem Potentiometer wird zwischen leicht, mittel und stark gewechselt.
+    Die LEDs zeigen die Stärke an. Zwei für leicht, vier für mittel und sechs
     für stark.
 
-Einstellen von Uhrzeiten
-:   Die Werte werden von links nach rechts (Jahr, Monat, Tag, Stunde,
-    Minute, Sekunde) eingestellt. Mit INT0 wird eine Zahl bestätigt und
-    zur nächsten gewechselt. Die aktuell aktive Zahl wird markiert.
+Einstellen der Alarmzeit
+:   Die Werte werden von links nach rechts (Stunden,
+    Minuten) mit dem Potentiometer eingestellt. Mit INT0 wird eine Zahl bestätigt und
+    zur nächsten gewechselt. Nach einem vollständigen Durchlauf wird die Zeit
+    gespeichert.
 
-Simulieren des zu frühen Wegnehmens der Tasse
+Simulieren der fehlenden Kanne bzw. das Wegnehmen dieser
 :   Brüht die Maschine gerade Kaffee und wird der INTO Knopf gedrückt,
-    ist das gleichwertig zu dem Entfernen einer Tasse.
+    ist das gleichwertig zu dem Entfernen der Kanne.
 
 Umsetzung
 =============

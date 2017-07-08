@@ -159,6 +159,9 @@ die aktuelle Uhrzeit angezeigt und der Alarm kontrolliert ausgelöst werden.
 UML Modellierung
 ------------------------
 
+![Kaffeemaschine Zustandsautomat](img/Coffee-Statemachine.png)
+![Alarm Zustandsautomat](img/Alarm-Statemachine.png)
+
 Verwendete Treiber
 ------------------------
 
@@ -168,13 +171,25 @@ Anpassungen am Board Support Package
 Resümee Umsetzung
 =============
 
+
+\pagebreak
+
 Persönliche Berichte
 =============
 
 René Zarwel
 ------------------------
+Die Umsetzung der Kaffeemaschine erfolgte vollständig in Zusammenarbeit an einem
+Rechner, sodass sich keine getrennten Aufgaben ergeben haben. Dies hatte den Vorteil,
+dass das Wissen gleichmäßig verteilt und Probleme schneller gefunden wurden.
+
+
+\pagebreak
 
 Peter Müller
 ------------------------
+
+\pagebreak
+
 Andreas Wilhelm
 ------------------------

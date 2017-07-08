@@ -1,17 +1,17 @@
 Einleitung
 ==========
 
-Mit einer Statemachine lassen sich vielfältigste Aufgaben lösen. Von einfachen
+Mit einem Zustandsautomaten lassen sich vielfältigste Aufgaben lösen. Von einfachen
 Taschenrechnern bis hin zu komplexen Smartwatches und intelligenten Routern
 sind verschiedenste Anwendungen gegeben.
 
 Doch leider wird gerade bei komplexen Projekten in der Praxis häufig die Größe
-der Statemachine unterschätzt. Gerade während des gesamten Softwarelebenszyklus
-ergeben sich durch vielfältige Änderungen schnell unkontrollierbare Konstrukte,
-die sich nur mit viel Aufwand stabilisieren und erweitern lassen.  
-Damit die Wartbarkeit nicht unter der Komplexität leidet, wurden diverse
-Pattern als Erweiterung einer einfachen Statemachine entwicklet. Hierzu zählt
-die hierarchische Statemachine und das Active Object Pattern.
+des benötigten Zustandsautomaten unterschätzt. Gerade während des gesamten
+Softwarelebenszyklus ergeben sich durch vielfältige Änderungen schnell
+unkontrollierbare Konstrukte, die sich nur mit viel Aufwand stabilisieren und
+erweitern lassen. Damit die Wartbarkeit nicht unter der Komplexität leidet,
+wurden diverse Pattern als Erweiterung eines einfachen Zustandsautomaten entwickelt.
+Hierzu zählt der hierarchische Zustandsautomat und das Active Object Pattern.
 
 Dabei ist beim Active Object Pattern der "Process" Schritt klar vom "Dispatch"
 getrennt. Ein Event wird somit nicht direkt verarbeitet, sondern in eine Queue
@@ -24,8 +24,8 @@ Verarbeitung von dem Event-Erzeugen gut entkoppelt und die Wartbarkeit deutlich
 steigert.
 
 Um diese und weitere Pattern praktisch an einem Beispiel zu erproben, wird in
-dieser Arbeit die Umsetzung einer zeitgesteuerten Kaffeemachine mittels einer
-Active Object getriebenen Statemachine beschrieben. Hierzu werden im nächsten
+dieser Arbeit die Umsetzung einer zeitgesteuerten Kaffeemaschine mittels eines
+Active Object getriebenen Zustandsautomaten beschrieben. Hierzu werden im nächsten
 Kapitel praxisnahe Anforderungen definiert, die anschließend mit einem MCB2300
 Board unter Zuhilfenahme des QP Frameworks umgesetzt werden. Diese Umsetzung wird
 im folgenden Kapitel beschrieben und an Beispielen verdeutlicht. Das anschließende
@@ -42,19 +42,20 @@ Das Ziel der Umsetzung ist eine benutzerfreundliche Kaffeemaschine,
 welche auf dem MCB2300 realisiert werden soll. Damit der Nutzer seinen Kaffee
 immer zum gewünschten Zeitpunkt erhält, soll eine Zeitsteuerung für den
 Brühvorgang umgesetzt werden. Dadurch kann er z.B. am Vortag die Kaffeemaschine
-so einstellen, dass am nächsten Morgen direkt nach dem Aufstehen der Kaffee
+so einstellen, dass am nächsten Morgen, direkt nach dem Aufstehen, der Kaffee
 schon bereit steht. Um dies zu erreichen ist ein Menü zum Einstellen der
 Alarmzeit einzubauen, bei dem sich sowohl Stunden als auch Minuten des geplanten
 Brühvorganges einstellen lassen.
 
-Damit die Kaffeemaschine z.B. während eines Urlaubs keinen Kaffee zubereitet,
-soll sich die Zeitsteuerung (Alarm) auch deaktiviert werden könne. Hierzu ist
+Damit die Kaffeemaschine, z.B. während eines Urlaubs, keinen Kaffee
+zu unerwünschten Tagen zubereitet,
+soll sich die Zeitsteuerung (Alarm) auch deaktivieren lassen. Hierzu ist
 im Menü eine entsprechende Einstellung vorzusehen. Auch soll der
 Brühvorgang dann nicht stattfinden, wenn keine Kaffeekanne bereit steht. So wird
 ein Schaden beim Nutzer vermieden, der durch einen unkontrollierten Brühvorgang
 entstehen würde.
 
-Des Weiteren soll die Kaffeestärke vom Nutzer eingestellt werden können, damit er
+Des Weiteren soll sich die Kaffeestärke vom Nutzer einstellen lassen, damit er
 den Kaffee so erhält, wie er ihn bevorzugt trinkt. Dazu ist im Menü eine Einstellung
 für die Kaffeestärke einzurichten, welche zusätzlich die aktuell eingestellt Stärke
 auch durch separate Leuchten dauerhaft und unabhängig von der momentanen
@@ -87,7 +88,7 @@ Technische Anforderungen
 Zusätzlich zu den zuvor genannten funktionalen Anforderungen gibt es auch
 technische Anforderungen, die die zur Verfügung stehende Hardware beschreiben.
 Mit ihnen wird die Umsetzung der funktionalen Anforderungen anhand der gegebenen
-Eingabe- und Anzeigemittel beschrieben.
+Eingabe- und Ausgabemittel beschrieben.
 
 Für die Bedienung der Kaffeemaschine steht ein Knopf (INT0) und ein Potentiometer
 zur Verfügung. Hierüber soll das Menü gesteuert werden. Da keine Kaffeekanne und
@@ -124,17 +125,38 @@ Einstellen der Alarmzeit
     zur nächsten gewechselt. Nach einem vollständigen Durchlauf wird die Zeit
     gespeichert.
 
-Simulieren der fehlenden Kanne bzw. das Wegnehmen dieser
+Simulation Kaffeekanne
 :   Brüht die Maschine gerade Kaffee und wird der INTO Knopf gedrückt,
     ist das gleichwertig zu dem Entfernen der Kanne.
 
 Umsetzung
 =============
 
-UML Modellierung
-------------------------
+Mit den zuvor definierten Anforderungen konnte die Umsetzung beginnen. Hierzu
+musste das Projekt nicht von Grund auf neu erstellt werden. Als Basis diente
+ein vorhandenes Projekt zur Umsetzung einer Alarmuhr. Da die zeitgesteuerte
+Kaffeemaschine, wie die Alarmuhr, zu einem gewissen Zeitpunkt eine Aktion
+durchführt soll, war dieses Projekt eine sehr gute Vorlage.
+
+Da bei der Alarmuhr lediglich das Keil Projekt vorhanden war, galt es zunächst
+den eingebauten Zustandsautomaten zu analysieren und mittels QM (QP Modeler)
+nachzubauen.
+
+Bei der Analyse der Alarmuhr ist aufgefallen, dass diese das orthogonale Regionen
+Pattern zur Modellierung verwendet.
 
 Orthogonale Region
+------------------------  
+Mit orthogonalen Region lassen sich Zustandsautomaten bauen, die unabhängige
+Teilbereiche aufweisen. Dies bedeutet, dass sich ein System gleichzeitig in
+mehreren Zuständen befinden kann. So wird vermieden, dass die benötigten
+Zustände durch Kombination explodieren und unübersichtlich werden.
+
+In Bezug auf die Alarmuhr hat sich dies in einer Trennung der Alarmeinstellung und
+-überwachung geäußert. Dadurch konnte gleichzeitig die Alarmzeit eingestellt bzw.
+die aktuelle Uhrzeit angezeigt und der Alarm kontrolliert ausgelöst werden.  
+
+UML Modellierung
 ------------------------
 
 Verwendete Treiber
@@ -151,6 +173,7 @@ Persönliche Berichte
 
 René Zarwel
 ------------------------
+
 Peter Müller
 ------------------------
 Andreas Wilhelm

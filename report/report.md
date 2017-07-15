@@ -113,17 +113,20 @@ Control Menu
     1.  Startzeit für Brühvorgang
     2.  Kaffeestärke
     3.  Alarm An/Aus
-
-Einstellen der Kaffeestärke
-:   Mit dem Potentiometer wird zwischen leicht, mittel und stark gewechselt.
-    Die LEDs zeigen die Stärke an. Zwei für leicht, vier für mittel und sechs
-    für stark.
-
+	
 Einstellen der Alarmzeit
 :   Die Werte werden von links nach rechts (Stunden,
     Minuten) mit dem Potentiometer eingestellt. Mit INT0 wird eine Zahl bestätigt und
     zur nächsten gewechselt. Nach einem vollständigen Durchlauf wird die Zeit
     gespeichert.
+	
+Einstellen der Kaffeestärke
+:   Mit dem Potentiometer wird zwischen leicht, mittel und stark gewechselt.
+    Die LEDs zeigen die Stärke an. Zwei für leicht, vier für mittel und sechs
+    für stark.
+	
+Einstellen des Alarms
+:   Mit dem Potentiometer wird zwischen Ein und Aus gewechselt. Mit INT0 wird die Aktion bestätigt.
 
 Simulation Kaffeekanne
 :   Brüht die Maschine gerade Kaffee und wird der INTO Knopf gedrückt,
@@ -136,7 +139,7 @@ Mit den zuvor definierten Anforderungen konnte die Umsetzung beginnen. Hierzu
 musste das Projekt nicht von Grund auf neu erstellt werden. Als Basis diente
 ein vorhandenes Projekt zur Umsetzung einer Alarmuhr. Da die zeitgesteuerte
 Kaffeemaschine, wie die Alarmuhr, zu einem gewissen Zeitpunkt eine Aktion
-durchführt soll, war dieses Projekt eine sehr gute Vorlage.
+durchführen soll, war dieses Projekt eine sehr gute Vorlage.
 
 Da bei der Alarmuhr lediglich das Keil Projekt vorhanden war, galt es zunächst
 den eingebauten Zustandsautomaten zu analysieren und mittels QM (QP Modeler)
@@ -144,6 +147,12 @@ nachzubauen.
 
 Bei der Analyse der Alarmuhr ist aufgefallen, dass diese das orthogonale Regionen
 Pattern zur Modellierung verwendet.
+
+Nach dem Umbau galt es das bestehende QM-Modell mit der Alarmuhr auf das Projekt 
+Kaffeemaschine anzupassen und entsprechend zu erweitern. Die Erweiterungen waren hierbei
+das komplette Einstellungs-Menü mit Abspeichern der Input-Daten, die Verwendung der 
+Real Time Clock (RTC), das Kaffe brühen an sich, sowie die Simulation der Kaffeekanne.
+Der Alarm musste entsprechend auf die neue Prüfbedingung und das auszulösende Event angepasst werden.
 
 Orthogonale Region
 ------------------------  
@@ -154,19 +163,35 @@ Zustände durch Kombination explodieren und unübersichtlich werden.
 
 In Bezug auf die Alarmuhr hat sich dies in einer Trennung der Alarmeinstellung und
 -überwachung geäußert. Dadurch konnte gleichzeitig die Alarmzeit eingestellt bzw.
-die aktuelle Uhrzeit angezeigt und der Alarm kontrolliert ausgelöst werden.  
+die aktuelle Uhrzeit angezeigt und der Alarm kontrolliert ausgelöst werden.
 
 UML Modellierung
 ------------------------
+Im folgendem Modell ist der hauptsächliche Teilbereich des Zustandsautomaten mit dem initial Status timekeeping dargestellt. Darin ist Anzeige der aktuellen Uhrzeit, sowie das Einstellungs-Menü mit den einzelnen Statuse eingebettet. Initial wird in den Status showCurrentTime gewechselt. In diesem Status wird mit jedem TICK-Signal die aktuelle RTC ausgelesen und angezeigt. Nach drücken des Knopfes wird in das Menü und den ersten Status set_hour gewechselt. Nach Einstellen der Alarm-Stunden durch das Potentiometer und bestätigen mit einem Knopf-Druck kommt man in den Status set_minute, in dem analog verfahren wird. In setBrewStrength kann nun die Stärke des Kaffees mit dem Potentiometer eingestellt werden. Nach bestätigen gelangt man in den letzten Einstellungs-Menü Status enableAlarm. Dabei wird der Alarm aktiviert oder deaktiviert. Mit einer erneuten bestätigung wird wieder in den showCurrentTime-Status gewechselt. 
 
+In den brewing-Status wird nach Auslösen des Alarms gewechselt. Der Trigger hierfür kommt vom anderen Teilbereich des Zustandsautomaten, auf den im anderen Model noch genauer eingegangen wird.
+Nach Beenden des Brühens wird wieder zurück in den timekeeping-Status gewechselt. Wenn während des Brühens der Knopf gedrückt wird, was der Entnahme der Kaffeekanne entsprechen soll, wird das Brühen sofort gestoppt und ebenfalls in den timekeeping-Status zurück gekehrt.
 ![Kaffeemaschine Zustandsautomat](img/Coffee-Statemachine.png)
+Nachfolgend wird der andere Teilbereich des Zustandsautomaten gezeigt, welcher die Alarmüberwachung enthält. Wenn der Alarm aktiviert ist, befindet man sich im on-Status. Darin wird mit jedem TICK-Signal die RTC und die Alarmzeit verglichen und bei Übereinstimmung das ALARM-Signal getriggert.
 ![Alarm Zustandsautomat](img/Alarm-Statemachine.png)
 
 Verwendete Treiber
 ------------------------
+Für die aktuelle Uhrzeit wurde eine auf dem Chip integrierte RTC verwendet. Für das Auslesen der Uhrzeit wurde das bereitgestellte BSP genutzt. Ebenso wie für das initiale Setzen der Default-Uhrzeit. Dadurch musste keine zweiter Timer implementiert werden, welcher sonst für das Hochzählen der Uhrzeit zuständig gewesen wäre. Der Treiber funktioniert über einen eigenen Interrupt-Handler.
+
+Um in das Einstellungs-Menü zu gelangen und die einzelnen eingestellten Werte zu bestätigen wurde der Knopf genutzt. Dieser wurde ebenfalls mit dem bereitgestellten Treiber bzw BSP eingebunden. Dabei wird im Interrupt-Handler lediglich auf ein ButtonDown reagiert, was dem Drücken des Knopfes entspricht. Der Treiber funktioniert über einen eigenen Interrupt-Handler.
+
+Alle Werte sind über das Potentiometer bzw den dazugehörigen Analog-Digital-Converter einzustellen. Auch hierfür wurde der bereitgestellte Treiber/BSP verwendet. Dabei gilt zu beachten, dass vor der Verwendung des AD-Converters, dieser erst noch extra aktiviert werden muss. Der Treiber funktioniert über einen eigenen Interrupt-Handler.
+
+Zur Visualisierung der aktuellen Uhrzeit, den Menü-Einträgen und den einzustellenden Werten wurde das LCD mit gegebenem Treiber/BSP benutzt. 
+
+Für die Darstellung der Kaffeestärke werden je nach Wert einzelne LEDs an- bzw ausgeschalten. Auch hierfür wurde der bereitgestellte Treiber des BSP genutzt.
 
 Anpassungen am Board Support Package
 ------------------------
+Es waren keine speziellen größeren Anpassungen nötig, da alle Board Support Package's (BSP) nach dem Einbinden und minimalen Anpassungen funktionierten und den Anforderungen entsprachen. Auch eine separate Entkopplung des Knopfes oder des Potentiometers entfiel, da keine großen Prellen vorhanden war.
+
+Die einzigen Anpassungen waren das triggern des jeweiligen passenden Events. Zusätzlich mussten in den Interrupt-Handlern das Sperren der Interrupts durch QF_INT_UNLOCK erweitert werden.
 
 Resümee Umsetzung
 =============

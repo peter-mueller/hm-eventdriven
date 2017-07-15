@@ -8,7 +8,7 @@ subtitle: |
 author: Peter Müller, Andreas Wilhelm, René Zarwel
 
 numbersections: true
-geometry: margin=2cm
+geometry: margin=1in
 
 header-includes: |
   \usepackage[ngerman]{babel}

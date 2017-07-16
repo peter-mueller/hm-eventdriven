@@ -31,7 +31,7 @@ Hierzu werden im nächsten Kapitel praxisnahe Anforderungen definiert,
 die anschließend mit einem MCB2300 Board unter Zuhilfenahme des QP
 Frameworks umgesetzt werden. Diese Umsetzung wird im folgenden Kapitel
 beschrieben und an Beispielen verdeutlicht. Das anschließende Kapitel
-gibt dann eine kurzes Fazit zur Umsetzung und bewertet die gewonnen
+gibt dann ein kurzes Fazit zur Umsetzung und bewertet die gewonnen
 Erkenntnisse.
 
 Im letzten Kapitel fließt noch ein getrenntes Feedback der Autoren ein,
@@ -45,7 +45,7 @@ welche auf dem MCB2300 realisiert werden soll. Damit der Nutzer seinen
 Kaffee immer zum gewünschten Zeitpunkt erhält, soll eine Zeitsteuerung
 für den Brühvorgang umgesetzt werden. Dadurch kann er z.B. am Vortag die
 Kaffeemaschine so einstellen, dass am nächsten Morgen, direkt nach dem
-Aufstehen, der Kaffee schon bereit steht. Um dies zu erreichen ist ein
+Aufstehen, der Kaffee schon bereitsteht. Um dies zu erreichen ist ein
 Menü zum Einstellen der Alarmzeit einzubauen, bei dem sich sowohl
 Stunden als auch Minuten des geplanten Brühvorganges einstellen lassen.
 
@@ -59,7 +59,7 @@ durch einen unkontrollierten Brühvorgang entstehen würde.
 Des Weiteren soll sich die Kaffeestärke vom Nutzer einstellen lassen,
 damit er den Kaffee so erhält, wie er ihn bevorzugt trinkt. Dazu ist im
 Menü eine Einstellung für die Kaffeestärke einzurichten, welche
-zusätzlich die aktuell eingestellt Stärke auch durch separate Leuchten
+zusätzlich die aktuell eingestellte Stärke auch durch separate Leuchten
 dauerhaft und unabhängig von der momentanen Anzeige darstellt.
 
 Aus diesen Anforderungen können folgende User Stories abgeleitet werden,
@@ -75,7 +75,7 @@ User Stories
     einstellen, um erst so spät wie möglich aufstehen zu müssen.
 
 -   Als Kaffeetrinker möchte ich die Stärke zwischen leicht, mittel und
-    stark einstellen, um den Kaffee anzupassen.
+    stark einstellen, um den Kaffee an meine Vorlieben anzupassen.
 
 -   Als Kaffeetrinker möchte ich den automatischen Brühvorgang ein- bzw.
     ausstellen können, damit bei meiner Abwesenheit kein Kaffee
@@ -88,7 +88,7 @@ Technische Anforderungen
 ------------------------
 
 Zusätzlich zu den zuvor genannten funktionalen Anforderungen gibt es
-auch technische Anforderungen, die die zur Verfügung stehende Hardware
+auch technische Anforderungen, welche die zur Verfügung stehende Hardware
 beschreiben. Mit ihnen wird die Umsetzung der funktionalen Anforderungen
 anhand der gegebenen Eingabe- und Ausgabemittel beschrieben.
 
@@ -98,9 +98,9 @@ keine Kaffeekanne und eine entsprechende Platzierungserkennung zur
 Verfügung steht, soll zusätzlich während des Brühvorgangs diese mittels
 des Knopfes simuliert werden.
 
-Um die Einstellungen und den aktuellen Status anzuzeigen, stehen ein LCD
-Display sowie eine reihe LEDs zur Verfügung. Dabei soll vorrangig das
-LCD Display verwendet werden, da die LEDs der Anzeige der Kaffeestärke
+Um die Einstellungen und den aktuellen Status anzuzeigen, stehen ein LCD 
+sowie eine Reihe LEDs zur Verfügung. Dabei soll vorrangig das
+LCD verwendet werden, da die LEDs der Anzeige der Kaffeestärke
 vorbehalten sind.
 
 Im Folgenden wird die genaue Benutzung der Hardware beschrieben:
@@ -135,7 +135,7 @@ Einstellen des Alarms
     wird die Aktion bestätigt.
 
 Simulation Kaffeekanne
-:   Brüht die Maschine gerade Kaffee und wird der INTO Knopf gedrückt,
+:   Brüht die Maschine gerade Kaffee und wird der INT0 Knopf gedrückt,
     ist das gleichwertig zu dem Entfernen der Kanne.
 
 Umsetzung
@@ -159,7 +159,7 @@ Nach dem Umbau galt es das bestehende QM-Modell mit der Alarmuhr auf das
 Projekt Kaffeemaschine anzupassen und entsprechend zu erweitern. Die
 Erweiterungen waren hierbei das komplette Einstellungs-Menü mit
 Abspeichern der Input-Daten, die Verwendung der Real Time Clock (RTC),
-das Kaffe brühen an sich, sowie die Simulation der Kaffeekanne. Der
+das Kaffee brühen an sich, sowie die Simulation der Kaffeekanne. Der
 Alarm musste entsprechend auf die neue Prüfbedingung und das
 auszulösende Event angepasst werden.
 
@@ -181,32 +181,33 @@ UML Modellierung
 ----------------
 
 Im folgendem Modell ist der hauptsächliche Teilbereich des
-Zustandsautomaten mit dem initial Status `timekeeping` dargestellt.
-Darin ist Anzeige der aktuellen Uhrzeit, sowie das Einstellungs-Menü mit
-den einzelnen Statuse eingebettet. Initial wird in den Status
+Zustandsautomaten  mit dem Active Object Pattern mit dessen initial Status `timekeeping` dargestellt.
+Darin ist die Anzeige der aktuellen Uhrzeit, sowie das Einstellungs-Menü mit
+den einzelnen Status eingebettet. Initial wird in den Status
 `showCurrentTime` gewechselt. In diesem Status wird mit jedem
-TICK-Signal die aktuelle RTC ausgelesen und angezeigt. Nach drücken des
+TICK-Signal die aktuelle RTC ausgelesen und angezeigt. Nach Drücken des
 Knopfes wird in das Menü und den ersten Status `set_hour` gewechselt.
 Nach Einstellen der Alarm-Stunden durch das Potentiometer und bestätigen
 mit einem Knopf-Druck kommt man in den Status `set_minute`, in dem
 analog verfahren wird. In `setBrewStrength` kann nun die Stärke des
-Kaffees mit dem Potentiometer eingestellt werden. Nach bestätigen
+Kaffees mit dem Potentiometer eingestellt werden. Nach Bestätigen
 gelangt man in den letzten Einstellungs-Menü Status `enableAlarm`. Dabei
 wird der Alarm aktiviert oder deaktiviert. Mit einer erneuten
 Bestätigung wird wieder in den `showCurrentTime`-Status gewechselt.
 
 In den brewing-Status wird nach Auslösen des Alarms gewechselt. Der
 Trigger hierfür kommt vom anderen Teilbereich des Zustandsautomaten, auf
-den im anderen Model noch genauer eingegangen wird. Nach Beenden des
+den im anderen Modell noch genauer eingegangen wird. Nach Beenden des
 Brühens wird wieder zurück in den timekeeping-Status gewechselt. Wenn
 während des Brühens der Knopf gedrückt wird, was der Entnahme der
 Kaffeekanne entsprechen soll, wird das Brühen sofort gestoppt und
-ebenfalls in den timekeeping-Status zurück gekehrt.
+ebenfalls in den timekeeping-Status zurückgekehrt.
 
 ![Zustandsautomat für die Kaffeemaschine](img/Coffee-Statemachine.png)
 
 Nachfolgend wird der andere Teilbereich des Zustandsautomaten gezeigt,
-welcher die Alarmüberwachung enthält. Wenn der Alarm aktiviert ist,
+welcher die Alarmüberwachung enthält. Dieser Teil wurde mit einer 
+hierarchischen Statemachine umgesetzt. Wenn der Alarm aktiviert ist,
 befindet man sich im on-Status. Darin wird mit jedem TICK-Signal die RTC
 und die Alarmzeit verglichen und bei Übereinstimmung das ALARM-Signal
 getriggert.
@@ -217,31 +218,32 @@ Verwendete Treiber
 ------------------
 
 Für die aktuelle Uhrzeit wurde eine auf dem Chip integrierte RTC
-verwendet. Für das Auslesen der Uhrzeit wurde das bereitgestellte BSP
-genutzt. Ebenso wie für das initiale Setzen der Default-Uhrzeit. Dadurch
-musste keine zweiter Timer implementiert werden, welcher sonst für das
-Hochzählen der Uhrzeit zuständig gewesen wäre. Der Treiber funktioniert
-über einen eigenen Interrupt-Handler.
-
-Um in das Einstellungs-Menü zu gelangen und die einzelnen eingestellten
-Werte zu bestätigen wurde der Knopf genutzt. Dieser wurde ebenfalls mit
-dem bereitgestellten Treiber bzw BSP eingebunden. Dabei wird im
-Interrupt-Handler lediglich auf ein ButtonDown reagiert, was dem Drücken
-des Knopfes entspricht. Der Treiber funktioniert über einen eigenen
+verwendet. Für das Auslesen der Uhrzeit wurde das bereitgestellte 
+Board Support Package (BSP) genutzt. Ebenso wie für das initiale
+Setzen der Default-Uhrzeit. Dadurch musste kein zweiter Timer 
+implementiert werden, welcher sonst für das Hochzählen der Uhrzeit 
+zuständig gewesen wäre. Der Treiber beinhatlet einen eigenen 
 Interrupt-Handler.
 
-Alle Werte sind über das Potentiometer bzw den dazugehörigen
+Um in das Einstellungs-Menü zu gelangen und die einzelnen eingestellten
+Werte zu bestätigen wurde der INT0-Knopf genutzt. Dieser wurde ebenfalls 
+mit dem bereitgestellten Treiber bzw. BSP eingebunden. Dabei wird im
+Interrupt-Handler lediglich auf ein ButtonDown reagiert, was dem Drücken
+des Knopfes entspricht. Der Treiber beinhatlet ebenso einen eigenen 
+Interrupt-Handler.
+
+Alle Werte sind über das Potentiometer bzw. den dazugehörigen
 Analog-Digital-Converter einzustellen. Auch hierfür wurde der
 bereitgestellte Treiber/BSP verwendet. Dabei gilt zu beachten, dass vor
 der Verwendung des AD-Converters, dieser erst noch extra aktiviert
-werden muss. Der Treiber funktioniert über einen eigenen
+werden muss. Der Treiber beinhatlet ebenso einen eigenen 
 Interrupt-Handler.
 
 Zur Visualisierung der aktuellen Uhrzeit, den Menü-Einträgen und den
 einzustellenden Werten wurde das LCD mit gegebenem Treiber/BSP benutzt.
 
-Für die Darstellung der Kaffeestärke werden je nach Wert einzelne LEDs
-an- bzw ausgeschalten. Auch hierfür wurde der bereitgestellte Treiber
+Für die Darstellung der Kaffeestärke werden, je nach Wert, einzelne LEDs
+an- bzw. ausgeschalten. Auch hierfür wurde der bereitgestellte Treiber
 des BSP genutzt.
 
 Anpassungen am Board Support Package
@@ -257,11 +259,10 @@ Dies umfasst:
 -   LEDs
 -   Timer
 
-Es waren keine speziellen größeren Anpassungen nötig, da alle Board
-Support Package's (BSP) nach dem Einbinden und minimalen Anpassungen
-funktionierten und den Anforderungen entsprachen. Auch eine separate
-Entkopplung des Knopfes oder des Potentiometers entfiel, da kein großes
-Prellen vorhanden war.
+Es waren keine speziellen größeren Anpassungen nötig, da alle BSPs 
+nach dem Einbinden und minimalen Anpassungen funktionierten und den 
+Anforderungen entsprachen. Auch eine separate Entkopplung des Knopfes 
+oder des Potentiometers entfiel, da kein großes Prellen vorhanden war.
 
 Die einzigen Anpassungen waren das Triggern des jeweiligen passenden
 Events. Zusätzlich mussten in den Interrupt-Handlern das Sperren der
@@ -334,10 +335,11 @@ Code-Basis war umständlich.
 
 Durch die vier Interrupt-Handler bestehend aus dem des Timers, der RTC, 
 des Knopfes und des Potentiometers gestaltete es sich relativ schwierig das 
-System zu debuggen. Es war schlicht fast nicht möglich eine Stelle näher zu 
-analysieren ohne dass das Programm nach kurzer Zeit abgebrochen hat. Ebenso 
-nahezu unmöglich gestaltete sich das Debuggen eines Interrupt-Handlers selbst, 
-da sich das Board dann anders verhalten hat und sich zum Beispiel aufgehängt hat.
+System zu debuggen. Es war schlicht fast nicht möglich gewesen, eine Stelle 
+näher zu analysieren ohne dass das Programm nach kurzer Zeit abgebrochen 
+hat. Ebenso nahezu unmöglich gestaltete sich das Debuggen eines 
+Interrupt-Handlers selbst, da sich das Board dann anders verhalten 
+und sich zum Beispiel aufgehängt hat.
 
 ![Coffee Machine auf dem Board. Die grünen LEDs zeigen die aktuelle
 Kaffeestärke von 4 an.](img/board.jpg)
@@ -348,17 +350,16 @@ Bewertung der Erkenntnisse
 
 Wir haben gesehen, dass man mit Zustandsautomaten vielfältige Aufgaben auf 
 unterschiedliche Weisen lösen kann. Dabei kann die Größe des Zustandsautomaten 
-schnell groß und unübersichtlich werden, sodass es Sinn macht, diese auf 
-meherere Automaten aufzuteilen. Wie eben in unserem Fall mit dem 
+schnell unübersichtlich und komplex werden, sodass es Sinn macht, diese auf 
+mehrere Zustandsautomaten aufzuteilen. So, wie eben in unserem Fall, mit dem 
 hierarchische Zustandsautomat und das Active Object Pattern. Allerdings wird 
-es auch wieder schwieriger das ganze System zu debuggen, da zwischen den 
-einzelnen Automaten und Zuständen hin und her gesprungen wird.
+es auch wieder schwieriger das ganze System zu debuggen, da es komplexer wird.
 
 Tools wie der QP Modeler helfen hierbei die Automaten grafisch und 
 übersichtlich darzustellen. Des Weiteren lässt sich das Modell hervorragend 
 für die Dokumentation des jeweiligen Projektes verwenden. Ein Nachteil ist 
-aber definitiv, dass eben mit mehreren Programmen am gleichen Code-Teil 
-gearbeitet wird, was zu Problemen führt oder einfach teilweise nur wieder 
+aber definitiv, dass eben mit mehreren Programmen an der selben Code-Basis
+gearbeitet wird, was zu Problemen führt oder einfach teilweise nur 
 umständlich ist.
 
 \pagebreak
@@ -376,8 +377,8 @@ Probleme schneller gefunden und gelöst wurden.
 
 Da bei der Umsetzung der Kaffeemaschine immer in beiden Programmen Teile 
 angepasst werden mussten, wäre eine Aufteilung schlicht und einfach auch 
-nicht sinnvoll gewesen, da jede Änderungen des QP-Modeler's sich essentiell 
-auf den Code auswirkt.
+nicht sinnvoll gewesen, da sich jede Änderung des QM-Modell's auch 
+essentiell auf den Code auswirkt.
 
 \pagebreak
 

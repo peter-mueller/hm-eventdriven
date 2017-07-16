@@ -318,27 +318,35 @@ void adc_change()
 
 Menü
 ----
+
+Das Menü auf dem LCD Display kann sequentiell durchlaufen werden. Dabei
+sieht die Ausgabe wie folgt aus:
+
 1.  Aktuelle Uhrzeit
 
         ================
         14:50:00
         ================
-2.  Einstellen Alarmzeit (Stunde)
+
+2.  Einstellen Alarmzeit (Stunde) mit dem Rad
 
         ================
         ##:50:00
         ================
+
 3.  Alarmzeit (Minute)
 
         ================
         14:##:00
         ================
+
 4.  Stärke
 
         ================
         Set Strength
         ================
-        [*] [*] [ ] [ ]
+        [*] [*] [*] [ ] [ ] [ ]
+
 5.  Alarm An/aus
 
         ================

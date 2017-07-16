@@ -4,7 +4,9 @@ title: |
   EVENT DRIVEN SYSTEMS
 subtitle: |
   Erstellen einer nutzerfreundlichen Kaffeemaschine auf \
-  dem MCB2300 mit QP und einer Hierarchischen State Maschine
+  dem MCB2300 mit QP und einer Hierarchischen State Maschine \
+  \includegraphics[]{img/machine.pdf}\ 
+
 author: Peter Müller, Andreas Wilhelm, René Zarwel
 
 numbersections: true

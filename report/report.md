@@ -332,11 +332,34 @@ die richtigem Framework-Funktionen zu finden und sie auch im richtigen
 Kontext zu verwenden. Die Arbeit mit zwei Tools an der gleichen
 Code-Basis war umständlich.
 
-Das Debuggen in (selten mehreren) Interrupt-Handlern führte dazu, das
-sich das Board anders verhalten hat als ohne Debugging (z.B. Aufhängen).
+Durch die vier Interrupt-Handler bestehend aus dem des Timers, der RTC, 
+des Knopfes und des Potentiometers gestaltete es sich relativ schwierig das 
+System zu debuggen. Es war schlicht fast nicht möglich eine Stelle näher zu 
+analysieren ohne dass das Programm nach kurzer Zeit abgebrochen hat. Ebenso 
+nahezu unmöglich gestaltete sich das Debuggen eines Interrupt-Handlers selbst, 
+da sich das Board dann anders verhalten hat und sich zum Beispiel aufgehängt hat.
 
 ![Coffee Machine auf dem Board. Die grünen LEDs zeigen die aktuelle
 Kaffeestärke von 4 an.](img/board.jpg)
+
+
+Bewertung der Erkenntnisse
+-------------
+
+Wir haben gesehen, dass man mit Zustandsautomaten vielfältige Aufgaben auf 
+unterschiedliche Weisen lösen kann. Dabei kann die Größe des Zustandsautomaten 
+schnell groß und unübersichtlich werden, sodass es Sinn macht, diese auf 
+meherere Automaten aufzuteilen. Wie eben in unserem Fall mit dem 
+hierarchische Zustandsautomat und das Active Object Pattern. Allerdings wird 
+es auch wieder schwieriger das ganze System zu debuggen, da zwischen den 
+einzelnen Automaten und Zuständen hin und her gesprungen wird.
+
+Tools wie der QP Modeler helfen hierbei die Automaten grafisch und 
+übersichtlich darzustellen. Des Weiteren lässt sich das Modell hervorragend 
+für die Dokumentation des jeweiligen Projektes verwenden. Ein Nachteil ist 
+aber definitiv, dass eben mit mehreren Programmen am gleichen Code-Teil 
+gearbeitet wird, was zu Problemen führt oder einfach teilweise nur wieder 
+umständlich ist.
 
 \pagebreak
 
@@ -349,7 +372,12 @@ René Zarwel
 Die Umsetzung der Kaffeemaschine erfolgte vollständig in Zusammenarbeit
 an einem Rechner, sodass sich keine getrennten Aufgaben ergeben haben.
 Dies hatte den Vorteil, dass das Wissen gleichmäßig verteilt und
-Probleme schneller gefunden wurden.
+Probleme schneller gefunden und gelöst wurden.
+
+Da bei der Umsetzung der Kaffeemaschine immer in beiden Programmen Teile 
+angepasst werden mussten, wäre eine Aufteilung schlicht und einfach auch 
+nicht sinnvoll gewesen, da jede Änderungen des QP-Modeler's sich essentiell 
+auf den Code auswirkt.
 
 \pagebreak
 

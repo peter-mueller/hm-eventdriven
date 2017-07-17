@@ -205,7 +205,7 @@ während des Brühens der Knopf gedrückt wird, was der Entnahme der
 Kaffeekanne entsprechen soll, wird das Brühen sofort gestoppt und
 ebenfalls in den timekeeping-Status zurückgekehrt.
 
-![Zustandsautomat für die Kaffeemaschine](img/Coffee-Statemachine.png)
+\ ![Zustandsautomat für die Kaffeemaschine](img/Coffee-Statemachine.png)
 
 Nachfolgend wird der andere Teilbereich des Zustandsautomaten gezeigt,
 welcher die Alarmüberwachung enthält. Dieser Teil wurde mit einer
@@ -214,7 +214,7 @@ befindet man sich im on-Status. Darin wird mit jedem TICK-Signal die RTC
 und die Alarmzeit verglichen und bei Übereinstimmung das ALARM-Signal
 getriggert.
 
-![Einfacher Zustandsautomat für den Alarm](img/Alarm-Statemachine.png)
+\ ![Einfacher Zustandsautomat für den Alarm](img/Alarm-Statemachine.png)
 
 Verwendete Treiber
 ------------------
@@ -312,7 +312,7 @@ void adc_change()
     QACTIVE_POST(ao2,
                 (QEvent *)&event, (void *)0);
     QF_INT_LOCK();
-    
+
 }
 ```
 

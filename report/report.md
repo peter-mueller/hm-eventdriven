@@ -219,8 +219,8 @@ getriggert.
 Verwendete Treiber
 ------------------
 
-Für die aktuelle Uhrzeit wurde eine auf dem Chip integrierte RTC
-verwendet. Für das Auslesen der Uhrzeit wurde das bereitgestellte Board
+Für die aktuelle Uhrzeit wurde eine auf dem Chip integrierte Real Time Clock
+(RTC) verwendet. Für das Auslesen der Uhrzeit wurde das bereitgestellte Board
 Support Package (BSP) genutzt. Ebenso wie für das initiale Setzen der
 Default-Uhrzeit. Dadurch musste kein zweiter Timer implementiert werden,
 welcher sonst für das Hochzählen der Uhrzeit zuständig gewesen wäre. Der
@@ -262,7 +262,7 @@ Dies umfasst:
 Es waren keine speziellen größeren Anpassungen nötig, da alle BSPs nach
 dem Einbinden und minimalen Anpassungen funktionierten und den
 Anforderungen entsprachen. Auch eine separate Entkopplung des Knopfes
-oder des Potentiometers entfiel, da kein großes Prellen vorhanden war.
+entfiel, da eine einfache bereits enthalten war.
 
 Die einzigen Anpassungen waren das Triggern des jeweiligen passenden
 Events. Zusätzlich mussten in den Interrupt-Handlern das Sperren der
@@ -378,7 +378,7 @@ abgebrochen hat. Ebenso nahezu unmöglich gestaltete sich das Debuggen
 eines Interrupt-Handlers selbst, da sich das Board dann anders verhalten
 und sich zum Beispiel aufgehängt hat.
 
-![Coffee Machine auf dem Board. Die grünen LEDs zeigen die aktuelle
+\ ![Coffee Machine auf dem Board. Die grünen LEDs zeigen die aktuelle
 Kaffeestärke von 4 an.](img/board.jpg)
 
 Bewertung der Erkenntnisse

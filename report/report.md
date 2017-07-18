@@ -318,13 +318,25 @@ void adc_change()
 
 Capture - Dispatch - Process
 ------------------
-Wichtig bei diesem Projekt war Einhaltung der Trennung zwischen dem Einfangen von Events (Capture), dem Wechsel zwischen den Zuständen (Dispatch) und der Ausführung des eigentlichen Prozessteils (Process). Eine Zentrale Rolle spielte hierbei das Inversion of Control nach dem Hollywood-Motto "Don't call us, we call you" sodass das Event Capture, Event Dispatch und Event Process von einander entkoppelt ist.
+Wichtig bei diesem Projekt war Einhaltung der Trennung zwischen dem 
+Einfangen von Events (Capture), dem Wechsel zwischen den Zuständen 
+(Dispatch) und der Ausführung des eigentlichen Prozessteils (Process). 
+Eine Zentrale Rolle spielte hierbei auch das Inversion of Control nach 
+dem Hollywood-Motto "Don't call us, we call you" sodass das Event Capture, 
+Event Dispatch und Event Process voneinander entkoppelt ist.
 
-Das Capture ist in den einzelne Treibern enthalten. Hierbei wird intern, sobald ein Interrupt ausgelöst wurde, der jeweilige Interrupt-Handler aufgerufen. In diesem wird dann das jeweilige QM Event mit dem dazugehörigen Signal erzeugt und in die EventQueue eingefügt.
+Das Capture ist in den einzelne Treibern enthalten. Hierbei wird intern, 
+sobald ein Interrupt ausgelöst wurde, der jeweilige Interrupt-Handler 
+aufgerufen. In diesem wird dann das jeweilige QM Event mit dem dazugehörigen 
+Signal erzeugt und in die EventQueue eingefügt.
 
-Das Abarbeiten der EventQueue ist Teil des Dispatch. Dabei wird ein Event aus der Queue genommen und bei einem neuen Zustand in diesen gewechselt. Bei diesem Wechsel wird ebenfalls die entsprechende auszuführende Methode des Programmes aufgerufen.
+Das Abarbeiten der EventQueue ist Teil des Dispatch. Dabei wird ein Event 
+aus der Queue genommen und bei einem neuen Zustand in diesen gewechselt. 
+Bei diesem Wechsel wird ebenfalls die entsprechende auszuführende Methode 
+des Programmes aufgerufen.
 
-Beim Process wird nun die vom Dispatch aufgerufene Methode ausgeführt, was der eigentlichen Programm-Logik entspricht.
+Beim Process wird nun die vom Dispatch aufgerufene Methode ausgeführt, was 
+der eigentlichen Programm-Logik entspricht.
 
 
 Menü
@@ -403,12 +415,29 @@ eben in unserem Fall, mit dem hierarchische Zustandsautomat und das
 Active Object Pattern. Allerdings wird es auch wieder schwieriger das
 ganze System zu debuggen, da es komplexer wird.
 
-Tools wie der QP Modeler helfen hierbei die Automaten grafisch und
+Durch die Verwendung von mehreren Interrupt-Handlern und den dadurch 
+auftretenden Probleme, konnte weitere Erfahrungen in der embedded 
+Programmierung gewonnen werden. Besonders natürlich auch hier im Hinblick 
+auf das Debuggen.
+
+Tools, wie der QP Modeler, helfen hierbei die Automaten grafisch 
 übersichtlich darzustellen. Des Weiteren lässt sich das Modell
 hervorragend für die Dokumentation des jeweiligen Projektes verwenden.
 Ein Nachteil ist aber definitiv, dass eben mit mehreren Programmen an
 derselben Code-Basis gearbeitet wird, was zu Problemen führt oder
 einfach teilweise nur umständlich ist.
+
+Bei diesem Projekt konnten wir die neuen Erkenntnisse mit State Machines
+optimal einsetzen und verinnerlichen. Die Schlüsselkomponenten für ein 
+erfolgreiches Eventmanagement (Capture, Dispatch, Process) mit der 
+Inversion of Control wurde eingehalten. Auch die objektorientierte 
+Programmierung mit Polymorphie, Vererbung, Kapselung wurde aktiv genutzt.
+
+Wir haben das Tool Keil für die embedded Programmierung kennen gelernt. 
+Ebenso wie das Quantum Framwork mit dem QP Modeler zur Modelierung der 
+Kaffeemaschine und der Generierung der Code-Teile der State Machine. 
+
+Auch die 
 
 \pagebreak
 

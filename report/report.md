@@ -466,3 +466,38 @@ Peter Müller
 
 Andreas Wilhelm
 ---------------
+
+In der Design-Phase bzw bei der Modellierung im QP Modeler war ich zusammen 
+mit den anderen beiden aktiv an der Erstellung des Modells beteiligt.
+
+Da ich bereits einiges an Erfahrung in der C und C++ Programmierung mitbringen 
+konnte, konnte ich mich sehr gut bei der Implementierung und Umsetzung des 
+Projektes einbringen und auch untersützen, wenn es Fragen rund um die C/C++ 
+Programmierung gab. Die meiste Zeit haben wir jedoch gemeinsam daran 
+entwickelt, da damit auch das Wissen gleichmäßig verteilt wurde und somit 
+keine großen Verständnislücken entstehen konnten. Wenn es gerade sinnvoll 
+und überhaupt möglich war, konnte einer ab und zu etwas anderes, wie zum 
+Beispiel Recherche-Arbeit, nebenher erledigen, sodass die anderen beiden im 
+Pair Programming effektiver arbeiten konnten.  Vor allem wenn es an das 
+Testen und die Fehlersuche ging, war es ein immenser Vorteil, wenn einfach 
+alle mitdenken und das auftretenede Problem dadurch schnell und effektiv 
+behoben werden konnnte. Jeder konnte seine Erfahrungen und Ideen 
+hervorragend einbringen, sodass es eine sehr gute Teamarbeit mit dem 
+Resultat einer funktionierenden CoffeMachine war.
+
+Bei dieser Dokumentation war ich maßgeblich an dem Kapitel der Umsetzung, 
+hierbei vor allem 3.2, 3.3 und 3.5 und der Resümee Umsetzung, 
+besonders 4.2, beteiligt.
+
+Für mich persönlich war dieses Projekt, ein recht anspruchsvolles Projekt, 
+vor allem jedoch, wegen der recht knapp bemessenen Zeit. Dabei habe ich 
+jedoch vieles über Zustandsautomaten gelernt und verinnerlich können. Vor 
+allem die Umsetzung von komplexeren und verschachtelten State Machines war 
+eine sehr interessante Erfahrung, wobei es natürlich verglichen mit den 
+Real-World-Projekten, noch sehr klein war. Aber die Konzepte sind klar. 
+Besonders bemerkenswert war die Verwendung der objektorientierten 
+Programmierung in Verbindung mit den State Machines. Auch die aktive 
+Verwendung des QP Model konnte mein Horizont rund um 
+Code-Modelierung-Generierungs-Tools erweitern. Wie bei fast jedem 
+Embedded-Projekt treten irgendwelche Probleme auf, die es zu lösen 
+gilt, was uns im Team meiner Meinung nach sehr gut gelungen ist.

@@ -316,6 +316,17 @@ void adc_change()
 }
 ```
 
+Capture - Dispatch - Process
+------------------
+Wichtig bei diesem Projekt war Einhaltung der Trennung zwischen dem Einfangen von Events (Capture), dem Wechsel zwischen den Zuständen (Dispatch) und der Ausführung des eigentlichen Prozessteils (Process). Eine Zentrale Rolle spielte hierbei das Inversion of Control nach dem Hollywood-Motto "Don't call us, we call you" sodass das Event Capture, Event Dispatch und Event Process von einander entkoppelt ist.
+
+Das Capture ist in den einzelne Treibern enthalten. Hierbei wird intern, sobald ein Interrupt ausgelöst wurde, der jeweilige Interrupt-Handler aufgerufen. In diesem wird dann das jeweilige QM Event mit dem dazugehörigen Signal erzeugt und in die EventQueue eingefügt.
+
+Das Abarbeiten der EventQueue ist Teil des Dispatch. Dabei wird ein Event aus der Queue genommen und bei einem neuen Zustand in diesen gewechselt. Bei diesem Wechsel wird ebenfalls die entsprechende auszuführende Methode des Programmes aufgerufen.
+
+Beim Process wird nun die vom Dispatch aufgerufene Methode ausgeführt, was der eigentlichen Programm-Logik entspricht.
+
+
 Menü
 ----
 

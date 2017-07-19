@@ -480,7 +480,7 @@ Dieses Vorgehen führte uns zielstrebig auf ein funktionierendes Produkt
 zu, dass wir in der Präsentation vorstellen konnten.
 
 Da ich schon etwas Erfahrung in der C/C++ Programmierung habe, konnte
-ich vieles zielführend zur Umsetzung der Kaffeemaschiene beitragen. Und
+ich vieles zielführend zur Umsetzung der Kaffeemaschine beitragen. Und
 mit dem neu gewonnen Wissen über die praktische Umsetzung von
 Statemachines habe ich viel über effektives Eventmanagement gelernt und
 diese Erkenntnisse direkt einsetzen können. Eine Herausforderung für
@@ -505,7 +505,7 @@ Ich habe die Keil Konfiguration durchgeführt. Auch die zusätzlichen
 Einstellungen für den jLink. Ich habe teilweise selbst an den
 vorgegebenen Projekten programmiert und ansonsten im Pair Programming
 die anderen Teammitglieder begleitet und mitgedacht. Dabei habe ich an
-den Interrupt Routinen (RTC, Button, ADC, ...), Logik der Kaffemaschine
+den Interrupt Routinen (RTC, Button, ADC, ...), Logik der Kaffeemaschine
 (Zeit, Anzeige LED, LCD) und den Transitionen programmiert. Ich habe mir
 überlegt wie man die Kaffeemaschine in UML modelliert und Recherche zu
 analogen Beispielen von QM durchgeführt. Einige Zustände sowie Übergänge

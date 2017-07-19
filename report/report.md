@@ -539,23 +539,23 @@ beteiligt.
 
 Da ich bereits einiges an Erfahrung in der C und C++ Programmierung
 mitbringen konnte, konnte ich mich sehr gut bei der Implementierung und
-Umsetzung des Projektes einbringen und auch untersützen, wenn es Fragen
+Umsetzung des Projektes einbringen und auch allgemein untersützen, wenn es Fragen
 rund um die C/C++ Programmierung gab. Die meiste Zeit haben wir jedoch
 gemeinsam daran entwickelt, da damit auch das Wissen gleichmäßig
 verteilt wurde und somit keine großen Verständnislücken entstehen
 konnten. Wenn es gerade sinnvoll und überhaupt möglich war, konnte einer
 ab und zu etwas anderes, wie zum Beispiel Recherche-Arbeit, nebenher
-erledigen, sodass die anderen beiden im Pair Programming effektiver
+erledigen, sodass ich und ein Teamkollege im Pair Programming effektiver
 arbeiten konnten. Vor allem wenn es an das Testen und die Fehlersuche
 ging, war es ein immenser Vorteil, wenn einfach alle mitdenken und das
 auftretenede Problem dadurch schnell und effektiv behoben werden
 konnnte. Jeder konnte seine Erfahrungen und Ideen hervorragend
 einbringen, sodass es eine sehr gute Teamarbeit mit dem Resultat einer
-funktionierenden CoffeMachine war.
+funktionierenden Kaffeemaschine war. Wenn wir noch mehr Zeit gehabt hätten, 
+hätte wir die Kaffeemaschine mit noch sinnvollen Funktionen erweitern können.
 
-Bei dieser Dokumentation war ich maßgeblich an dem Kapitel der
-Umsetzung, hierbei vor allem 3.2, 3.3 und 3.5 und der Resümee Umsetzung,
-besonders 4.2, beteiligt.
+Bei der Dokumentation verzichten wir auf eine explizite aufgetrennte 
+Auflistung der einzelnen Teile, da jeder seinen Beitrag dazu leistete.
 
 Für mich persönlich war dieses Projekt, ein recht anspruchsvolles
 Projekt, vor allem jedoch, wegen der recht knapp bemessenen Zeit. Dabei

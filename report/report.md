@@ -200,20 +200,21 @@ oder deaktiviert. Mit einer erneuten Bestätigung wird wieder in den
 `showCurrentTime`-Status gewechselt.
 
 In den brewing-Status wird nach Auslösen des Alarms gewechselt. Der
-Trigger hierfür kommt von der orthogonalen Region "Alarm" des Zustandsautomaten, auf
-den im anderen Modell noch genauer eingegangen wird. Nach Beenden des
-Brühens wird wieder zurück in den timekeeping-Status gewechselt. Wenn
-während des Brühens der Knopf gedrückt wird, was der Entnahme der
-Kaffeekanne entsprechen soll, wird das Brühen sofort gestoppt und
-ebenfalls in den timekeeping-Status zurückgekehrt.
+Trigger hierfür kommt von der orthogonalen Region "Alarm" des
+Zustandsautomaten, auf den im anderen Modell noch genauer eingegangen
+wird. Nach Beenden des Brühens wird wieder zurück in den
+timekeeping-Status gewechselt. Wenn während des Brühens der Knopf
+gedrückt wird, was der Entnahme der Kaffeekanne entsprechen soll, wird
+das Brühen sofort gestoppt und ebenfalls in den timekeeping-Status
+zurückgekehrt.
 
  ![Zustandsautomat für die Kaffeemaschine](img/Coffee-Statemachine.png)
 
-Nachfolgend wird die orthogonale Region des zuvor beschriebenen Zustandsautomaten gezeigt,
-welcher die Alarmüberwachung enthält. Wenn der Alarm aktiviert ist,
-befindet man sich im on-Status. Darin wird mit jedem TICK-Signal die RTC
-und die Alarmzeit verglichen und bei Übereinstimmung das ALARM-Signal
-getriggert.
+Nachfolgend wird die orthogonale Region des zuvor beschriebenen
+Zustandsautomaten gezeigt, welcher die Alarmüberwachung enthält. Wenn
+der Alarm aktiviert ist, befindet man sich im on-Status. Darin wird mit
+jedem TICK-Signal die RTC und die Alarmzeit verglichen und bei
+Übereinstimmung das ALARM-Signal getriggert.
 
  ![Einfacher Zustandsautomat für den Alarm](img/Alarm-Statemachine.png)
 
@@ -322,10 +323,10 @@ Capture - Dispatch - Process
 
 Wichtig bei diesem Projekt war Einhaltung der Trennung zwischen dem
 Einfangen von Events (Capture), dem Zuordnen des Events zum Handler
-(Dispatch) und der Verarbeitung des eigentlichen Events (Process).
-Eine Zentrale Rolle spielte hierbei auch das Inversion of Control nach
-dem Hollywood-Motto "Don't call us, we call you" sodass das Event
-Capture, Event Dispatch und Event Process voneinander entkoppelt ist.
+(Dispatch) und der Verarbeitung des eigentlichen Events (Process). Eine
+Zentrale Rolle spielte hierbei auch das Inversion of Control nach dem
+Hollywood-Motto "Don't call us, we call you" sodass das Event Capture,
+Event Dispatch und Event Process voneinander entkoppelt ist.
 
 Das Capture ist in den einzelne Treibern enthalten. Hierbei wird intern,
 sobald ein Interrupt ausgelöst wurde, der jeweilige Interrupt-Handler
@@ -411,11 +412,10 @@ Wir haben gesehen, dass man mit Zustandsautomaten vielfältige Aufgaben
 auf unterschiedliche Weisen lösen kann. Dabei kann die Größe des
 Zustandsautomaten schnell unübersichtlich und komplex werden, sodass es
 Sinn ergab, diese auf mehrere Zustandsautomaten aufzuteilen. So, wie
-eben in unserem Fall, mit dem hierarchische Zustandsautomat, dem
-Active Object Pattern sowie dem Einbringen von orthogonalen Regionen.
-Allerdings wird es auch wieder schwieriger das
-ganze System zu debuggen, da viele entkoppelte Teile an der gesamten
-Verarbeitung beteiligt sind.
+eben in unserem Fall, mit dem hierarchische Zustandsautomat, dem Active
+Object Pattern sowie dem Einbringen von orthogonalen Regionen.
+Allerdings wird es auch wieder schwieriger das ganze System zu debuggen,
+da viele entkoppelte Teile an der gesamten Verarbeitung beteiligt sind.
 
 Durch die Verwendung von mehreren Interrupt-Handlern und den dadurch
 auftretenden Probleme, konnte weitere Erfahrungen in der embedded
@@ -426,20 +426,20 @@ Wir haben das Tool Keil für die embedded Programmierung kennen gelernt.
 Ebenso wie das Quantum Framework mit dem QP Modeler zur Modellierung der
 Kaffeemaschine und der Generierung der Code-Teile der State Machine.
 
-Der QP Modeler half den Automaten grafisch
-übersichtlich darzustellen. Des Weiteren lässt sich daraus das Modell
-hervorragend für die Dokumentation des jeweiligen Projektes verwenden.
-Ein Nachteil ist aber definitiv, dass eben mit mehreren Programmen an
-derselben Code-Basis gearbeitet wird, was zu Problemen führt oder
-einfach teilweise nur umständlich ist.
+Der QP Modeler half den Automaten grafisch übersichtlich darzustellen.
+Des Weiteren lässt sich daraus das Modell hervorragend für die
+Dokumentation des jeweiligen Projektes verwenden. Ein Nachteil ist aber
+definitiv, dass eben mit mehreren Programmen an derselben Code-Basis
+gearbeitet wird, was zu Problemen führt oder einfach teilweise nur
+umständlich ist.
 
-Zusammenfassend kann gesagt werden, dass wir bei diesem Projekt unsere neuen
-Erkenntnisse mit State Machines und zugehörigen Pattern
-optimal einsetzen und verinnerlichen konnten. Wir haben die Schlüsselkomponenten für ein
-erfolgreiches Eventmanagement (Capture, Dispatch, Process) mit der
-Inversion of Control erprobt sowie die objektorientierte
-Programmierung mit Polymorphie, Vererbung, Kapselung aktiv
-genutzt und an einem praktischen Beispiel umgesetzt.
+Zusammenfassend kann gesagt werden, dass wir bei diesem Projekt unsere
+neuen Erkenntnisse mit State Machines und zugehörigen Pattern optimal
+einsetzen und verinnerlichen konnten. Wir haben die Schlüsselkomponenten
+für ein erfolgreiches Eventmanagement (Capture, Dispatch, Process) mit
+der Inversion of Control erprobt sowie die objektorientierte
+Programmierung mit Polymorphie, Vererbung, Kapselung aktiv genutzt und
+an einem praktischen Beispiel umgesetzt.
 
 \pagebreak
 
@@ -450,45 +450,47 @@ René Zarwel
 -----------
 
 Die Umsetzung der Kaffeemaschine erfolgte vollständig in Zusammenarbeit
-an einem Rechner, sodass sich für mich keine getrennten Aufgaben ergeben haben.
-Dies hatte den Vorteil, dass das Wissen gleichmäßig verteilt und
+an einem Rechner, sodass sich für mich keine getrennten Aufgaben ergeben
+haben. Dies hatte den Vorteil, dass das Wissen gleichmäßig verteilt und
 Probleme schneller gefunden sowie gelöst werden konnten.
 
-Da die Vorlage der "Alarmclock" nur als Keil Projekt zur Verfügung stand, galt
-es zunächst diese zu analysieren und als QM Modell umzusetzen. Dabei habe ich mich
-intensiv mit dem verwendeten orthogonalen Regionen Pattern beschäftigt und
-dies bei der Modellierung einfließen lassen. Die erste Hürde war, die Vorlage mit
-unserer Modellierung zu "synchronisieren", sodass das Generieren unseres Modells
+Da die Vorlage der "Alarmclock" nur als Keil Projekt zur Verfügung
+stand, galt es zunächst diese zu analysieren und als QM Modell
+umzusetzen. Dabei habe ich mich intensiv mit dem verwendeten
+orthogonalen Regionen Pattern beschäftigt und dies bei der Modellierung
+einfließen lassen. Die erste Hürde war, die Vorlage mit unserer
+Modellierung zu "synchronisieren", sodass das Generieren unseres Modells
 der Vorlage entsprach. Dabei habe ich aktiv bei der Lösung der teilweise
-unverständlichen Fehlermeldungen in Keil geholfen, sodass wir eine gute Basis
-für die Umsetzung der Kaffeemaschine hatten.
+unverständlichen Fehlermeldungen in Keil geholfen, sodass wir eine gute
+Basis für die Umsetzung der Kaffeemaschine hatten.
 
-Anschließend konnte ich das Modell für die Kaffeemaschine anpassen, wobei wir im
-Team die abschließende Umsetzung stark diskutiert haben. Wie so oft gibt es keine
-optimale Lösung, jedoch konnten wir relativ schnell einen gemeinsamen Nenner finden.
-Damit konnte ich unser Modell initial generieren, was uns zur Umsetzung der Logik
-sowie der Integration der Hardware über die BSP brachte.
+Anschließend konnte ich das Modell für die Kaffeemaschine anpassen,
+wobei wir im Team die abschließende Umsetzung stark diskutiert haben.
+Wie so oft gibt es keine optimale Lösung, jedoch konnten wir relativ
+schnell einen gemeinsamen Nenner finden. Damit konnte ich unser Modell
+initial generieren, was uns zur Umsetzung der Logik sowie der
+Integration der Hardware über die BSP brachte.
 
-Für die Umsetzung der BSP bin ich im Pair-Programming inkrementell vorgegangen.
-So haben ich ein Ein- bzw. Ausgabemittel nach dem anderen integriert und mit der
-generierten Statemachine verbunden. Dabei galt es einige Fehler zu finden, wobei
-ich intensiv mitgeholfen und die Software auf dem Board getestet habe.  
-Dieses Vorgehen
-führte uns zielstrebig auf ein funktionierendes Produkt zu, dass wir in der Präsentation
-vorstellen konnten.
+Für die Umsetzung der BSP bin ich im Pair-Programming inkrementell
+vorgegangen. So haben ich ein Ein- bzw. Ausgabemittel nach dem anderen
+integriert und mit der generierten Statemachine verbunden. Dabei galt es
+einige Fehler zu finden, wobei ich intensiv mitgeholfen und die Software
+auf dem Board getestet habe.\
+Dieses Vorgehen führte uns zielstrebig auf ein funktionierendes Produkt
+zu, dass wir in der Präsentation vorstellen konnten.
 
-Da ich schon etwas Erfahrung in der C/C++ Programmierung habe, konnte ich vieles
-zielführend zur Umsetzung der Kaffeemaschiene beitragen. Und mit dem neu gewonnen
-Wissen über die praktische Umsetzung von Statemachines habe ich viel über
-effektives Eventmanagement gelernt und diese Erkenntnisse direkt einsetzen können.
-Eine
-Herausforderung für mich war auch der Umgang mit dem QP-Framework. Bei einer
-Verschleierung von Funktionalitäten und vielen entkoppelten Mechanismen ist es nicht
-immer leicht einen Fehler zu finden. Dies hat uns unterm Strich beim Projekt
-die meiste Zeit gekostet.
-So hätte ich mir persönlich bei dem Projekt mehr Zeit gewünscht, sodass man Fehlern ohne
-Zeitdruck nachgehen und das
-neue Wissen stärker bei einem leicht größeren Projekt vertiefen kann.
+Da ich schon etwas Erfahrung in der C/C++ Programmierung habe, konnte
+ich vieles zielführend zur Umsetzung der Kaffeemaschiene beitragen. Und
+mit dem neu gewonnen Wissen über die praktische Umsetzung von
+Statemachines habe ich viel über effektives Eventmanagement gelernt und
+diese Erkenntnisse direkt einsetzen können. Eine Herausforderung für
+mich war auch der Umgang mit dem QP-Framework. Bei einer Verschleierung
+von Funktionalitäten und vielen entkoppelten Mechanismen ist es nicht
+immer leicht einen Fehler zu finden. Dies hat uns unterm Strich beim
+Projekt die meiste Zeit gekostet. So hätte ich mir persönlich bei dem
+Projekt mehr Zeit gewünscht, sodass man Fehlern ohne Zeitdruck nachgehen
+und das neue Wissen stärker bei einem leicht größeren Projekt vertiefen
+kann.
 
 \pagebreak
 
@@ -502,7 +504,9 @@ Aufgaben alleine parallel erledigt.
 Ich habe die Keil Konfiguration durchgeführt. Auch die zusätzlichen
 Einstellungen für den jLink. Ich habe teilweise selbst an den
 vorgegebenen Projekten programmiert und ansonsten im Pair Programming
-die anderen Teammitglieder begleitet und mitgedacht. Ich habe mir
+die anderen Teammitglieder begleitet und mitgedacht. Dabei habe ich an
+den Interrupt Routinen (RTC, Button, ADC, ...), Logik der Kaffemaschine
+(Zeit, Anzeige LED, LCD) und den Transitionen programmiert. Ich habe mir
 überlegt wie man die Kaffeemaschine in UML modelliert und Recherche zu
 analogen Beispielen von QM durchgeführt. Einige Zustände sowie Übergänge
 aus dem QM Modell stammen von mir. Ich habe die Anforderungen an die

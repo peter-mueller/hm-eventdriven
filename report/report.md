@@ -318,27 +318,27 @@ void adc_change()
 ```
 
 Capture - Dispatch - Process
-------------------
-Wichtig bei diesem Projekt war Einhaltung der Trennung zwischen dem 
-Einfangen von Events (Capture), dem Wechsel zwischen den Zuständen 
-(Dispatch) und der Ausführung des eigentlichen Prozessteils (Process). 
-Eine Zentrale Rolle spielte hierbei auch das Inversion of Control nach 
-dem Hollywood-Motto "Don't call us, we call you" sodass das Event Capture, 
-Event Dispatch und Event Process voneinander entkoppelt ist.
+----------------------------
 
-Das Capture ist in den einzelne Treibern enthalten. Hierbei wird intern, 
-sobald ein Interrupt ausgelöst wurde, der jeweilige Interrupt-Handler 
-aufgerufen. In diesem wird dann das jeweilige QM Event mit dem dazugehörigen 
-Signal erzeugt und in die EventQueue eingefügt.
+Wichtig bei diesem Projekt war Einhaltung der Trennung zwischen dem
+Einfangen von Events (Capture), dem Wechsel zwischen den Zuständen
+(Dispatch) und der Ausführung des eigentlichen Prozessteils (Process).
+Eine Zentrale Rolle spielte hierbei auch das Inversion of Control nach
+dem Hollywood-Motto "Don't call us, we call you" sodass das Event
+Capture, Event Dispatch und Event Process voneinander entkoppelt ist.
 
-Das Abarbeiten der EventQueue ist Teil des Dispatch. Dabei wird ein Event 
-aus der Queue genommen und bei einem neuen Zustand in diesen gewechselt. 
-Bei diesem Wechsel wird ebenfalls die entsprechende auszuführende Methode 
-des Programmes aufgerufen.
+Das Capture ist in den einzelne Treibern enthalten. Hierbei wird intern,
+sobald ein Interrupt ausgelöst wurde, der jeweilige Interrupt-Handler
+aufgerufen. In diesem wird dann das jeweilige QM Event mit dem
+dazugehörigen Signal erzeugt und in die EventQueue eingefügt.
 
-Beim Process wird nun die vom Dispatch aufgerufene Methode ausgeführt, was 
-der eigentlichen Programm-Logik entspricht.
+Das Abarbeiten der EventQueue ist Teil des Dispatch. Dabei wird ein
+Event aus der Queue genommen und bei einem neuen Zustand in diesen
+gewechselt. Bei diesem Wechsel wird ebenfalls die entsprechende
+auszuführende Methode des Programmes aufgerufen.
 
+Beim Process wird nun die vom Dispatch aufgerufene Methode ausgeführt,
+was der eigentlichen Programm-Logik entspricht.
 
 Menü
 ----
@@ -416,12 +416,12 @@ eben in unserem Fall, mit dem hierarchische Zustandsautomat und das
 Active Object Pattern. Allerdings wird es auch wieder schwieriger das
 ganze System zu debuggen, da es komplexer wird.
 
-Durch die Verwendung von mehreren Interrupt-Handlern und den dadurch 
-auftretenden Probleme, konnte weitere Erfahrungen in der embedded 
-Programmierung gewonnen werden. Besonders natürlich auch hier im Hinblick 
-auf das Debuggen.
+Durch die Verwendung von mehreren Interrupt-Handlern und den dadurch
+auftretenden Probleme, konnte weitere Erfahrungen in der embedded
+Programmierung gewonnen werden. Besonders natürlich auch hier im
+Hinblick auf das Debuggen.
 
-Tools, wie der QP Modeler, helfen hierbei die Automaten grafisch 
+Tools, wie der QP Modeler, helfen hierbei die Automaten grafisch
 übersichtlich darzustellen. Des Weiteren lässt sich das Modell
 hervorragend für die Dokumentation des jeweiligen Projektes verwenden.
 Ein Nachteil ist aber definitiv, dass eben mit mehreren Programmen an
@@ -429,16 +429,17 @@ derselben Code-Basis gearbeitet wird, was zu Problemen führt oder
 einfach teilweise nur umständlich ist.
 
 Bei diesem Projekt konnten wir die neuen Erkenntnisse mit State Machines
-optimal einsetzen und verinnerlichen. Die Schlüsselkomponenten für ein 
-erfolgreiches Eventmanagement (Capture, Dispatch, Process) mit der 
-Inversion of Control wurde eingehalten. Auch die objektorientierte 
-Programmierung mit Polymorphie, Vererbung, Kapselung wurde aktiv genutzt.
+optimal einsetzen und verinnerlichen. Die Schlüsselkomponenten für ein
+erfolgreiches Eventmanagement (Capture, Dispatch, Process) mit der
+Inversion of Control wurde eingehalten. Auch die objektorientierte
+Programmierung mit Polymorphie, Vererbung, Kapselung wurde aktiv
+genutzt.
 
-Wir haben das Tool Keil für die embedded Programmierung kennen gelernt. 
-Ebenso wie das Quantum Framwork mit dem QP Modeler zur Modelierung der 
-Kaffeemaschine und der Generierung der Code-Teile der State Machine. 
+Wir haben das Tool Keil für die embedded Programmierung kennen gelernt.
+Ebenso wie das Quantum Framwork mit dem QP Modeler zur Modelierung der
+Kaffeemaschine und der Generierung der Code-Teile der State Machine.
 
-Auch die 
+Auch die
 
 \pagebreak
 
@@ -481,42 +482,55 @@ Aufgaben zu identifizieren.
 Ich habe am Board unsere Software getestet und aktiv die Fehlersuche
 unterstützt.
 
+Ich kannte schon das State Pattern in den Sprachen C++, Java und Go.
+Deshalb war es für mich besonders interessant, wie die Konzepte auch mit
+C umgesetzt werden können. Die Kombination aus Framework, C und Board
+war für mich eine große Herausforderung. Dank meines Teams konnte ich
+mehr über C lernen. Lehrreich war auch die Verwendung eines
+Modellierungswerkzeuges, um die Softwareentwicklung zu unterstützen.
+Ähnliche (aber von der Idee her andere) Tools kenne ich schon aus Arbeit
+und Privatem. Es ist schade, dass so wenig Zeit für das Teamprojekt war.
+Ich hätte gerne mehr an der Kaffeemaschine herumgeschraubt um sie
+benutzerfreundlicher sowie stabiler zu machen.
+
 \pagebreak
 
 Andreas Wilhelm
 ---------------
 
-In der Design-Phase bzw bei der Modellierung im QP Modeler war ich zusammen 
-mit den anderen beiden aktiv an der Erstellung des Modells beteiligt.
+In der Design-Phase bzw bei der Modellierung im QP Modeler war ich
+zusammen mit den anderen beiden aktiv an der Erstellung des Modells
+beteiligt.
 
-Da ich bereits einiges an Erfahrung in der C und C++ Programmierung mitbringen 
-konnte, konnte ich mich sehr gut bei der Implementierung und Umsetzung des 
-Projektes einbringen und auch untersützen, wenn es Fragen rund um die C/C++ 
-Programmierung gab. Die meiste Zeit haben wir jedoch gemeinsam daran 
-entwickelt, da damit auch das Wissen gleichmäßig verteilt wurde und somit 
-keine großen Verständnislücken entstehen konnten. Wenn es gerade sinnvoll 
-und überhaupt möglich war, konnte einer ab und zu etwas anderes, wie zum 
-Beispiel Recherche-Arbeit, nebenher erledigen, sodass die anderen beiden im 
-Pair Programming effektiver arbeiten konnten.  Vor allem wenn es an das 
-Testen und die Fehlersuche ging, war es ein immenser Vorteil, wenn einfach 
-alle mitdenken und das auftretenede Problem dadurch schnell und effektiv 
-behoben werden konnnte. Jeder konnte seine Erfahrungen und Ideen 
-hervorragend einbringen, sodass es eine sehr gute Teamarbeit mit dem 
-Resultat einer funktionierenden CoffeMachine war.
+Da ich bereits einiges an Erfahrung in der C und C++ Programmierung
+mitbringen konnte, konnte ich mich sehr gut bei der Implementierung und
+Umsetzung des Projektes einbringen und auch untersützen, wenn es Fragen
+rund um die C/C++ Programmierung gab. Die meiste Zeit haben wir jedoch
+gemeinsam daran entwickelt, da damit auch das Wissen gleichmäßig
+verteilt wurde und somit keine großen Verständnislücken entstehen
+konnten. Wenn es gerade sinnvoll und überhaupt möglich war, konnte einer
+ab und zu etwas anderes, wie zum Beispiel Recherche-Arbeit, nebenher
+erledigen, sodass die anderen beiden im Pair Programming effektiver
+arbeiten konnten. Vor allem wenn es an das Testen und die Fehlersuche
+ging, war es ein immenser Vorteil, wenn einfach alle mitdenken und das
+auftretenede Problem dadurch schnell und effektiv behoben werden
+konnnte. Jeder konnte seine Erfahrungen und Ideen hervorragend
+einbringen, sodass es eine sehr gute Teamarbeit mit dem Resultat einer
+funktionierenden CoffeMachine war.
 
-Bei dieser Dokumentation war ich maßgeblich an dem Kapitel der Umsetzung, 
-hierbei vor allem 3.2, 3.3 und 3.5 und der Resümee Umsetzung, 
+Bei dieser Dokumentation war ich maßgeblich an dem Kapitel der
+Umsetzung, hierbei vor allem 3.2, 3.3 und 3.5 und der Resümee Umsetzung,
 besonders 4.2, beteiligt.
 
-Für mich persönlich war dieses Projekt, ein recht anspruchsvolles Projekt, 
-vor allem jedoch, wegen der recht knapp bemessenen Zeit. Dabei habe ich 
-jedoch vieles über Zustandsautomaten gelernt und verinnerlich können. Vor 
-allem die Umsetzung von komplexeren und verschachtelten State Machines war 
-eine sehr interessante Erfahrung, wobei es natürlich verglichen mit den 
-Real-World-Projekten, noch sehr klein war. Aber die Konzepte sind klar. 
-Besonders bemerkenswert war die Verwendung der objektorientierten 
-Programmierung in Verbindung mit den State Machines. Auch die aktive 
-Verwendung des QP Model konnte mein Horizont rund um 
-Code-Modelierung-Generierungs-Tools erweitern. Wie bei fast jedem 
-Embedded-Projekt treten irgendwelche Probleme auf, die es zu lösen 
-gilt, was uns im Team meiner Meinung nach sehr gut gelungen ist.
+Für mich persönlich war dieses Projekt, ein recht anspruchsvolles
+Projekt, vor allem jedoch, wegen der recht knapp bemessenen Zeit. Dabei
+habe ich jedoch vieles über Zustandsautomaten gelernt und verinnerlich
+können. Vor allem die Umsetzung von komplexeren und verschachtelten
+State Machines war eine sehr interessante Erfahrung, wobei es natürlich
+verglichen mit den Real-World-Projekten, noch sehr klein war. Aber die
+Konzepte sind klar. Besonders bemerkenswert war die Verwendung der
+objektorientierten Programmierung in Verbindung mit den State Machines.
+Auch die aktive Verwendung des QP Model konnte mein Horizont rund um
+Code-Modelierung-Generierungs-Tools erweitern. Wie bei fast jedem
+Embedded-Projekt treten irgendwelche Probleme auf, die es zu lösen gilt,
+was uns im Team meiner Meinung nach sehr gut gelungen ist.

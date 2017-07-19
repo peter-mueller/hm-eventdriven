@@ -205,7 +205,7 @@ während des Brühens der Knopf gedrückt wird, was der Entnahme der
 Kaffeekanne entsprechen soll, wird das Brühen sofort gestoppt und
 ebenfalls in den timekeeping-Status zurückgekehrt.
 
-\ ![Zustandsautomat für die Kaffeemaschine](img/Coffee-Statemachine.png)
+ ![Zustandsautomat für die Kaffeemaschine](img/Coffee-Statemachine.png)
 
 Nachfolgend wird der andere Teilbereich des Zustandsautomaten gezeigt,
 welcher die Alarmüberwachung enthält. Dieser Teil wurde mit einer
@@ -214,17 +214,18 @@ befindet man sich im on-Status. Darin wird mit jedem TICK-Signal die RTC
 und die Alarmzeit verglichen und bei Übereinstimmung das ALARM-Signal
 getriggert.
 
-\ ![Einfacher Zustandsautomat für den Alarm](img/Alarm-Statemachine.png)
+ ![Einfacher Zustandsautomat für den Alarm](img/Alarm-Statemachine.png)
 
 Verwendete Treiber
 ------------------
 
-Für die aktuelle Uhrzeit wurde eine auf dem Chip integrierte Real Time Clock
-(RTC) verwendet. Für das Auslesen der Uhrzeit wurde das bereitgestellte Board
-Support Package (BSP) genutzt. Ebenso wie für das initiale Setzen der
-Default-Uhrzeit. Dadurch musste kein zweiter Timer implementiert werden,
-welcher sonst für das Hochzählen der Uhrzeit zuständig gewesen wäre. Der
-Treiber beinhaltet einen eigenen Interrupt-Handler.
+Für die aktuelle Uhrzeit wurde eine auf dem Chip integrierte Real Time
+Clock (RTC) verwendet. Für das Auslesen der Uhrzeit wurde das
+bereitgestellte Board Support Package (BSP) genutzt. Ebenso wie für das
+initiale Setzen der Default-Uhrzeit. Dadurch musste kein zweiter Timer
+implementiert werden, welcher sonst für das Hochzählen der Uhrzeit
+zuständig gewesen wäre. Der Treiber beinhaltet einen eigenen
+Interrupt-Handler.
 
 Um in das Einstellungs-Menü zu gelangen und die einzelnen eingestellten
 Werte zu bestätigen wurde der INT0-Knopf genutzt. Dieser wurde ebenfalls
@@ -378,7 +379,7 @@ abgebrochen hat. Ebenso nahezu unmöglich gestaltete sich das Debuggen
 eines Interrupt-Handlers selbst, da sich das Board dann anders verhalten
 und sich zum Beispiel aufgehängt hat.
 
-\ ![Coffee Machine auf dem Board. Die grünen LEDs zeigen die aktuelle
+ ![Coffee Machine auf dem Board. Die grünen LEDs zeigen die aktuelle
 Kaffeestärke von 4 an.](img/board.jpg)
 
 Bewertung der Erkenntnisse
@@ -421,6 +422,24 @@ essentiell auf den Code auswirkt.
 
 Peter Müller
 ------------
+
+Ich habe immer versucht das Team möglichst gut zu unterstützen. Da wir
+immer zu dritt gemeinsam gearbeitet haben, habe ich bei Gelegenheit
+Aufgaben alleine parallel erledigt.
+
+Ich habe die Keil Konfiguration durchgeführt. Auch die zusätzlichen
+Einstellungen für den jLink. Ich habe teilweise selbst an den
+vorgegebenen Projekten programmiert und ansonsten im Pair Programming
+die anderen Teammitglieder begleitet und mitgedacht. Ich habe mir
+überlegt wie man die Kaffeemaschine in UML modelliert und Recherche zu
+analogen Beispielen von QM durchgeführt. Einige Zustände sowie Übergänge
+aus dem QM Modell stammen von mir. Ich habe die Anforderungen an die
+Maschine aufgenommen und niedergeschrieben. Den Fortschritt der Software
+habe ich mit einer Liste von Aufgaben überwacht und versucht dringende
+Aufgaben zu identifizieren.
+
+Ich habe am Board unsere Software getestet und aktiv die Fehlersuche
+unterstützt.
 
 \pagebreak
 

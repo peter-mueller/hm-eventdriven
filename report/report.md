@@ -450,14 +450,45 @@ René Zarwel
 -----------
 
 Die Umsetzung der Kaffeemaschine erfolgte vollständig in Zusammenarbeit
-an einem Rechner, sodass sich keine getrennten Aufgaben ergeben haben.
+an einem Rechner, sodass sich für mich keine getrennten Aufgaben ergeben haben.
 Dies hatte den Vorteil, dass das Wissen gleichmäßig verteilt und
-Probleme schneller gefunden und gelöst wurden.
+Probleme schneller gefunden sowie gelöst werden konnten.
 
-Da bei der Umsetzung der Kaffeemaschine immer in beiden Programmen Teile
-angepasst werden mussten, wäre eine Aufteilung schlicht und einfach auch
-nicht sinnvoll gewesen, da sich jede Änderung des QM-Modell's auch
-essentiell auf den Code auswirkt.
+Da die Vorlage der "Alarmclock" nur als Keil Projekt zur Verfügung stand, galt
+es zunächst diese zu analysieren und als QM Modell umzusetzen. Dabei habe ich mich
+intensiv mit dem verwendeten orthogonalen Regionen Pattern beschäftigt und
+dies bei der Modellierung einfließen lassen. Die erste Hürde war, die Vorlage mit
+unserer Modellierung zu "synchronisieren", sodass das Generieren unseres Modells
+der Vorlage entsprach. Dabei habe ich aktiv bei der Lösung der teilweise
+unverständlichen Fehlermeldungen in Keil geholfen, sodass wir eine gute Basis
+für die Umsetzung der Kaffeemaschine hatten.
+
+Anschließend konnte ich das Modell für die Kaffeemaschine anpassen, wobei wir im
+Team die abschließende Umsetzung stark diskutiert haben. Wie so oft gibt es keine
+optimale Lösung, jedoch konnten wir relativ schnell einen gemeinsamen Nenner finden.
+Damit konnte ich unser Modell initial generieren, was uns zur Umsetzung der Logik
+sowie der Integration der Hardware über die BSP brachte.
+
+Für die Umsetzung der BSP bin ich im Pair-Programming inkrementell vorgegangen.
+So haben ich ein Ein- bzw. Ausgabemittel nach dem anderen integriert und mit der
+generierten Statemachine verbunden. Dabei galt es einige Fehler zu finden, wobei
+ich intensiv mitgeholfen und die Software auf dem Board getestet habe.  
+Dieses Vorgehen
+führte uns zielstrebig auf ein funktionierendes Produkt zu, dass wir in der Präsentation
+vorstellen konnten.
+
+Da ich schon etwas Erfahrung in der C/C++ Programmierung habe, konnte ich vieles
+zielführend zur Umsetzung der Kaffeemaschiene beitragen. Und mit dem neu gewonnen
+Wissen über die praktische Umsetzung von Statemachines habe ich viel über
+effektives Eventmanagement gelernt und diese Erkenntnisse direkt einsetzen können.
+Eine
+Herausforderung für mich war auch der Umgang mit dem QP-Framework. Bei einer
+Verschleierung von Funktionalitäten und vielen entkoppelten Mechanismen ist es nicht
+immer leicht einen Fehler zu finden. Dies hat uns unterm Strich beim Projekt
+die meiste Zeit gekostet.
+So hätte ich mir persönlich bei dem Projekt mehr Zeit gewünscht, sodass man Fehlern ohne
+Zeitdruck nachgehen und das
+neue Wissen stärker bei einem leicht größeren Projekt vertiefen kann.
 
 \pagebreak
 

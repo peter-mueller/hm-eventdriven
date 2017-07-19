@@ -178,6 +178,8 @@ Alarmeinstellung und -überwachung geäußert. Dadurch konnte gleichzeitig
 die Alarmzeit eingestellt bzw. die aktuelle Uhrzeit angezeigt und der
 Alarm kontrolliert ausgelöst werden.
 
+Diese Trennung wurde bei der Modellierung der Kaffeemaschine übernommen.
+
 UML Modellierung
 ----------------
 
@@ -198,7 +200,7 @@ oder deaktiviert. Mit einer erneuten Bestätigung wird wieder in den
 `showCurrentTime`-Status gewechselt.
 
 In den brewing-Status wird nach Auslösen des Alarms gewechselt. Der
-Trigger hierfür kommt vom anderen Teilbereich des Zustandsautomaten, auf
+Trigger hierfür kommt von der orthogonalen Region "Alarm" des Zustandsautomaten, auf
 den im anderen Modell noch genauer eingegangen wird. Nach Beenden des
 Brühens wird wieder zurück in den timekeeping-Status gewechselt. Wenn
 während des Brühens der Knopf gedrückt wird, was der Entnahme der
@@ -207,9 +209,8 @@ ebenfalls in den timekeeping-Status zurückgekehrt.
 
  ![Zustandsautomat für die Kaffeemaschine](img/Coffee-Statemachine.png)
 
-Nachfolgend wird der andere Teilbereich des Zustandsautomaten gezeigt,
-welcher die Alarmüberwachung enthält. Dieser Teil wurde mit einer
-hierarchischen Statemachine umgesetzt. Wenn der Alarm aktiviert ist,
+Nachfolgend wird die orthogonale Region des zuvor beschriebenen Zustandsautomaten gezeigt,
+welcher die Alarmüberwachung enthält. Wenn der Alarm aktiviert ist,
 befindet man sich im on-Status. Darin wird mit jedem TICK-Signal die RTC
 und die Alarmzeit verglichen und bei Übereinstimmung das ALARM-Signal
 getriggert.
@@ -231,7 +232,7 @@ Um in das Einstellungs-Menü zu gelangen und die einzelnen eingestellten
 Werte zu bestätigen wurde der INT0-Knopf genutzt. Dieser wurde ebenfalls
 mit dem bereitgestellten Treiber bzw. BSP eingebunden. Dabei wird im
 Interrupt-Handler lediglich auf ein ButtonDown reagiert, was dem Drücken
-des Knopfes entspricht. Der Treiber beistzt ebenso einen eigenen
+des Knopfes entspricht. Der Treiber besitzt ebenso einen eigenen
 Interrupt-Handler.
 
 Alle Werte sind über das Potentiometer bzw. den dazugehörigen
@@ -263,7 +264,7 @@ Dies umfasst:
 Es waren keine speziellen größeren Anpassungen nötig, da alle BSPs nach
 dem Einbinden und minimalen Anpassungen funktionierten und den
 Anforderungen entsprachen. Auch eine separate Entkopplung des Knopfes
-entfiel, da eine einfache bereits enthalten war.
+entfiel, da eine einfache Umsetzung bereits enthalten war.
 
 Die einzigen Anpassungen waren das Triggern des jeweiligen passenden
 Events. Zusätzlich mussten in den Interrupt-Handlern das Sperren der
@@ -309,7 +310,6 @@ void adc_change()
 {
     ...
     QF_INT_UNLOCK();
-    //QActive_postFIFO(ao2, (QEvent *)&event);
     QACTIVE_POST(ao2,
                 (QEvent *)&event, (void *)0);
     QF_INT_LOCK();
@@ -321,8 +321,8 @@ Capture - Dispatch - Process
 ----------------------------
 
 Wichtig bei diesem Projekt war Einhaltung der Trennung zwischen dem
-Einfangen von Events (Capture), dem Wechsel zwischen den Zuständen
-(Dispatch) und der Ausführung des eigentlichen Prozessteils (Process).
+Einfangen von Events (Capture), dem Zuordnen des Events zum Handler
+(Dispatch) und der Verarbeitung des eigentlichen Events (Process).
 Eine Zentrale Rolle spielte hierbei auch das Inversion of Control nach
 dem Hollywood-Motto "Don't call us, we call you" sodass das Event
 Capture, Event Dispatch und Event Process voneinander entkoppelt ist.
@@ -333,9 +333,8 @@ aufgerufen. In diesem wird dann das jeweilige QM Event mit dem
 dazugehörigen Signal erzeugt und in die EventQueue eingefügt.
 
 Das Abarbeiten der EventQueue ist Teil des Dispatch. Dabei wird ein
-Event aus der Queue genommen und bei einem neuen Zustand in diesen
-gewechselt. Bei diesem Wechsel wird ebenfalls die entsprechende
-auszuführende Methode des Programmes aufgerufen.
+Event aus der Queue genommen und anhand des aktuellen States der
+richtige Eventhandler bestimmt.
 
 Beim Process wird nun die vom Dispatch aufgerufene Methode ausgeführt,
 was der eigentlichen Programm-Logik entspricht.
@@ -412,34 +411,35 @@ Wir haben gesehen, dass man mit Zustandsautomaten vielfältige Aufgaben
 auf unterschiedliche Weisen lösen kann. Dabei kann die Größe des
 Zustandsautomaten schnell unübersichtlich und komplex werden, sodass es
 Sinn ergab, diese auf mehrere Zustandsautomaten aufzuteilen. So, wie
-eben in unserem Fall, mit dem hierarchische Zustandsautomat und das
-Active Object Pattern. Allerdings wird es auch wieder schwieriger das
-ganze System zu debuggen, da es komplexer wird.
+eben in unserem Fall, mit dem hierarchische Zustandsautomat, dem
+Active Object Pattern sowie dem Einbringen von orthogonalen Regionen.
+Allerdings wird es auch wieder schwieriger das
+ganze System zu debuggen, da viele entkoppelte Teile an der gesamten
+Verarbeitung beteiligt sind.
 
 Durch die Verwendung von mehreren Interrupt-Handlern und den dadurch
 auftretenden Probleme, konnte weitere Erfahrungen in der embedded
 Programmierung gewonnen werden. Besonders natürlich auch hier im
 Hinblick auf das Debuggen.
 
-Tools, wie der QP Modeler, helfen hierbei die Automaten grafisch
-übersichtlich darzustellen. Des Weiteren lässt sich das Modell
+Wir haben das Tool Keil für die embedded Programmierung kennen gelernt.
+Ebenso wie das Quantum Framework mit dem QP Modeler zur Modellierung der
+Kaffeemaschine und der Generierung der Code-Teile der State Machine.
+
+Der QP Modeler half den Automaten grafisch
+übersichtlich darzustellen. Des Weiteren lässt sich daraus das Modell
 hervorragend für die Dokumentation des jeweiligen Projektes verwenden.
 Ein Nachteil ist aber definitiv, dass eben mit mehreren Programmen an
 derselben Code-Basis gearbeitet wird, was zu Problemen führt oder
 einfach teilweise nur umständlich ist.
 
-Bei diesem Projekt konnten wir die neuen Erkenntnisse mit State Machines
-optimal einsetzen und verinnerlichen. Die Schlüsselkomponenten für ein
+Zusammenfassend kann gesagt werden, dass wir bei diesem Projekt unsere neuen
+Erkenntnisse mit State Machines und zugehörigen Pattern
+optimal einsetzen und verinnerlichen konnten. Wir haben die Schlüsselkomponenten für ein
 erfolgreiches Eventmanagement (Capture, Dispatch, Process) mit der
-Inversion of Control wurde eingehalten. Auch die objektorientierte
-Programmierung mit Polymorphie, Vererbung, Kapselung wurde aktiv
-genutzt.
-
-Wir haben das Tool Keil für die embedded Programmierung kennen gelernt.
-Ebenso wie das Quantum Framwork mit dem QP Modeler zur Modelierung der
-Kaffeemaschine und der Generierung der Code-Teile der State Machine.
-
-Auch die
+Inversion of Control erprobt sowie die objektorientierte
+Programmierung mit Polymorphie, Vererbung, Kapselung aktiv
+genutzt und an einem praktischen Beispiel umgesetzt.
 
 \pagebreak
 
